@@ -1,0 +1,24 @@
+.Dashboard-Section{
+    width: 98.5vw;
+    height: fit-content;
+    background-color: ivory;
+    padding: 10px;
+    display: flex;
+}
+
+.left-Subsection{
+    width: 18%;
+    height: 96vh;
+    margin: 2px;
+    /* box-sizing: border-box; */
+
+}
+.right-Subsection{
+    width: 80%;
+    height: 94vh;
+    margin: 2px;
+    padding: 10px;
+    /* border: 2px solid red; */
+
+
+}

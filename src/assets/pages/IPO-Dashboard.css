@@ -1,0 +1,163 @@
+
+.right-Subsection {
+    width: 100%;
+    height: fit-content;
+    margin: 2px;
+    padding: 10px;
+
+}
+
+.header {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.header .title,
+.header .profile {
+    display: flex;
+
+}
+
+.profile{
+    /* margin-right:20px ; */
+    transform: translateX(-15px);
+}
+
+.title img{
+    width: 15px;
+    height: 15px;
+}
+.profile img {
+    width: 22px;
+    height: 22px;
+}
+
+.profile img:hover{
+    cursor: pointer;
+
+}
+
+.title img {
+    filter: invert(50%);
+}
+
+.title p,
+.user-profile p:first-child {
+    font-size: 17px;
+    margin-left: 7px;
+
+}
+
+.title p {
+    color: rgba(132, 129, 138, 0.77);
+}
+
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-top: 4px;
+}
+
+.user-profile p {
+    margin: -3px 0 -3px 10px;
+}
+
+.user-profile p:last-child {
+    font-size: 10px;
+    color: rgba(132, 129, 138, 0.77);
+    margin-top: 2px;
+}
+
+
+.title,
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.IP-Section {
+    padding: 10px;
+}
+
+.Registered-IP,
+.Applied-IP {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 10px 15px;
+    border-radius: 23px;
+
+
+}
+
+.Registered-IP>p,
+.Applied-IP>p {
+    color: rgba(80, 79, 82, 0.975);
+    font-weight: 600;
+}
+
+.Registered-IP>.IPMenus,
+.Applied-IP>.IPMenus {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.IPMenus>.menu {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    padding: 1px 3px;
+    margin: 5px 0px;
+    border-radius: 12px;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.menu img {
+    width: 40px;
+    height: 40px;
+}
+
+.menu>p:first-child {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.menu>.IP-title {
+    transform: translateX(8px);
+}
+
+.IPMenus>.Trademark {
+    background-color: #15cab8;
+}
+
+.IPMenus>.Patent {
+    background-color: #44a6e9;
+}
+
+.IPMenus>.Design {
+    background-color: #ff8548;
+}
+
+.IPMenus>.Copyright {
+    background-color: #ff6a6a;
+}
+
+.Applied-IP {
+    margin-top: 10px;
+}
