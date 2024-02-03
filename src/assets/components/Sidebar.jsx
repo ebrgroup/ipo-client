@@ -6,8 +6,17 @@ import logoutIcon from '../Icons/user-logout.png';
 import menuIcon from '../Icons/menu-bar.png';
 import { Link, useNavigate } from "react-router-dom";
 
+import { logout } from '../states/actions/user-action';
+import { useDispatch } from 'react-redux';
+
 function Sidebar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+
+        dispatch(logout())
+        navigate("/signin")
+    }
 
     const handleMenuClick = (route) => {
         // Please sync the route to the project
@@ -25,6 +34,8 @@ function Sidebar() {
     const handleGroupContainerClick = () => {
         // Please sync "Sign in" to the project
     };
+
+
 
     return (
         <div className="sidebar">

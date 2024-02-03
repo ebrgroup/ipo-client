@@ -1,8 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../components/UserProfileStyle.css'
 import userIcon from '../Icons/image@2x.png'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { updateUser } from '../states/middlewares/update-user'
 
 function UserProfile() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    let User = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
+    const userID = User._id;
+
+    const removeObjectEntries = (object, keysToRemove) => {
+        const newObj = { ...object };
+        keysToRemove.forEach(key => delete newObj[key]);
+        return newObj;
+    };
+
+    const [user_profile, setUser_profile] = useState({
+        cnic: '',
+        email: '',
+        phone: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        gender: '',
+        landlineNum: '',
+        faxNum: '',
+        address: '',
+        province: '',
+        city: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUser_profile(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        const keysToRemove = ['_id', '__v', 'password'];
+        User = removeObjectEntries(User, keysToRemove);         //Remove extra entry from data object
+
+        setUser_profile(
+            User
+        );
+    }, [User]);
+
+    const handleCancelbtn = (e) => {
+        e.preventDefault();
+        navigate('/dashboard')
+    }
+
+    const handleSavebtn = (e) => {
+        e.preventDefault();
+        dispatch(updateUser(userID, user_profile))
+    }
     return (
         <div className='profile-container'>
             <section className="profile-image">
@@ -112,9 +167,7 @@ function UserProfile() {
                         </button>
                         <button className='cancelBtn'>Cancel</button>
                     </div>
-
                 </form>
-
             </section>
         </div>
     )
