@@ -6,12 +6,12 @@ import trademarkIcon from '../Icons/icons8trademark641-1@2x.png'
 import patentIcon from '../Icons/icons8patent64-1@2x.png'
 import designIcon from '../Icons/icons8design64-1@2x.png'
 import copyrightIcon from '../Icons/icons8copyright64-1@2x.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
 function IPO_Dashboard() {
     const navigate = useNavigate();
     return (
-
-            <section className='right-Subsection'>
+            <section>
                 <div className="header">
                     <div className="title">
                         <img src={dashboardIcon} alt="" />

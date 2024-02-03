@@ -3,12 +3,12 @@ import ChangePass from './assets/components/ChangePass';
 import UserProfile from './assets/components/UserProfile';
 import IPO_Dashboard from './assets/pages/IPO_Dashboard';
 import Main_Dashboard from './assets/pages/Main_Dashboard';
-import AuthHome from './AuthScreens/AuthHome';
-import SignUp from "./AuthScreens/Components/SignUp";
-import SignIn from "./AuthScreens/Components/SignIn";
-import ForgotPassword from "./AuthScreens/Components/ForgotPassword";
-import CreateNewPassword from "./AuthScreens/Components/CreateNewPassword";
-import Verification from "./AuthScreens/Components/Verification";
+import AuthHome from './screens/AuthScreens/AuthHome';
+import SignUp from "./screens/AuthScreens/Components/SignUp";
+import SignIn from "./screens/AuthScreens/Components/SignIn";
+import ForgotPassword from "./screens/AuthScreens/Components/ForgotPassword";
+import CreateNewPassword from "./screens/AuthScreens/Components/CreateNewPassword";
+import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 function App() {

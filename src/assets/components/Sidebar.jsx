@@ -1,43 +1,28 @@
-import React from 'react'
+import React from 'react';
 import "../components/sidebar.css";
-import ipoImg from '../Icons/IPO_Img.png'
+import ipoImg from '../Icons/IPO_Img.png';
 import settingIcon from '../Icons/settingIcon.png';
 import logoutIcon from '../Icons/user-logout.png';
-import menuIcon from '../Icons/menu-bar.png'
+import menuIcon from '../Icons/menu-bar.png';
 import { Link, useNavigate } from "react-router-dom";
-function Sidebar() {
 
+function Sidebar() {
     const navigate = useNavigate();
 
-    const onMenuActiveContainerClick = () => {
-        // Please sync "Dashboard" to the project
+    const handleMenuClick = (route) => {
+        // Please sync the route to the project
+        navigate(route);
     };
 
-    const onMenuActiveContainer2Click = () => {
-        // Please sync "Register" to the project
-    };
-
-    const onMenuActiveContainer1Click = () => {
-        // Please sync "Register" to the project
-    };
-
-    const onMenuActiveContainer3Click = () => {
-        // Please sync "Search IP (Main)" to the project
-    };
-
-    const onMenuActiveContainer12Click = () => {
+    const handleTitleTextClick = () => {
         // Please sync "Track IP Status (Main)" to the project
     };
 
-    const onTitleTextClick = () => {
-        // Please sync "Track IP Status (Main)" to the project
-    };
-
-    const onProductsTextClick = () => {
+    const handleProductsTextClick = () => {
         // Please sync "Create New Password" to the project
     };
 
-    const onGroupContainer1Click = () => {
+    const handleGroupContainerClick = () => {
         // Please sync "Sign in" to the project
     };
 
@@ -54,7 +39,8 @@ function Sidebar() {
                                     className="menu-item-rectangle"
                                     loading="eager"
                                     alt=""
-                                    src={ipoImg} />
+                                    src={ipoImg}
+                                />
                             </div>
                             <div className="intellectual-property">
                                 <b>
@@ -71,99 +57,55 @@ function Sidebar() {
                 <div className="active-line-frame">
                     <div className="active-line" />
                     <div className="objects-column-frame">
-                        <div className="menu-active-parent">
-                            <div className="menu-active" onClick={onMenuActiveContainerClick}>
-                                <div className="objects-column">
-                                    <img
-                                        src={menuIcon}
-                                        alt="" />
-                                </div>
-                                <div className="title">
-                                    <Link to="/dashboard">Dashboard</Link>
-                                </div>
+                        <div className="menu-active" onClick={() => handleMenuClick("/dashboard")}>
+                            <div className="objects-column">
+                                <img src={menuIcon} alt="" />
                             </div>
-                            <div className="group-frame">
-                                <div
-                                    className="menu-active1"
-                                    onClick={onMenuActiveContainer2Click}
-                                >
-                                    <div className="objects-column1">
-                                        <img
-                                            src={menuIcon}
-                                            alt="" />
-                                    </div>
-                                    <div className="title1">Register IP</div>
-                                </div>
+                            <div className="title">
+                                <Link to="/dashboard">Dashboard</Link>
                             </div>
                         </div>
-                        <div className="menu-active3" onClick={onMenuActiveContainer3Click}>
-                            <div className="objects-column3">
-                                <img
-                                    src={menuIcon}
-                                    alt="" />
+                        <div className="menu-active" onClick={() => handleMenuClick("/register-ip")}>
+                            <div className="objects-column">
+                                <img src={menuIcon} alt="" />
                             </div>
-                            <div className="title3">Search IP</div>
+                            <div className="title">Register IP</div>
                         </div>
-                        <div
-                            className="menu-active4"
-                            onClick={onMenuActiveContainer12Click}
-                        >
-                            <div className="objects-column4">
-                                <img
-                                    src={menuIcon}
-                                    alt="" />
+                        <div className="menu-active" onClick={() => handleMenuClick("/search-ip")}>
+                            <div className="objects-column">
+                                <img src={menuIcon} alt="" />
                             </div>
-                            <div className="title4" onClick={onTitleTextClick}>
+                            <div className="title">Search IP</div>
+                        </div>
+                        <div className="menu-active" onClick={handleTitleTextClick}>
+                            <div className="objects-column">
+                                <img src={menuIcon} alt="" />
+                            </div>
+                            <div className="title" onClick={handleTitleTextClick}>
                                 Track IP Status
                             </div>
-                            <div className="chevron-down">
-                                <div className="chevron-down1"></div>
-                            </div>
                         </div>
+                            <div className='lower-container'>
+                                <hr className='hr-element'></hr>
+                                <div className='lower-item'>
+                                    <Link to="/changepassword">
+                                        <div>
+                                            <img src={settingIcon} alt="" />
+                                            <p>Change Password</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div className='lower-item2'>
+                                    <img className='logout-icon' src={logoutIcon} alt="" />
+                                    <p>Logout</p>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </section>
-            <div className="menu2">
-                <div className="bag-shopping"></div>
-                <div className="products">Reviews</div>
-            </div>
-            <section className="other-text">
-                <div className="first-frame">
-                    <div className="line">
-                        <div className="rectangle" />
-                    </div>
-                    <div className="second-frame">
-                        <div className="menu3">
-                            <div className="other">Other</div>
-                            <div className="menu-container">
-                                <div className="menu4">
-                                    <div className="bag-shopping-wrapper">
-                                        <div className="bag-shopping1">
-                                            <img
-                                                src={settingIcon}
-                                                alt="" /></div>
-                                    </div>
-                                    <div className="products1" onClick={onProductsTextClick}>
-                                        <Link to="/changepassword">Change Password</Link>                                    </div>
-                                </div>
-                            </div>
-                            <div className="group-div" onClick={onGroupContainer1Click}>
-                                <div className="menu5">
-                                    <div className="bag-shopping-container">
-                                        <div className="bag-shopping2">
-                                            <img
-                                                src={logoutIcon}
-                                                alt="" /></div>
-                                    </div>
-                                    <div className="products2" onClick={() => navigate("/signin")}>Logout</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            
         </div>
-    )
+    );
 }
 
 export default Sidebar;

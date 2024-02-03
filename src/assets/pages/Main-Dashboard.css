@@ -11,14 +11,11 @@
     height: 96vh;
     margin: 2px;
     /* box-sizing: border-box; */
-
 }
 .right-Subsection{
-    width: 80%;
+    width: 100vw;
     height: 94vh;
     margin: 2px;
     padding: 10px;
-    /* border: 2px solid red; */
-
-
+    font-family: Poppins;
 }

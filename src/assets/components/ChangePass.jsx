@@ -59,15 +59,18 @@ function ChangePass() {
                 </div>
             </div>
             <form className='form' action="">
-                <div className="input">
-                    <input type="text" onChange={handleChange_Old} placeholder='Old Password' value={old_pass} />
+                <div className="change-password-container">
+                    <input placeholder="Old Password" className="input-field" name="text" type="password" 
+                        onChange={handleChange_Old} value={old_pass}/>
                 </div>
 
-                <div className="input">
-                    <input type="password" onChange={handleChange_New} placeholder='New Password' value={new_pass} />
+                <div className="change-password-container">
+                    <input placeholder="New Password" className="input-field" name="text" type="password" 
+                        onChange={handleChange_New} value={new_pass}/>
                 </div>
-                <div className="input">
-                    <input type="password" onChange={handleChange_Confirm} placeholder='Confirm New Password' value={confirm_pass} />
+                <div className="change-password-container">
+                    <input placeholder="Confirm New Password" className="input-field" name="text" type="password" 
+                            onChange={handleChange_Confirm} value={confirm_pass}/>
                 </div>
 
                 <div className="btn">
@@ -75,7 +78,7 @@ function ChangePass() {
                 </div>
 
             </form>
-            <footer>Not remembered old password?
+            <footer className='change-password-footer'>Not remembered old password?
                 <a href="/forgotpassword">Forgot Password</a></footer>
         </div>
     )

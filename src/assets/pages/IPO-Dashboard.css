@@ -1,24 +1,15 @@
-
-.right-Subsection {
-    width: 100%;
-    height: fit-content;
-    margin: 2px;
-    padding: 10px;
-
-}
-
 .header {
     height: 10%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
+    width: 77vw;
+    margin: auto;
 }
 
 .header .title,
 .header .profile {
     display: flex;
-
 }
 
 .profile{
@@ -90,14 +81,13 @@
 .Registered-IP,
 .Applied-IP {
     display: flex;
-    background-color: white;
+    background-color: #ffff;
     flex-direction: column;
     justify-content: start;
     align-items: start;
     padding: 10px 15px;
     border-radius: 23px;
-
-
+    width: 75vw;
 }
 
 .Registered-IP>p,
