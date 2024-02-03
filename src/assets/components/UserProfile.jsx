@@ -38,7 +38,7 @@ function UserProfile() {
             ...prevState,
             ...(name === "male" || name === "female" || name === "other" ? { gender: name } : { [name]: value })
         }));
-    };    
+    };
 
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
@@ -63,19 +63,19 @@ function UserProfile() {
                 <div className='profile-image-container'>
                     <h2>Haider Ali</h2>
                     <div className='profile-image-span'>
-                    <img src={userIcon} alt="" />
-                    <div className="input-div">
-                        <input className='file-input' name="file" type="file" id="file-input" />
-                        <label htmlFor="file-input">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" 
-                                stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                                <line y2="21" x2="12" y1="12" x1="12"></line>
-                                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                            </svg>
-                        </label>
-                    </div>
+                        <img src={userIcon} alt="" />
+                        <div className="input-div">
+                            <input className='file-input' name="file" type="file" id="file-input" />
+                            <label htmlFor="file-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round"
+                                    stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
+                                    <polyline points="16 16 12 12 8 16"></polyline>
+                                    <line y2="21" x2="12" y1="12" x1="12"></line>
+                                    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                                    <polyline points="16 16 12 12 8 16"></polyline>
+                                </svg>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -100,29 +100,29 @@ function UserProfile() {
                             onChange={handleChange} value={user_profile.email} />
                     </div>
                     <div className='flex'>
-                    <div class="coolinput">
-                        <label for="input" class="text">#Phone Number:</label>
-                        <input type="text" placeholder="Write here..." name="phone" class="input" 
-                            onChange={handleChange} value={user_profile.phone} />
-                    </div>
-                    <span className='gender-container'>
-                        <b>Gender: </b>
-                        <div class="mydict">
-                            <div>
-                                <label>
-                                    <input type="radio" name="male" checked={user_profile.gender === "male"} />
-                                    <span>Male</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="female" checked={user_profile.gender === "female"} />
-                                    <span>Female</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="other" checked={user_profile.gender === "other"} />
-                                    <span>Other</span>
-                                </label>
-                            </div>
+                        <div class="coolinput">
+                            <label for="input" class="text">#Phone Number:</label>
+                            <input type="text" placeholder="Write here..." name="phone" class="input"
+                                onChange={handleChange} value={user_profile.phone} />
                         </div>
+                        <span className='gender-container'>
+                            <b>Gender: </b>
+                            <div class="mydict">
+                                <div>
+                                    <label>
+                                        <input type="radio" name="male" checked={user_profile.gender === "male"} />
+                                        <span>Male</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="female" checked={user_profile.gender === "female"} />
+                                        <span>Female</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="other" checked={user_profile.gender === "other"} />
+                                        <span>Other</span>
+                                    </label>
+                                </div>
+                            </div>
                         </span>
                     </div>
                     <div className='flex'>
@@ -132,22 +132,22 @@ function UserProfile() {
                                 onChange={handleChange} value={user_profile.landlineNum} />
                         </div>
                         <div class="coolinput">
-                        <label for="input" class="text">#Fax:</label>
-                        <input type="text" placeholder="Write here..." name="faxNum" class="input" 
-                            onChange={handleChange} value={user_profile.faxNum} />
-                    </div>
+                            <label for="input" class="text">#Fax:</label>
+                            <input type="text" placeholder="Write here..." name="faxNum" class="input"
+                                onChange={handleChange} value={user_profile.faxNum} />
+                        </div>
                     </div>
                     <div className='flex'>
-                    <div class="coolinput">
-                        <label for="input" class="text">Province:</label>
-                        <input type="text" placeholder="Write here..." name="province" class="input"
-                            onChange={handleChange} value={user_profile.province} />
-                    </div>
-                    <div class="coolinput">
-                        <label for="input" class="text">City:</label>
-                        <input type="text" placeholder="Write here..." name="city" class="input"
-                            onChange={handleChange} value={user_profile.city} />
-                    </div>
+                        <div class="coolinput">
+                            <label for="input" class="text">Province:</label>
+                            <input type="text" placeholder="Write here..." name="province" class="input"
+                                onChange={handleChange} value={user_profile.province} />
+                        </div>
+                        <div class="coolinput">
+                            <label for="input" class="text">City:</label>
+                            <input type="text" placeholder="Write here..." name="city" class="input"
+                                onChange={handleChange} value={user_profile.city} />
+                        </div>
                     </div>
                     <div class="coolinput">
                         <label for="input" class="text">Address:</label>
@@ -155,20 +155,20 @@ function UserProfile() {
                             onChange={handleChange} value={user_profile.address} />
                     </div>
                     <div className="buttons">
-                        <button className='save-button'  onClick={handleSavebtn}>
+                        <button className='save-button' onClick={handleSavebtn}>
                             <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    width="30"
-                                    height="30"
-                                    class="icon"
-                                >
-                                    <path
-                                    d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
-                                    ></path>
-                                </svg>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="30"
+                                        height="30"
+                                        class="icon"
+                                    >
+                                        <path
+                                            d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
+                                        ></path>
+                                    </svg>
                                 </div>
                             </div>
                             <span>Save</span>

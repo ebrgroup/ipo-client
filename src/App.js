@@ -11,13 +11,13 @@ import CreateNewPassword from "./screens/AuthScreens/Components/CreateNewPasswor
 import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import NotFoundPage from './assets/pages/NotFoundPage';
 
 
 function App() {
 
   const navigate = useNavigate();
-  const isLogin = useSelector(state => state.userReducer?.isLoggedIn); //Complete user details in {User} object
-
+  const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
 
   useEffect(() => {
     const path = document.location.pathname;
@@ -25,8 +25,18 @@ function App() {
     if (path === "/")
       navigate("/signin");
 
-    if ((path === "/changepassword" || path === "/dashboard" || path === "/profile") && !(isLogin)) {
+
+    const protectedRoutes = ["/changepassword", "/dashboard", "/profile"];
+    const autthRoutes = ["/sigin", "/signup", "/verification","/forgotpassword", "/createnewpassword"]
+
+
+    if (path === "/*") {
+      navigate("*")
+    }
+     else if (!isLogin && protectedRoutes.includes(path)) {
       navigate("/signin");
+    } else if (isLogin && autthRoutes.includes(path)) {
+      navigate("/dashboard");
     }
 
     if (path === "/signin")
@@ -48,8 +58,6 @@ function App() {
 
   });
 
-
-
   return (
     <div className="App">
       <Routes>
@@ -61,6 +69,8 @@ function App() {
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword />} />} />
         <Route path="/verification" element={<AuthHome screen={<Verification />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword />} />} />
+        <Route path='*' element={<NotFoundPage />} />
+
       </Routes>
     </div >
   );

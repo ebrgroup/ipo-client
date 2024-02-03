@@ -96,25 +96,25 @@ function Sidebar() {
                                 Track IP Status
                             </div>
                         </div>
-                            <div className='lower-container'>
-                                <hr className='hr-element'></hr>
-                                <div className='lower-item'>
-                                    <Link to="/changepassword">
-                                        <div>
-                                            <img src={settingIcon} alt="" />
-                                            <p>Change Password</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                                <div className='lower-item2'>
-                                    <img className='logout-icon' src={logoutIcon} alt="" />
-                                    <p>Logout</p>
-                                </div>
+                        <div className='lower-container'>
+                            <hr className='hr-element'></hr>
+                            <div className='lower-item'>
+                                <Link to="/changepassword">
+                                    <div>
+                                        <img src={settingIcon} alt="" />
+                                        <p>Change Password</p>
+                                    </div>
+                                </Link>
                             </div>
+                            <div className='lower-item2'>
+                                <img className='logout-icon' src={logoutIcon} alt="" />
+                                <p onClick={handleLogout}>Logout</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
-            
+
         </div>
     );
 }
