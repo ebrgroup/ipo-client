@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from "../../assets/states/actions/user-action";
+
+
 import "boxicons";
 
 const SignIn = () => {
@@ -15,11 +19,12 @@ const SignIn = () => {
         password: ''
     });
 
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
+            ...prevFormData,
+            [name]: value,
         }));
     };
 
@@ -30,31 +35,35 @@ const SignIn = () => {
         });
     }
 
+
+    //dispatch for calling actions in redux-store
+    const dispatch = useDispatch();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(formData.email))
-        {
+        if (!emailRegex.test(formData.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
 
         await axios.post(`/ipo/login`, formData)
-        .then(response => {
-            navigate("/dashboard");
-            handleToastDisplay("You have successfully logged in.", "success");
-            clearFields();
-        }).catch(error => {
-            clearFields();
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.message}`, "error");
+            .then(response => {
+                
+                dispatch(loginSuccess(response.data.user));  //Store user data into redux store
+                navigate("/dashboard");
+
+            }).catch(error => {
+                clearFields();
+                if (error.response !== undefined) {
+                    if (error.response.data) {
+                        handleToastDisplay(`${error.response.data.message}`, "error");
+                    }
+                } else {
+                    handleToastDisplay("Error signing in!", "error");
                 }
-            } else {
-                handleToastDisplay("Error signing in!", "error");
-            }
-        });
+            });
     };
 
     const handleToastDisplay = (message, type) => {
@@ -68,7 +77,7 @@ const SignIn = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);

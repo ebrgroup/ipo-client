@@ -10,48 +10,59 @@ import ForgotPassword from "./AuthScreens/Components/ForgotPassword";
 import CreateNewPassword from "./AuthScreens/Components/CreateNewPassword";
 import Verification from "./AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+
 
 function App() {
 
   const navigate = useNavigate();
+  const isLogin = useSelector(state => state.userReducer?.isLoggedIn); //Complete user details in {User} object
+
 
   useEffect(() => {
     const path = document.location.pathname;
 
-    if(path === "/")
+    if (path === "/")
       navigate("/signin");
 
-    if(path === "/signin")
-      document.title = "Sign In - IPO";
-    else if(path === "/signup")
-      document.title = "Sign Up - IPO";
-    else if(path === "/forgotpassword")
-      document.title = "Forgot Password - IPO";
-    else if(path === "/createpassword")
-      document.title = "Create Password - IPO";
-    else if(path === "/verification")
-      document.title = "Verification - IPO";
-    else if(path === "/dashboard")
-      document.title = "Dashboard - IPO";
-    else if(path === "/profile")
-      document.title = "Profile - IPO";
-    else if(path === "/changepassword")
-      document.title = "Change Password - IPO";
+    if ((path === "/changepassword" || path === "/dashboard" || path === "/profile") && !(isLogin)) {
+      navigate("/signin");
+    }
+
+    if (path === "/signin")
+      document.title = "Sign In - IPO"
+    else if (path === "/signup")
+      document.title = "Sign Up - IPO"
+    else if (path === "/forgotpassword")
+      document.title = "Forgot Password - IPO"
+    else if (path === "/createpassword")
+      document.title = "Create Password - IPO"
+    else if (path === "/verification")
+      document.title = "Verification - IPO"
+    else if (path === "/dashboard")
+      document.title = "Dashboard - IPO"
+    else if (path === "/profile")
+      document.title = "Profile - IPO"
+    else if (path === "/changepassword")
+      document.title = "Change Password - IPO"
+
   });
+
+
 
   return (
     <div className="App">
-     <Routes>
+      <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard />} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass />} />} />
-        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile />} />}/>
+        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile />} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn />} />} />
         <Route path="/signup" element={<AuthHome screen={<SignUp />} />} />
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword />} />} />
         <Route path="/verification" element={<AuthHome screen={<Verification />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword />} />} />
       </Routes>
-    </div>
+    </div >
   );
 }
 

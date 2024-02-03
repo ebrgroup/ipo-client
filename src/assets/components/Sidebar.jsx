@@ -5,9 +5,19 @@ import settingIcon from '../Icons/settingIcon.png';
 import logoutIcon from '../Icons/user-logout.png';
 import menuIcon from '../Icons/menu-bar.png'
 import { Link, useNavigate } from "react-router-dom";
+
+import { logout } from '../states/actions/user-action';
+import { useDispatch } from 'react-redux';
+
 function Sidebar() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+
+        dispatch(logout())
+        navigate("/signin")
+    }
 
     const onMenuActiveContainerClick = () => {
         // Please sync "Dashboard" to the project
@@ -40,6 +50,8 @@ function Sidebar() {
     const onGroupContainer1Click = () => {
         // Please sync "Sign in" to the project
     };
+
+
 
     return (
         <div className="sidebar">
@@ -155,7 +167,7 @@ function Sidebar() {
                                                 src={logoutIcon}
                                                 alt="" /></div>
                                     </div>
-                                    <div className="products2" onClick={() => navigate("/signin")}>Logout</div>
+                                    <div className="products2" onClick={handleLogout}>Logout</div>
                                 </div>
                             </div>
                         </div>
