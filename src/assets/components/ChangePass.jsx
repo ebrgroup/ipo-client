@@ -51,6 +51,7 @@ function ChangePass() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log(name);
         setPassword(prevState => ({
             ...prevState,
             [name]: value
@@ -68,17 +69,17 @@ function ChangePass() {
             </div>
             <form className='form' action="">
                 <div className="change-password-container">
-                    <input placeholder="Old Password" className="input-field" name="text" type="password" 
-                        onChange={handleChange_Old} value={old_pass}/>
+                    <input placeholder="Old Password" className="input-field" name="Old_Pass" type="password" 
+                        onChange={handleChange} value={password.Old_Pass}/>
                 </div>
 
                 <div className="change-password-container">
-                    <input placeholder="New Password" className="input-field" name="text" type="password" 
-                        onChange={handleChange_New} value={new_pass}/>
+                    <input placeholder="New Password" className="input-field" name="New_Pass" type="password" 
+                        onChange={handleChange} value={password.New_Pass}/>
                 </div>
                 <div className="change-password-container">
-                    <input placeholder="Confirm New Password" className="input-field" name="text" type="password" 
-                            onChange={handleChange_Confirm} value={confirm_pass}/>
+                    <input placeholder="Confirm New Password" className="input-field" name="Confirm_Pass" type="password" 
+                            onChange={handleChange} value={password.Confirm_Pass}/>
                 </div>
 
                 <div className="btn">

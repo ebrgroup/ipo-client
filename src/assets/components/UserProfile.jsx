@@ -36,14 +36,13 @@ function UserProfile() {
         const { name, value } = e.target;
         setUser_profile(prevState => ({
             ...prevState,
-            [name]: value
+            ...(name === "male" || name === "female" || name === "other" ? { gender: name } : { [name]: value })
         }));
-    };
+    };    
 
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
         User = removeObjectEntries(User, keysToRemove);         //Remove extra entry from data object
-
         setUser_profile(
             User
         );
@@ -86,36 +85,40 @@ function UserProfile() {
                     <div className='flex'>
                         <div class="coolinput">
                             <label for="input" class="text">First Name:</label>
-                            <input type="text" placeholder="Write here..." name="input" class="input" />
+                            <input type="text" placeholder="Write here..." name="firstName" class="input"
+                                onChange={handleChange} value={user_profile.firstName} />
                         </div>
                         <div class="coolinput">
                             <label for="input" class="text">Last Name:</label>
-                            <input type="text" placeholder="Write here..." name="input" class="input" />
+                            <input type="text" placeholder="Write here..." name="lastName" class="input"
+                                onChange={handleChange} value={user_profile.lastName} />
                         </div>
                     </div>
                     <div class="coolinput">
                         <label for="input" class="text">@Email</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <input type="text" placeholder="Write here..." name="email" class="input"
+                            onChange={handleChange} value={user_profile.email} />
                     </div>
                     <div className='flex'>
                     <div class="coolinput">
                         <label for="input" class="text">#Phone Number:</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <input type="text" placeholder="Write here..." name="phone" class="input" 
+                            onChange={handleChange} value={user_profile.phone} />
                     </div>
                     <span className='gender-container'>
                         <b>Gender: </b>
                         <div class="mydict">
                             <div>
                                 <label>
-                                    <input type="radio" name="radio" />
+                                    <input type="radio" name="male" checked={user_profile.gender === "male"} />
                                     <span>Male</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="radio" />
+                                    <input type="radio" name="female" checked={user_profile.gender === "female"} />
                                     <span>Female</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="radio" />
+                                    <input type="radio" name="other" checked={user_profile.gender === "other"} />
                                     <span>Other</span>
                                 </label>
                             </div>
@@ -125,29 +128,34 @@ function UserProfile() {
                     <div className='flex'>
                         <div class="coolinput">
                             <label for="input" class="text">#Landline:</label>
-                            <input type="text" placeholder="Write here..." name="input" class="input" />
+                            <input type="text" placeholder="Write here..." name="landlineNum" class="input"
+                                onChange={handleChange} value={user_profile.landlineNum} />
                         </div>
                         <div class="coolinput">
                         <label for="input" class="text">#Fax:</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <input type="text" placeholder="Write here..." name="faxNum" class="input" 
+                            onChange={handleChange} value={user_profile.faxNum} />
                     </div>
                     </div>
                     <div className='flex'>
                     <div class="coolinput">
-                        <label for="input" class="text">Country:</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <label for="input" class="text">Province:</label>
+                        <input type="text" placeholder="Write here..." name="province" class="input"
+                            onChange={handleChange} value={user_profile.province} />
                     </div>
                     <div class="coolinput">
                         <label for="input" class="text">City:</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <input type="text" placeholder="Write here..." name="city" class="input"
+                            onChange={handleChange} value={user_profile.city} />
                     </div>
                     </div>
                     <div class="coolinput">
                         <label for="input" class="text">Address:</label>
-                        <input type="text" placeholder="Write here..." name="input" class="input" />
+                        <input type="text" placeholder="Write here..." name="address" class="input"
+                            onChange={handleChange} value={user_profile.address} />
                     </div>
                     <div className="buttons">
-                        <button className='save-button'>
+                        <button className='save-button'  onClick={handleSavebtn}>
                             <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
                                 <svg
@@ -165,7 +173,7 @@ function UserProfile() {
                             </div>
                             <span>Save</span>
                         </button>
-                        <button className='cancelBtn'>Cancel</button>
+                        <button className='cancelBtn' onClick={handleCancelbtn}>Cancel</button>
                     </div>
                 </form>
             </section>
