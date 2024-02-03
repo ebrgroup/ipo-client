@@ -1,5 +1,5 @@
 import "./AuthHome.css";
-import ipoLogo from "../assets/Icons/ipologo.png";
+import ipoLogo from "../../assets/Icons/ipologo.png";
 import { ToastContainer } from "react-toastify";
 
 const AuthHome = (props) => {
