@@ -13,7 +13,8 @@ const CreateNewPassword = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isNew: true
     });
 
     const handleInputChange = (e) => {
@@ -38,11 +39,6 @@ const CreateNewPassword = () => {
             handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
             return;
         }
-
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            isNew: true,
-        }));
 
         await axios.put(`/ipo/users/changePassword/${user._id}`, formData)
         .then(response => {

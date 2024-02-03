@@ -17,7 +17,7 @@ const AuthHome = (props) => {
                     <h1 className="authHeading">
                         Intellectual Property Excellence
                     </h1>
-                    <p>
+                    <p className="ipoDescText">
                         We are the forefront guardians of intellectual property rights. Committed to excellence, we provide tailored 
                         solutions for individuals and businesses.
                     </p>

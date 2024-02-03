@@ -11,6 +11,7 @@
     color: white;
     min-height: 92vh;
     padding: 3.75vh 0vw;
+    flex-wrap: wrap;
 }
 
 .formHolderDiv {
@@ -41,16 +42,21 @@
 }
 
 .authHeading {
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
+    font-size: 3vw;
+}
+
+.ipoDescText {
+    font-size: 1.2vw;
 }
 
 .joinedUsText {
     font-weight: 100;
-    font-size: 0.85rem;
+    font-size: 1vw;
 }
 
 .ipoLogoImg {
-    height: 10vh;
+    width: 19vw;
 }
 
 .formHolderDivContent {
@@ -62,7 +68,8 @@
 }
 
 .formTypeHeading {
-    font-size: 2rem;
+    /* font-size: 2rem; */
+    font-size: 2.35vw;
     font-weight: 500;
 }
 
@@ -72,8 +79,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 8px 0 0; 
-    gap: 4px;
+    padding: 1.2vh 0 0;
+    gap: 0.6vh;
     margin: 3.1vh 0vw;
     position: relative;
 }
@@ -86,13 +93,15 @@
     height: 3vh;
     text-align: left;
     display: inline-block;
-    font-size: 1rem;
+    /* font-size: 1rem; */
+    font-size: 1.2vw;
     align-self: stretch;
 }
 
 .line {
     margin-top: 1.1vh;
-    height: 1px;
+    height: 0.15vh;
+    /* height: 1px; */
     background-color: #dcdcdc;
     align-self: stretch;
 }
@@ -102,21 +111,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1.1vw;
 }
 
 .submitButton {
     cursor: pointer;
     border: 0;
-    padding: 8px;
+    padding: 0.5vw;
     background-color: #089484;
-    width: 164px;
+    width: 12vw;
     border-radius: 10px;
     height: 6vh;
     justify-content: center;
     box-sizing: border-box;
     z-index: 1;
     color: white;
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
+    font-size: 1.05vw;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -125,7 +136,7 @@
 }
 
 .newUserText {
-    font-size: 0.9rem;
+    font-size: 1.05vw;
 }
 
 .newAccountText {
@@ -154,6 +165,7 @@
 
 .forgotPasswordText {
     color: #555555;
+    font-size: 1.17vw;
 }
 
 .justRememberedText {
@@ -194,7 +206,7 @@
 
 .termsText {
     color: #555555;
-    font-size: 0.9rem;
+    font-size: 1.05vw;
     width: 27vw;
 }
 
@@ -203,6 +215,7 @@
     justify-content: space-between;
     align-items: center;
     color: black;
+    font-size: 1.15vw;
 }
 
 .genderDiv label input {
@@ -242,3 +255,37 @@
 .signUpDiv {
     width: 22vw;
 }
+
+/* @media (max-width: 600px) {
+    .authHome {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signUpDiv {
+        align-self: center;
+    }
+
+    .formHolderDiv {
+        width: 90vw;
+        min-height: fit-content;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* .formHolderDivContent {
+    } */
+
+    /* .sideContentDiv {
+        width: fit-content; /* Adjust the width for smaller screens */
+        /* position: static; Remove sticky positioning for smaller screens
+        padding: 10vh;
+        height: fit-content; */
+    /* } */
+
+    /* .authContentDiv {
+        width: 80vw; */
+    /* }  */
+/* }  */
