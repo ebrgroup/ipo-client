@@ -2,9 +2,9 @@ import "../AuthHome.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CreateNewPassword = () => {
+const CreateNewPassword = (props) => {
 
     const { userToken } = useParams();
     const navigate = useNavigate();
@@ -16,10 +16,14 @@ const CreateNewPassword = () => {
         confirmPassword: '',
     });
 
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
     const handleInputChange = (e) => {
         setFormData((prevFormData) => ({
-          ...prevFormData,
-          [e.target.name]: e.target.value,
+            ...prevFormData,
+            [e.target.name]: e.target.value,
         }));
     };
 
@@ -30,14 +34,13 @@ const CreateNewPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(formData.newPassword !== formData.confirmPassword) {
+        if (formData.newPassword !== formData.confirmPassword) {
             clearFields();
             handleToastDisplay("Passwords do not match!", "error");
             return;
         }
         const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        if(!passwordRegex.test(formData.newPassword))
-        {
+        if (!passwordRegex.test(formData.newPassword)) {
             clearFields();
             handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
             return;
@@ -74,7 +77,7 @@ const CreateNewPassword = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);
@@ -138,7 +141,13 @@ const CreateNewPassword = () => {
                     </span>
                     <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={areRequiredFieldsEmpty()}>
+                <button
+                    className="submitButton sendRecoveryEmailButton"
+                    type="Submit"
+                    title={areRequiredFieldsEmpty() ?
+                        "You cannot change your password until all the required fields are filled." : ""}
+                    disabled={areRequiredFieldsEmpty()}
+                >
                     Change password
                 </button>
             </form>

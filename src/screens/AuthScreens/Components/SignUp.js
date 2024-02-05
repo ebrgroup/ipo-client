@@ -3,28 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import Combobox from "../../../assets/components/Combobox/Combobox";
+import CitySearchComboBox from "../../../assets/components/SearchComboBox/CitySearchComboBox";
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         cnic: '',
         email: '',
         gender: '',
         firstName: '',
         lastName: '',
-        serviceProvider: '',
+        serviceProvider: 'Service Provider',
         phone: '',
         landlineNum: '',
         faxNum: '',
-        province: '',
-        city: '',
+        province: 'Province',
+        city: 'City',
         address: '',
         password: '',
         confirmPassword: '',
         agreeTerms: false,
+        showPassword: false,
+        showConfirmPassword: false,
+        isProviderMenuActive: false,
+        isProvinceMenuActive: false,
+        isCityMenuActive: false,
+        providerMenuOptions: [ "Mobilink", "Telenor", "Ufone", "Warid", "Zong" ],
+        provinceMenuOptions: [ 
+            "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
+        ]
     });
     const [validatedUser, setValidatedUser] = useState(false);
 
@@ -32,7 +41,7 @@ const SignUp = () => {
         const { name, value, type, checked } = e.target;
         const getNumericValue = (input) => input.replace(/\D/g, '');
         let processedValue = value;
-    
+
         switch (name) {
             case 'cnic':
                 processedValue = getNumericValue(value).slice(0, 13);
@@ -45,51 +54,60 @@ const SignUp = () => {
             default:
                 break;
         }
-    
+
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: type === 'checkbox' ? checked : processedValue,
         }));
     };
-    
+
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        props.Progress(10);
 
-        if(formData.password !== formData.confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
             handleToastDisplay("Passwords do not match!", "error");
             return;
         }
-        if(formData.cnic.length !== 13) {
+        if (formData.cnic.length !== 13) {
             handleToastDisplay("CNIC should be 13 digits long.", "error");
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(formData.email))
-        {
+        props.Progress(20);
+
+        if (!emailRegex.test(formData.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
-        if(formData.phone.length !== 11) {
+        if (formData.phone.length !== 11) {
             handleToastDisplay("Phone no. should be 11 digits long.", "error");
             return;
         }
-        if(formData.landlineNum.length !== 0 && formData.landlineNum.length < 7) {
+        if (formData.landlineNum.length !== 0 && formData.landlineNum.length < 7) {
             handleToastDisplay("Landline no. should be 7-11 digits long.", "error");
             return;
         }
-        if(formData.faxNum.length !== 0 && formData.faxNum.length < 7) {
+        if (formData.faxNum.length !== 0 && formData.faxNum.length < 7) {
             handleToastDisplay("Fax no. should be 7-11 digits long.", "error");
             return;
         }
         const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        if(!passwordRegex.test(formData.password))
-        {
+        props.Progress(30);
+
+        if (!passwordRegex.test(formData.password)) {
             handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
             return;
         }
+        props.Progress(40);
 
         await axios.post(`/ipo/users/validate`, formData)
         .then(response => {
+            props.Progress(50);
             setValidatedUser(true);
         }).catch(error => {
             setValidatedUser(false);
@@ -114,6 +132,7 @@ const SignUp = () => {
             (async () => {
                 await axios.post("/ipo/email/sendEmail", { email: formData.email, isOTPEmail: true })
                 .then(response => {
+                    props.Progress(100);
                     handleToastDisplay("OTP has been sent to your email", "success");
                     navigate("/verification", { state: { newAccount: formData } });
                 }).catch(error => {
@@ -127,18 +146,27 @@ const SignUp = () => {
     
 
     const areRequiredFieldsEmpty = () => {
-        return Object.entries(formData).every(([key, value]) => {
-            if (['landlineNum', 'faxNum'].includes(key)) {
+        return !(Object.entries(formData).every(([key, value]) => {
+            if (['landlineNum', 'faxNum', 'showPassword', 'showConfirmPassword', 'isProviderMenuActive', 'isProvinceMenuActive', 
+                'isCityMenuActive'].includes(key)) {
                 return true;
+            } else if (key === 'serviceProvider' && value === "Service Provider") {
+                return false;
+            }
+            else if (key === 'province' && value === "Province") {
+                return false;
+            }
+            else if (key === 'city' && value === "City") {
+                return false;
             }
             return value; 
-        });
+        }));
     };
 
     const handleAgreeTermsChange = () => {
         setFormData((prevFormData) => ({
-          ...prevFormData,
-          agreeTerms: !prevFormData.agreeTerms,
+            ...prevFormData,
+            agreeTerms: !prevFormData.agreeTerms,
         }));
     };
 
@@ -153,7 +181,7 @@ const SignUp = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);
@@ -165,7 +193,59 @@ const SignUp = () => {
                 toast(message, toastConfig);
                 break;
         }
-    }; 
+    };
+
+    const toggleMenu = (menuType) => {
+        if(menuType === "serviceProvider")
+        {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                isProviderMenuActive: !formData.isProviderMenuActive,
+                isProvinceMenuActive: false,
+                isCityMenuActive: false
+            }));
+        }
+        else if(menuType === "province")
+        {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                isProvinceMenuActive: !formData.isProvinceMenuActive,
+                isProviderMenuActive: false,
+                isCityMenuActive: false
+            }));
+        }
+        else if(menuType == "city")
+        {
+            if(formData.province === 'Province')
+                return;
+            else
+            {
+                setFormData(prevFormData => ({
+                    ...prevFormData,
+                    isCityMenuActive: !formData.isCityMenuActive,
+                    isProviderMenuActive: false,
+                    isProvinceMenuActive: false,
+                }));
+            }
+        }
+    };
+
+    const handleOptionClick = (optionText, menuType) => {
+        if(menuType === "province")
+        {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                city: prevFormData.province === optionText ? prevFormData.city : "City"
+            }));
+        }
+        
+        toggleMenu(menuType);
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [menuType]: optionText
+        }));
+    };
 
     return (
         <div className="forgotPasswordDiv">
@@ -183,7 +263,7 @@ const SignUp = () => {
                         value={formData.cnic}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
@@ -194,37 +274,37 @@ const SignUp = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="genderDiv">
                     <p className="genderLabel">Gender</p>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        checked={formData.gender === 'male'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="male"
+                            checked={formData.gender === 'male'}
+                            onChange={handleInputChange}
                         />
                         <span>Male</span>
                     </label>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        checked={formData.gender === 'female'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="female"
+                            checked={formData.gender === 'female'}
+                            onChange={handleInputChange}
                         />
                         <span>Female</span>
                     </label>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="other"
-                        checked={formData.gender === 'other'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="other"
+                            checked={formData.gender === 'other'}
+                            onChange={handleInputChange}
                         />
                         <span>Other</span>
                     </label>
@@ -239,7 +319,7 @@ const SignUp = () => {
                             value={formData.firstName}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -250,21 +330,19 @@ const SignUp = () => {
                             value={formData.lastName}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField serviceProviderField"
-                            placeholder="Service Provider"
-                            type="text"
-                            name="serviceProvider"
-                            value={formData.serviceProvider}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
+                    <Combobox
+                        selectedItem={formData.serviceProvider}
+                        menuType="serviceProvider"
+                        isMenuActive={formData.isProviderMenuActive}
+                        toggleMenu={toggleMenu}
+                        options={formData.providerMenuOptions}
+                        handleOptionClick={handleOptionClick}
+                        width="12.1vw"
+                    />
                     <div className="inputDiv signUpInputDiv">
                         <input
                             className="inputField phoneNumberField"
@@ -274,7 +352,7 @@ const SignUp = () => {
                             value={formData.phone}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
@@ -287,7 +365,7 @@ const SignUp = () => {
                             value={formData.landlineNum}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -298,32 +376,28 @@ const SignUp = () => {
                             value={formData.faxNum}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
-                <div className="twoInputFieldsDiv">
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField halfInputField"
-                            placeholder="Province"
-                            type="text"
-                            name="province"
-                            value={formData.province}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField halfInputField"
-                            placeholder="City"
-                            type="text"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
+                <div className="twoInputFieldsDiv twoDropdownsDiv">
+                    <Combobox
+                        selectedItem={formData.province}
+                        menuType="province"
+                        isMenuActive={formData.isProvinceMenuActive}
+                        toggleMenu={toggleMenu}
+                        options={formData.provinceMenuOptions}
+                        handleOptionClick={handleOptionClick}
+                        width="14vw"
+                    />
+                    <CitySearchComboBox 
+                        selectedItem={formData.city}
+                        province={formData.province}
+                        menuType="city"
+                        isMenuActive={formData.isCityMenuActive}
+                        toggleMenu={toggleMenu}
+                        handleOptionClick={handleOptionClick}
+                        width="14vw"
+                    />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
@@ -334,19 +408,19 @@ const SignUp = () => {
                         value={formData.address}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
                         className="inputField passwordField"
                         placeholder="Password"
-                        type={showPassword ? "text" : "password"}
+                        type={formData.showPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
                     />
-                    <span className="passwordIcon" onClick={() => setShowPassword(!showPassword)}>
-                        <box-icon name={showPassword ? "hide" : "show"} color="grey" size="sm" />
+                    <span className="passwordIcon" onClick={() => setFormData((prevFormData) => ({...prevFormData, showPassword: !formData.showPassword}))}>
+                        <box-icon name={formData.showPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
                     <div className="line" />
                 </div>
@@ -354,25 +428,31 @@ const SignUp = () => {
                     <input
                         className="inputField passwordField"
                         placeholder="Confirm password"
-                        type={showConfirmPassword ? "text" : "password"}
+                        type={formData.showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                     />
-                    <span className="passwordIcon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                        <box-icon name={showConfirmPassword ? "hide" : "show"} color="grey" size="sm" />
+                    <span className="passwordIcon" onClick={() => setFormData((prevFormData) => ({...prevFormData, showConfirmPassword: !formData.showConfirmPassword}))}>
+                        <box-icon name={formData.showConfirmPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
                     <div className="line" />
                 </div>
                 <div className="twoInputFieldsDiv">
                     <div>
-                    <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
+                        <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
                     </div>
                     <p className="termsText">
                         By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy Policy.
                     </p>
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={!areRequiredFieldsEmpty()}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    title={areRequiredFieldsEmpty() ? 
+                        "You cannot sign up until all the required fields are filled except Landline and Fax." : ""} 
+                    type="Submit" 
+                    disabled={areRequiredFieldsEmpty()}
+                >
                     Sign Up
                 </button>
             </form>

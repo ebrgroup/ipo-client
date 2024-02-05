@@ -2,9 +2,9 @@ import "../AuthHome.css";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const ForgotPassword = () => {
+const ForgotPassword = (props) => {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -13,12 +13,15 @@ const ForgotPassword = () => {
         setEmail(e.target.value);
     };
 
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(email))
-        {
+        if (!emailRegex.test(email)) {
             setEmail("");
             handleToastDisplay("Invalid email format!", "error");
             return;
@@ -26,20 +29,20 @@ const ForgotPassword = () => {
 
         await axios.post("/ipo/email/sendEmail", { email, isOTPEmail: false })
         .then(response => {
-            handleToastDisplay("Password recovery link has been sent to your email!", "success");
+                handleToastDisplay("Password recovery link has been sent to your email!", "success");
         }).catch(error => {
-            setEmail("");
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
+                setEmail("");
+                if (error.response !== undefined) {
+                    if (error.response.data) {
+                        handleToastDisplay(`${error.response.data.error}`, "error");
+                    } else {
+                        handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    }
                 } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    handleToastDisplay("An unknown error occured. We are sorry for the inconvinience", "error");
                 }
-            } else {
-                handleToastDisplay("Error retrieving data", "error");
-            }
-        });
-    };
+            });
+        }
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {
@@ -52,7 +55,7 @@ const ForgotPassword = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);
@@ -64,7 +67,7 @@ const ForgotPassword = () => {
                 toast(message, toastConfig);
                 break;
         }
-    }; 
+    };
 
     return (
         <div className="forgotPasswordDiv">
@@ -84,15 +87,21 @@ const ForgotPassword = () => {
                         value={email}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="submit" disabled={email === ""}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    type="submit"
+                    title={email === "" ? 
+                        "You cannot send recovery email until all the required field is filled." : ""} 
+                    disabled={email === ""}
+                >
                     Send Recovery Email
                 </button>
             </form>
             <p className="newUserText justRememberedText">Just remembered? <span className="newAccountText" onClick={() => navigate("/signin")} >Sign in</span></p>
         </div>
     );
-};
+}
 
 export default ForgotPassword;
