@@ -1,5 +1,5 @@
 .Dashboard-Section{
-    width: 100vw;
+    width: 98.7vw;
     height: fit-content;
     background-color: ivory;
     display: flex;
@@ -15,13 +15,15 @@
 .right-Subsection{
     width: 85vw;
     margin-left: 16.1vw;
-    min-height: 89.8vh;
     padding: 0vh 0.5vw;
+    height: fit-content;
+    box-sizing: border-box;
     font-family: Poppins;
 }
 
 .screenContent {
-    height: calc(100vh - 10.15vh);
+    min-height: calc(100vh - 10.15vh);
+    box-sizing: border-box;
     margin-top: 10.15vh;
 }
 

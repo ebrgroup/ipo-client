@@ -1,9 +1,10 @@
 .container-holder {
-    height: 100%;
+    height: calc(100vh - 10.15vh);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .container {
