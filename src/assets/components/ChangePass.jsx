@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../components/ChangePassStyle.css'
 import IPO_icon from '../Icons/rectangle-8@2x.png'
 import axios from 'axios';
 import { useSelector } from 'react-redux'
 
 
-function ChangePass() {
+function ChangePass(props) {
     const User_ID = useSelector(state => state.userReducer.userData?._id);
 
 
@@ -26,18 +26,28 @@ function ChangePass() {
         });
     }
 
+    useEffect( () => {
+        props.Progress(100);
+    },[])
 
     const changePassClick = async (e) => {
         e.preventDefault();
+        props.Progress(20);
+
         let response;
         if (!isEmpty(password.Old_Pass) && !isEmpty(password.New_Pass) && !isEmpty(password.Confirm_Pass)) {
+            props.Progress(40);
+
             try {
+                props.Progress(60);
+
                 response = await axios.put(`http://localhost:5000/ipo/users/changePassword/${User_ID}`, {
                     password: password.Old_Pass,
                     newPassword: password.New_Pass
                 });
 
-                alert(response.status); // Notify user for updating password
+                props.Progress(100);
+
                 clearFields(); //Clear fields after updating password
 
             } catch (error) {

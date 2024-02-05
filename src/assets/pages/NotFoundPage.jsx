@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './NotFoundpage.css';
 import { useNavigate } from 'react-router-dom';
 
-function NotFoundPage() {
+function NotFoundPage(props) {
     const navigate = useNavigate()
+    useEffect( () => {
+        props.Progress(100);
+    },[])
     return (
         <div className='Notfound-container'>
             <h1>404 Error Page</h1>

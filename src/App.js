@@ -12,12 +12,19 @@ import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import NotFoundPage from './assets/pages/NotFoundPage';
+import React, { useState } from 'react'
+import LoadingBar from 'react-top-loading-bar'
 
 
 function App() {
 
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
+  const [progress, setProgress] = useState(0);
+
+  const loadingProgress = (progress) => {
+    setProgress(progress)
+  }
 
   useEffect(() => {
     const path = document.location.pathname;
@@ -27,13 +34,13 @@ function App() {
 
 
     const protectedRoutes = ["/changepassword", "/dashboard", "/profile"];
-    const autthRoutes = ["/sigin", "/signup", "/verification","/forgotpassword", "/createnewpassword"]
+    const autthRoutes = ["/sigin", "/signup", "/verification", "/forgotpassword", "/createnewpassword"]
 
 
     if (path === "/*") {
       navigate("*")
     }
-     else if (!isLogin && protectedRoutes.includes(path)) {
+    else if (!isLogin && protectedRoutes.includes(path)) {
       navigate("/signin");
     } else if (isLogin && autthRoutes.includes(path)) {
       navigate("/dashboard");
@@ -60,16 +67,22 @@ function App() {
 
   return (
     <div className="App">
+      < LoadingBar
+        color='#f11946'
+        progress={progress}
+        loaderSpeed={500}
+        height={2}
+      />
       <Routes>
-        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard />} />} />
-        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass />} />} />
-        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile />} />} />
-        <Route path="/signin" element={<AuthHome screen={<SignIn />} />} />
-        <Route path="/signup" element={<AuthHome screen={<SignUp />} />} />
-        <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword />} />} />
-        <Route path="/verification" element={<AuthHome screen={<Verification />} />} />
-        <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword />} />} />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />} />} />
+        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} />} />
+        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} />} />
+        <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
+        <Route path="/signup" element={<AuthHome screen={<SignUp Progress={loadingProgress} />} />} />
+        <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword Progress={loadingProgress} />} />} />
+        <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
+        <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
+        <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
 
       </Routes>
     </div >

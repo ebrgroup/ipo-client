@@ -1,10 +1,10 @@
 import "../AuthHome.css";
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +31,7 @@ const SignUp = () => {
         const { name, value, type, checked } = e.target;
         const getNumericValue = (input) => input.replace(/\D/g, '');
         let processedValue = value;
-    
+
         switch (name) {
             case 'cnic':
                 processedValue = getNumericValue(value).slice(0, 13);
@@ -44,65 +44,74 @@ const SignUp = () => {
             default:
                 break;
         }
-    
+
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: type === 'checkbox' ? checked : processedValue,
         }));
     };
-    
-    
+
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        props.Progress(10);
 
-        if(formData.password !== formData.confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
             handleToastDisplay("Passwords do not match!", "error");
             return;
         }
-        if(formData.cnic.length !== 13) {
+        if (formData.cnic.length !== 13) {
             handleToastDisplay("CNIC should be 13 digits long.", "error");
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(formData.email))
-        {
+        props.Progress(20);
+
+        if (!emailRegex.test(formData.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
-        if(formData.phone.length !== 11) {
+        if (formData.phone.length !== 11) {
             handleToastDisplay("Phone no. should be 11 digits long.", "error");
             return;
         }
-        if(formData.landlineNum.length !== 0 && formData.landlineNum.length < 7) {
+        if (formData.landlineNum.length !== 0 && formData.landlineNum.length < 7) {
             handleToastDisplay("Landline no. should be 7-11 digits long.", "error");
             return;
         }
-        if(formData.faxNum.length !== 0 && formData.faxNum.length < 7) {
+        if (formData.faxNum.length !== 0 && formData.faxNum.length < 7) {
             handleToastDisplay("Fax no. should be 7-11 digits long.", "error");
             return;
         }
         const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        if(!passwordRegex.test(formData.password))
-        {
+        props.Progress(30);
+
+        if (!passwordRegex.test(formData.password)) {
             handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
             return;
         }
+        props.Progress(50);
 
         await axios.post(`/ipo/users/validate`, formData)
-        .then(response => {
-            handleToastDisplay("OTP has been sent to your email and phone number.", "success");
-            navigate("/verification", { state: { newAccount: formData } });
-        }).catch(error => {
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
+
+            .then(response => {
+                props.Progress(100);
+                handleToastDisplay("OTP has been sent to your email and phone number.", "success");
+                navigate("/verification", { state: { newAccount: formData } });
+            }).catch(error => {
+                if (error.response !== undefined) {
+                    if (error.response.data) {
+                        handleToastDisplay(`${error.response.data.error}`, "error");
+                    } else {
+                        handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    }
                 } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    handleToastDisplay("Error validating data", "error");
                 }
-            } else {
-                handleToastDisplay("Error validating data", "error");
-            }
-        });
+            });
     };
 
     const areRequiredFieldsEmpty = () => {
@@ -110,14 +119,14 @@ const SignUp = () => {
             if (['landlineNum', 'faxNum'].includes(key)) {
                 return true;
             }
-            return value; 
+            return value;
         });
     };
 
     const handleAgreeTermsChange = () => {
         setFormData((prevFormData) => ({
-          ...prevFormData,
-          agreeTerms: !prevFormData.agreeTerms,
+            ...prevFormData,
+            agreeTerms: !prevFormData.agreeTerms,
         }));
     };
 
@@ -132,7 +141,7 @@ const SignUp = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);
@@ -144,7 +153,7 @@ const SignUp = () => {
                 toast(message, toastConfig);
                 break;
         }
-    }; 
+    };
 
     return (
         <div className="forgotPasswordDiv">
@@ -162,7 +171,7 @@ const SignUp = () => {
                         value={formData.cnic}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
@@ -173,37 +182,37 @@ const SignUp = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="genderDiv">
                     <p className="genderLabel">Gender</p>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        checked={formData.gender === 'male'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="male"
+                            checked={formData.gender === 'male'}
+                            onChange={handleInputChange}
                         />
                         <span>Male</span>
                     </label>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        checked={formData.gender === 'female'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="female"
+                            checked={formData.gender === 'female'}
+                            onChange={handleInputChange}
                         />
                         <span>Female</span>
                     </label>
                     <label>
                         <input
-                        type="radio"
-                        name="gender"
-                        value="other"
-                        checked={formData.gender === 'other'}
-                        onChange={handleInputChange}
+                            type="radio"
+                            name="gender"
+                            value="other"
+                            checked={formData.gender === 'other'}
+                            onChange={handleInputChange}
                         />
                         <span>Other</span>
                     </label>
@@ -218,7 +227,7 @@ const SignUp = () => {
                             value={formData.firstName}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -229,7 +238,7 @@ const SignUp = () => {
                             value={formData.lastName}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
@@ -242,7 +251,7 @@ const SignUp = () => {
                             value={formData.serviceProvider}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -253,7 +262,7 @@ const SignUp = () => {
                             value={formData.phone}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
@@ -266,7 +275,7 @@ const SignUp = () => {
                             value={formData.landlineNum}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -277,7 +286,7 @@ const SignUp = () => {
                             value={formData.faxNum}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
@@ -290,7 +299,7 @@ const SignUp = () => {
                             value={formData.province}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                     <div className="inputDiv signUpInputDiv">
                         <input
@@ -301,7 +310,7 @@ const SignUp = () => {
                             value={formData.city}
                             onChange={handleInputChange}
                         />
-                    <div className="line" />
+                        <div className="line" />
                     </div>
                 </div>
                 <div className="inputDiv signUpInputDiv">
@@ -313,7 +322,7 @@ const SignUp = () => {
                         value={formData.address}
                         onChange={handleInputChange}
                     />
-                <div className="line" />
+                    <div className="line" />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
@@ -345,7 +354,7 @@ const SignUp = () => {
                 </div>
                 <div className="twoInputFieldsDiv">
                     <div>
-                    <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
+                        <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
                     </div>
                     <p className="termsText">
                         By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy Policy.

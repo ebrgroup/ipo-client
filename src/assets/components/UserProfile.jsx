@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { updateUser } from '../states/middlewares/update-user'
 
-function UserProfile() {
+function UserProfile(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let User = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
     const userID = User._id;
+    let progress = useSelector(state => state.loadingReducer?.progress)
 
     const removeObjectEntries = (object, keysToRemove) => {
         const newObj = { ...object };
@@ -43,10 +44,13 @@ function UserProfile() {
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
         User = removeObjectEntries(User, keysToRemove);         //Remove extra entry from data object
-        setUser_profile(
-            User
-        );
+        setUser_profile(User);
+
     }, [User]);
+
+    useEffect(() => {
+        props.Progress(progress)
+    }, [progress])
 
     const handleCancelbtn = (e) => {
         e.preventDefault();
@@ -61,7 +65,7 @@ function UserProfile() {
         <div className='profile-container'>
             <section className="profile-image">
                 <div className='profile-image-container'>
-                    <h2>Haider Ali</h2>
+                    <h2></h2>
                     <div className='profile-image-span'>
                         <img src={userIcon} alt="" />
                         <div className="input-div">

@@ -2,9 +2,9 @@ import "../AuthHome.css";
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CreateNewPassword = () => {
+const CreateNewPassword = (props) => {
 
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -16,24 +16,27 @@ const CreateNewPassword = () => {
         confirmPassword: ''
     });
 
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
     const handleInputChange = (e) => {
         setFormData((prevFormData) => ({
-          ...prevFormData,
-          [e.target.name]: e.target.value,
+            ...prevFormData,
+            [e.target.name]: e.target.value,
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(formData.newPassword !== formData.confirmPassword) {
+        if (formData.newPassword !== formData.confirmPassword) {
             clearFields();
             handleToastDisplay("Passwords do not match!", "error");
             return;
         }
         const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        if(!passwordRegex.test(formData.newPassword))
-        {
+        if (!passwordRegex.test(formData.newPassword)) {
             clearFields();
             handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
             return;
@@ -45,21 +48,21 @@ const CreateNewPassword = () => {
         }));
 
         await axios.put(`/ipo/users/changePassword/${user._id}`, formData)
-        .then(response => {
-            handleToastDisplay("You have successfully updated your password!", "success");
-            navigate("/signin");
-        }).catch(error => {
-            // clearFields();
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
+            .then(response => {
+                handleToastDisplay("You have successfully updated your password!", "success");
+                navigate("/signin");
+            }).catch(error => {
+                // clearFields();
+                if (error.response !== undefined) {
+                    if (error.response.data) {
+                        handleToastDisplay(`${error.response.data.error}`, "error");
+                    } else {
+                        handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    }
                 } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    handleToastDisplay("Error inserting data", "error");
                 }
-            } else {
-                handleToastDisplay("Error inserting data", "error");
-            }
-        });
+            });
     };
 
     const handleToastDisplay = (message, type) => {
@@ -73,7 +76,7 @@ const CreateNewPassword = () => {
             progress: undefined,
             theme: "light",
         };
-    
+
         switch (type) {
             case "success":
                 toast.success(message, toastConfig);

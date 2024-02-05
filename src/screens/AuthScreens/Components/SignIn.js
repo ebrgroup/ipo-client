@@ -1,6 +1,6 @@
 import "../AuthHome.css";
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,7 @@ import { loginSuccess } from "../../../assets/states/actions/user-action";
 
 import "boxicons";
 
-const SignIn = () => {
+const SignIn = (props) => {
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -35,30 +35,39 @@ const SignIn = () => {
         });
     }
 
+    useEffect(() => {
+        props.Progress(100);
+    }, [])
+
 
     //dispatch for calling actions in redux-store
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        props.Progress(10);
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
-
+        props.Progress(40);
         await axios.post(`/ipo/login`, formData)
             .then(response => {
-                
+                props.Progress(70);
                 dispatch(loginSuccess(response.data.user));  //Store user data into redux store
+                props.Progress(100);
+
                 navigate("/dashboard");
 
             }).catch(error => {
+                props.Progress(100);
                 clearFields();
                 if (error.response !== undefined) {
                     if (error.response.data) {
                         handleToastDisplay(`${error.response.data.message}`, "error");
+
                     }
                 } else {
                     handleToastDisplay("Error signing in!", "error");

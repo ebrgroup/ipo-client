@@ -2,9 +2,9 @@ import "../AuthHome.css";
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
-const Verification = () => {
+const Verification = (props) => {
 
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -24,6 +24,9 @@ const Verification = () => {
           [name]: processedValue,
         }));
     };
+    useEffect( () => {
+        props.Progress(100);
+    },[])
 
     const clearFields = () => {
         setFormData({
