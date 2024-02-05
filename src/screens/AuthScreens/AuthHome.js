@@ -1,6 +1,5 @@
 import "./AuthHome.css";
 import ipoLogo from "../../assets/Icons/ipologo.png";
-import { ToastContainer } from "react-toastify";
 
 const AuthHome = (props) => {
 
@@ -26,19 +25,6 @@ const AuthHome = (props) => {
                     </p>
                 </div>
             </div>
-            <ToastContainer
-                position="top-center"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                style={{marginTop: "5vh"}}
-            />
         </main>
     );
 };

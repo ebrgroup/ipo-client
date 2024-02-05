@@ -53,7 +53,7 @@ const SignIn = () => {
                 
                 dispatch(loginSuccess(response.data.user));  //Store user data into redux store
                 navigate("/dashboard");
-
+                handleToastDisplay("You have successfully logged in!", "success");
             }).catch(error => {
                 clearFields();
                 if (error.response !== undefined) {
@@ -131,7 +131,13 @@ const SignIn = () => {
                     <div className="cantSignIn" onClick={() => navigate("/forgotpassword")}>
                         Can’t sign in?
                     </div>
-                    <button className="submitButton" type="Submit" disabled={!isFormValid()}>
+                    <button 
+                        className="submitButton" 
+                        type="Submit"
+                        title={!isFormValid() ? 
+                            "You cannot sign in until all the required fields are filled." : ""} 
+                        disabled={!isFormValid()}
+                    >
                         Sign In
                     </button>
                 </div>

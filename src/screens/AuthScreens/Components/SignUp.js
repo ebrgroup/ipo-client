@@ -3,28 +3,37 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import Combobox from "../../../assets/components/Combobox/Combobox";
+import CitySearchComboBox from "../../../assets/components/SearchComboBox/CitySearchComboBox";
 
 const SignUp = () => {
 
     const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         cnic: '',
         email: '',
         gender: '',
         firstName: '',
         lastName: '',
-        serviceProvider: '',
+        serviceProvider: 'Service Provider',
         phone: '',
         landlineNum: '',
         faxNum: '',
-        province: '',
-        city: '',
+        province: 'Province',
+        city: 'City',
         address: '',
         password: '',
         confirmPassword: '',
         agreeTerms: false,
+        showPassword: false,
+        showConfirmPassword: false,
+        isProviderMenuActive: false,
+        isProvinceMenuActive: false,
+        isCityMenuActive: false,
+        providerMenuOptions: [ "Mobilink", "Telenor", "Ufone", "Warid", "Zong" ],
+        provinceMenuOptions: [ 
+            "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
+        ]
     });
 
     const handleInputChange = (e) => {
@@ -106,12 +115,21 @@ const SignUp = () => {
     };
 
     const areRequiredFieldsEmpty = () => {
-        return Object.entries(formData).every(([key, value]) => {
-            if (['landlineNum', 'faxNum'].includes(key)) {
+        return !(Object.entries(formData).every(([key, value]) => {
+            if (['landlineNum', 'faxNum', 'showPassword', 'showConfirmPassword', 'isProviderMenuActive', 'isProvinceMenuActive', 
+                'isCityMenuActive'].includes(key)) {
                 return true;
+            } else if (key === 'serviceProvider' && value === "Service Provider") {
+                return false;
+            }
+            else if (key === 'province' && value === "Province") {
+                return false;
+            }
+            else if (key === 'city' && value === "City") {
+                return false;
             }
             return value; 
-        });
+        }));
     };
 
     const handleAgreeTermsChange = () => {
@@ -145,6 +163,58 @@ const SignUp = () => {
                 break;
         }
     }; 
+
+    const toggleMenu = (menuType) => {
+        if(menuType === "serviceProvider")
+        {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                isProviderMenuActive: !formData.isProviderMenuActive,
+                isProvinceMenuActive: false,
+                isCityMenuActive: false
+            }));
+        }
+        else if(menuType === "province")
+        {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                isProvinceMenuActive: !formData.isProvinceMenuActive,
+                isProviderMenuActive: false,
+                isCityMenuActive: false
+            }));
+        }
+        else if(menuType == "city")
+        {
+            if(formData.province === 'Province')
+                return;
+            else
+            {
+                setFormData(prevFormData => ({
+                    ...prevFormData,
+                    isCityMenuActive: !formData.isCityMenuActive,
+                    isProviderMenuActive: false,
+                    isProvinceMenuActive: false,
+                }));
+            }
+        }
+    };
+
+    const handleOptionClick = (optionText, menuType) => {
+        if(menuType === "province")
+        {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                city: prevFormData.province === optionText ? prevFormData.city : "City"
+            }));
+        }
+        
+        toggleMenu(menuType);
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [menuType]: optionText
+        }));
+    };
 
     return (
         <div className="forgotPasswordDiv">
@@ -233,17 +303,15 @@ const SignUp = () => {
                     </div>
                 </div>
                 <div className="twoInputFieldsDiv">
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField serviceProviderField"
-                            placeholder="Service Provider"
-                            type="text"
-                            name="serviceProvider"
-                            value={formData.serviceProvider}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
+                    <Combobox
+                        selectedItem={formData.serviceProvider}
+                        menuType="serviceProvider"
+                        isMenuActive={formData.isProviderMenuActive}
+                        toggleMenu={toggleMenu}
+                        options={formData.providerMenuOptions}
+                        handleOptionClick={handleOptionClick}
+                        width="12.1vw"
+                    />
                     <div className="inputDiv signUpInputDiv">
                         <input
                             className="inputField phoneNumberField"
@@ -280,29 +348,25 @@ const SignUp = () => {
                     <div className="line" />
                     </div>
                 </div>
-                <div className="twoInputFieldsDiv">
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField halfInputField"
-                            placeholder="Province"
-                            type="text"
-                            name="province"
-                            value={formData.province}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
-                    <div className="inputDiv signUpInputDiv">
-                        <input
-                            className="inputField halfInputField"
-                            placeholder="City"
-                            type="text"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleInputChange}
-                        />
-                    <div className="line" />
-                    </div>
+                <div className="twoInputFieldsDiv twoDropdownsDiv">
+                    <Combobox
+                        selectedItem={formData.province}
+                        menuType="province"
+                        isMenuActive={formData.isProvinceMenuActive}
+                        toggleMenu={toggleMenu}
+                        options={formData.provinceMenuOptions}
+                        handleOptionClick={handleOptionClick}
+                        width="14vw"
+                    />
+                    <CitySearchComboBox 
+                        selectedItem={formData.city}
+                        province={formData.province}
+                        menuType="city"
+                        isMenuActive={formData.isCityMenuActive}
+                        toggleMenu={toggleMenu}
+                        handleOptionClick={handleOptionClick}
+                        width="14vw"
+                    />
                 </div>
                 <div className="inputDiv signUpInputDiv">
                     <input
@@ -319,13 +383,13 @@ const SignUp = () => {
                     <input
                         className="inputField passwordField"
                         placeholder="Password"
-                        type={showPassword ? "text" : "password"}
+                        type={formData.showPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
                     />
-                    <span className="passwordIcon" onClick={() => setShowPassword(!showPassword)}>
-                        <box-icon name={showPassword ? "hide" : "show"} color="grey" size="sm" />
+                    <span className="passwordIcon" onClick={() => setFormData((prevFormData) => ({...prevFormData, showPassword: !formData.showPassword}))}>
+                        <box-icon name={formData.showPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
                     <div className="line" />
                 </div>
@@ -333,13 +397,13 @@ const SignUp = () => {
                     <input
                         className="inputField passwordField"
                         placeholder="Confirm password"
-                        type={showConfirmPassword ? "text" : "password"}
+                        type={formData.showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                     />
-                    <span className="passwordIcon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                        <box-icon name={showConfirmPassword ? "hide" : "show"} color="grey" size="sm" />
+                    <span className="passwordIcon" onClick={() => setFormData((prevFormData) => ({...prevFormData, showConfirmPassword: !formData.showConfirmPassword}))}>
+                        <box-icon name={formData.showConfirmPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
                     <div className="line" />
                 </div>
@@ -351,7 +415,13 @@ const SignUp = () => {
                         By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy Policy.
                     </p>
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={!areRequiredFieldsEmpty()}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    title={areRequiredFieldsEmpty() ? 
+                        "You cannot sign up until all the required fields are filled except Landline and Fax." : ""} 
+                    type="Submit" 
+                    disabled={areRequiredFieldsEmpty()}
+                >
                     Sign Up
                 </button>
             </form>

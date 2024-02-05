@@ -45,7 +45,7 @@ const CreateNewPassword = () => {
             handleToastDisplay("You have successfully updated your password!", "success");
             navigate("/signin");
         }).catch(error => {
-            // clearFields();
+            clearFields();
             if(error.response !== undefined){
                 if (error.response.data) {
                     handleToastDisplay(`${error.response.data.error}`, "error");
@@ -133,7 +133,13 @@ const CreateNewPassword = () => {
                     </span>
                     <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={areRequiredFieldsEmpty()}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    type="Submit" 
+                    title={areRequiredFieldsEmpty() ? 
+                        "You cannot change your password until all the required fields are filled." : ""} 
+                    disabled={areRequiredFieldsEmpty()}
+                >
                     Change password
                 </button>
             </form>

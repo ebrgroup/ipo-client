@@ -126,7 +126,6 @@
     box-sizing: border-box;
     z-index: 1;
     color: white;
-    /* font-size: 0.9rem; */
     font-size: 1.05vw;
     font-family: 'Poppins', sans-serif;
 }
@@ -187,7 +186,7 @@
 }
 
 .phoneNumberField {
-    width: 18vw;
+    width: 16vw;
 }
 
 .signUpButton {
@@ -254,6 +253,10 @@
 
 .signUpDiv {
     width: 22vw;
+}
+
+.twoDropdownsDiv {
+    margin-top: 1.5vh;
 }
 
 /* @media (max-width: 600px) {

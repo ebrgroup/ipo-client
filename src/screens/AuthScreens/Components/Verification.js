@@ -125,7 +125,13 @@ const Verification = () => {
                     />
                 <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={areRequiredFieldsEmpty()}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    type="Submit" 
+                    disabled={areRequiredFieldsEmpty()}
+                    title={areRequiredFieldsEmpty() ? 
+                        "You cannot proceed until all the required fields are filled." : ""} 
+                >
                     Proceed
                 </button>
             </form>
