@@ -1,19 +1,19 @@
 import "../AuthHome.css";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CreateNewPassword = () => {
 
+    const { userToken } = useParams();
     const navigate = useNavigate();
-    const { state } = useLocation();
-    const user = state && state.user;
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [token, setToken] = useState("");
     const [formData, setFormData] = useState({
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
     });
 
     const handleInputChange = (e) => {
@@ -22,6 +22,10 @@ const CreateNewPassword = () => {
           [e.target.name]: e.target.value,
         }));
     };
+
+    useEffect(() => {
+        setToken(userToken);
+    }, [userToken]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,17 +43,14 @@ const CreateNewPassword = () => {
             return;
         }
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            isNew: true,
-        }));
-
-        await axios.put(`/ipo/users/changePassword/${user._id}`, formData)
+        await axios.put(`/ipo/users/resetPassword/${ token }`, {
+            newPassword: formData.newPassword
+        })
         .then(response => {
             handleToastDisplay("You have successfully updated your password!", "success");
             navigate("/signin");
         }).catch(error => {
-            // clearFields();
+            clearFields();
             if(error.response !== undefined){
                 if (error.response.data) {
                     handleToastDisplay(`${error.response.data.error}`, "error");

@@ -64,18 +64,6 @@ function UserProfile() {
                     <h2>Haider Ali</h2>
                     <div className='profile-image-span'>
                     <img src={userIcon} alt="" />
-                    <div className="input-div">
-                        <input className='file-input' name="file" type="file" id="file-input" />
-                        <label htmlFor="file-input">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" 
-                                stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                                <line y2="21" x2="12" y1="12" x1="12"></line>
-                                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                            </svg>
-                        </label>
-                    </div>
                     </div>
                 </div>
             </section>
@@ -110,15 +98,15 @@ function UserProfile() {
                         <div class="mydict">
                             <div>
                                 <label>
-                                    <input type="radio" name="male" checked={user_profile.gender === "male"} />
+                                    <input type="radio" name="male" onChange={handleChange} checked={user_profile.gender === "male"} />
                                     <span>Male</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="female" checked={user_profile.gender === "female"} />
+                                    <input type="radio" name="female" onChange={handleChange}  checked={user_profile.gender === "female"} />
                                     <span>Female</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="other" checked={user_profile.gender === "other"} />
+                                    <input type="radio" name="other"  onChange={handleChange}  checked={user_profile.gender === "other"} />
                                     <span>Other</span>
                                 </label>
                             </div>

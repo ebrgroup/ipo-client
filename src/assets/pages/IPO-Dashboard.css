@@ -134,18 +134,22 @@
 
 .IPMenus>.Trademark {
     background-color: #15cab8;
+    width: 14vw;
 }
 
 .IPMenus>.Patent {
     background-color: #44a6e9;
+    width: 14vw;
 }
 
 .IPMenus>.Design {
     background-color: #ff8548;
+    width: 14vw;
 }
 
 .IPMenus>.Copyright {
     background-color: #ff6a6a;
+    width: 14vw;
 }
 
 .Applied-IP {

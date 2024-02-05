@@ -6,19 +6,15 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from "../../../assets/states/actions/user-action";
-
-
 import "boxicons";
 
 const SignIn = () => {
-
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
-
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -35,7 +31,6 @@ const SignIn = () => {
         });
     }
 
-
     //dispatch for calling actions in redux-store
     const dispatch = useDispatch();
 
@@ -50,7 +45,6 @@ const SignIn = () => {
 
         await axios.post(`/ipo/login`, formData)
             .then(response => {
-                
                 dispatch(loginSuccess(response.data.user));  //Store user data into redux store
                 navigate("/dashboard");
 

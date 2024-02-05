@@ -9,6 +9,4 @@ export const updateUser = (id, user) =>
         } catch (error) {
             console.log('An error occurred:', error);
         }
-    };
-
-
+};

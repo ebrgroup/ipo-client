@@ -1,6 +1,6 @@
 import "../AuthHome.css";
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 
@@ -26,6 +26,7 @@ const SignUp = () => {
         confirmPassword: '',
         agreeTerms: false,
     });
+    const [validatedUser, setValidatedUser] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -50,7 +51,6 @@ const SignUp = () => {
             [name]: type === 'checkbox' ? checked : processedValue,
         }));
     };
-    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -90,20 +90,41 @@ const SignUp = () => {
 
         await axios.post(`/ipo/users/validate`, formData)
         .then(response => {
-            handleToastDisplay("OTP has been sent to your email and phone number.", "success");
-            navigate("/verification", { state: { newAccount: formData } });
+            setValidatedUser(true);
         }).catch(error => {
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
-                } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
-                }
-            } else {
-                handleToastDisplay("Error validating data", "error");
-            }
+            setValidatedUser(false);
+            handleApiError(error);
         });
     };
+
+    const handleApiError = (error) => {
+        if (error.response !== undefined) {
+            if (error.response.data) {
+                handleToastDisplay(`${error.response.data.error}`, "error");
+            } else {
+                handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+            }
+        } else {
+            handleToastDisplay("An unknown error occured. We are sorry for the inconvinience", "error");
+        }
+    };
+
+    useEffect(() => {
+        if (validatedUser) {
+            (async () => {
+                await axios.post("/ipo/email/sendEmail", { email: formData.email, isOTPEmail: true })
+                .then(response => {
+                    handleToastDisplay("OTP has been sent to your email", "success");
+                    navigate("/verification", { state: { newAccount: formData } });
+                }).catch(error => {
+                    setValidatedUser(false);
+                    handleApiError(error);
+                    return false;
+                })
+            })();
+        }
+    }, [validatedUser]);
+    
 
     const areRequiredFieldsEmpty = () => {
         return Object.entries(formData).every(([key, value]) => {

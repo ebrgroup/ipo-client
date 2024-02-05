@@ -2,7 +2,7 @@ import "../AuthHome.css";
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Verification = () => {
 
@@ -13,6 +13,7 @@ const Verification = () => {
         emailCode: '',
         mobileCode: ''
     });
+    const [otpVerified, setOtpVerified] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -39,27 +40,20 @@ const Verification = () => {
             handleToastDisplay("OTP should be of 6 digits!", "error");
             return;
         }
-        if(formData.mobileCode !== "111111" || formData.emailCode !== "222222") {
+        if(formData.mobileCode !== "111111") {
             handleToastDisplay("Invalid OTP code!", "error");
             clearFields();
             return;
         }
 
-        await axios.post(`/ipo/users/`, newAccount)
-        .then(response => {
-            handleToastDisplay("You have successfully created your account!", "success");
-            navigate("/signin");
+        await axios.post("/ipo/email/otpVerification", {
+            enteredOTP: formData.emailCode
+        }).then(response => {
+            setOtpVerified(true);
         }).catch(error => {
             clearFields();
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
-                } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
-                }
-            } else {
-                handleToastDisplay("Error inserting data", "error");
-            }
+            setOtpVerified(false);
+            handleApiError(error);
         });
     };
 
@@ -93,6 +87,34 @@ const Verification = () => {
             formData.emailCode && formData.mobileCode
         );
     };
+
+    const handleApiError = (error) => {
+        if (error.response !== undefined) {
+            if (error.response.data) {
+                handleToastDisplay(`${error.response.data.error}`, "error");
+            } else {
+                handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+            }
+        } else {
+            handleToastDisplay("An unknown error occured. We are sorry for the inconvinience", "error");
+        }
+    };
+
+    useEffect(() => {
+        (async () => {
+            if(otpVerified) {
+                await axios.post(`/ipo/users`, newAccount)
+                .then(response => {
+                    handleToastDisplay("You have successfully created your account!", "success");
+                    navigate("/signin");
+                }).catch(error => {
+                    clearFields();
+                    setOtpVerified(false);
+                    handleApiError(error);
+                });
+            }
+        })();
+    }, [otpVerified]);
 
     return (
         <div className="forgotPasswordDiv">

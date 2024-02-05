@@ -24,10 +24,9 @@ const ForgotPassword = () => {
             return;
         }
 
-        await axios.post(`/ipo/users/email/`, { email })
+        await axios.post("/ipo/email/sendEmail", { email, isOTPEmail: false })
         .then(response => {
             handleToastDisplay("Password recovery link has been sent to your email!", "success");
-            navigate("/createnewpassword", { state: { user: response.data.user } });
         }).catch(error => {
             setEmail("");
             if(error.response !== undefined){

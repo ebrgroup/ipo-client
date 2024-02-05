@@ -61,6 +61,7 @@ function App() {
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword />} />} />
         <Route path="/verification" element={<AuthHome screen={<Verification />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword />} />} />
+        <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword />} />} />
       </Routes>
     </div >
   );
