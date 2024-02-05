@@ -1,6 +1,5 @@
 import "./AuthHome.css";
 import ipoLogo from "../../assets/Icons/ipologo.png";
-import { ToastContainer } from "react-toastify";
 
 const AuthHome = (props) => {
 
@@ -17,7 +16,7 @@ const AuthHome = (props) => {
                     <h1 className="authHeading">
                         Intellectual Property Excellence
                     </h1>
-                    <p>
+                    <p className="ipoDescText">
                         We are the forefront guardians of intellectual property rights. Committed to excellence, we provide tailored 
                         solutions for individuals and businesses.
                     </p>
@@ -26,19 +25,6 @@ const AuthHome = (props) => {
                     </p>
                 </div>
             </div>
-            <ToastContainer
-                position="top-center"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                style={{marginTop: "5vh"}}
-            />
         </main>
     );
 };

@@ -1,268 +1,108 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Font+Awesome+6+Pro:wght@400&display=swap");
-
 body {
   margin: 0;
   line-height: normal;
 }
 
 :root {
-  /* fonts */
-  --font-manrope: Manrope;
-  --font-font-awesome-6-pro: "Font Awesome 6 Pro";
-  --font-raleway: Raleway;
-
-  /* font sizes */
-  --font-size-lg: 18px;
-  --font-size-sm: 14px;
-  --font-size-3xl: 22px;
-
-  /* Colors */
   --color-gainsboro: #dee4df;
   --color-silver: #afc6c4;
   --color-white: #fff;
-
-  /* Gaps */
-  --gap-mini: 15px;
 }
 
-.background {
-  width: 100%;
-  position: absolute;
-  margin: 0 !important;
-  height: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.sidebar {
   background-color: #036666;
-}
-
-.menu {
-  width: 248px;
-  height: 23.4px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: none;
-  z-index: 1;
-}
-
-.menu-item-rectangle {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
-  z-index: 1;
-  object-fit: contain;
-  position: absolute;
-  left: 0;
-  top: 1px;
-  transform: scale(2.216);
+  height: 100%;
+  border-radius: 15px;
+  font-family: Poppins;
 }
 
-.wrapper-menu-item-rectangle {
-  height: 51px;
-  width: 56px;
-  position: relative;
-  z-index: 1;
+.sidebar a {
+  color: var(--color-gainsboro);
+  text-decoration: none;
+}
+
+.sidebar-header {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.property {
-  font-size: 20px;
+.sidebar-header img {
+  height: 7.5vw;
 }
 
-.intellectual-property {
-  flex: 1;
-  position: relative;
-  line-height: 28px;
-  z-index: 1;
-}
-
-.active-line-frame a {
-  text-decoration: none;
+.sidebar-header b {
   color: var(--color-white);
+  font-size: 1rem;
 }
 
-.menu-frame {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 14px;
-}
-
-.menu1 {
-  position: relative;
-  line-height: 18px;
+.menu-heading {
+  color: var(--color-gainsboro);
   text-transform: uppercase;
-  font-weight: 600;
-  z-index: 1;
-}
-
-.menu-wrapper {
-  flex-direction: row;
-  padding: 0 3px;
-  font-size: var(--font-size-sm);
-  color: var(--color-silver);
-  font-family: var(--font-manrope);
-}
-
-.child-frame,
-.intellectual-property-text,
-.menu-wrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.intellectual-property-text {
-  flex: 1;
-  flex-direction: column;
-  gap: 49px;
-}
-
-.child-frame {
-  align-self: stretch;
-  flex-direction: row;
-  padding: 0 32px 0 17px;
-}
-
-.active-line {
-  height: 33.2px;
-  width: 4px;
-  position: absolute;
-  margin: 0 !important;
-  top: 0.2px;
-  left: 0;
-  background-color: #fec600;
-  z-index: 1;
-}
-
-.objects-column,
-.title {
-  position: relative;
-  line-height: 24px;
-}
-
-.menu-active {
-  align-self: stretch;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 0.8vw;
-  cursor: pointer;
-  z-index: 1;
-  margin-bottom: -2vh;
-}
-
-.title{
-  font-size: 0.820rem;
-  line-height: 20px;
   font-weight: 500;
-  font-family: var(--font-manrope);
-  color: var(--color-white);
-  text-decoration: none;
+  margin-left: 1.5vw;
+  margin-top: 4vh;
+  font-size: 0.8rem;
 }
 
-.objects-column img {
+.menu-items-container {
+  margin-top: 6vh;
+}
+
+.menu-item-dashboard {
+  display: flex;
+  align-items: center;
+  color: var(--color-white);
+  font-size: 0.820rem;
+  margin-bottom: 2vh;
+  padding-left: 0.66vw;
+  border-left: #fec600 solid 4px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  color: var(--color-white);
+  font-size: 0.820rem;
+  margin-bottom: 2vh;
+  padding-left: 1vw;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+}
+
+.menu-item img, .menu-item-dashboard img {
   width: 15px;
   height: 15px;
+  margin-top: 0.8vh;
   filter: invert(100%);
-  transform: translateY(3px);
 }
 
-.menu-active4,
-.objects-column-frame {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.objects-column-frame {
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 1px 0 0;
-  gap: 30px;
-}
-
-.active-line-frame {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 4px 0 0 23px;
-  position: relative;
-  font-size: var(--font-size-lg);
-  color: var(--color-gainsboro);
-  font-family: var(--font-font-awesome-6-pro);
-}
-
-.main-frame {
-  width: 275px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 43px;
-  text-align: left;
-  font-size: var(--font-size-3xl);
-  color: var(--color-white);
-  font-family: var(--font-raleway);
-}
-
-.sidebar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.sidebar {
-  text-align: left;
-  font-size: var(--font-size-lg);
-  color: var(--color-gainsboro);
-  font-family: var(--font-font-awesome-6-pro);
-}
-
-.sidebar {
-  width: 18vw;
-  position: relative;
-  overflow: hidden;
-  flex-direction: column;
-  padding: 26px 8px 44px 0;
-  box-sizing: border-box;
-  gap: 567px;
-  height: 100%;
-  border-radius: 23px;
+.lower-menu-container {
+  margin-bottom: 4vh;
 }
 
 .hr-element {
   border: none;
-  height: 0.8px;
-  width: 100%;
+  height: 0.1vh;
   color: white;
   background-color: white;
   position: relative;
-  right: 0.7vw;
-}
-
-.lower-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 28vh;
+  margin-right: 0.5vw;
+  margin-left: 0.5vw;
 }
 
 .lower-item, .lower-item2 {
   display: flex;
   align-items: center;
+  color: var(--color-gainsboro);
   gap: 0.5vw;
   margin-bottom: -2vh;
+  margin-left: 1vw;
 }
 
 .lower-item img {
@@ -275,6 +115,7 @@ body {
   width: 15px;
   height: 15px;
   cursor: pointer;
+  margin-left: 0.01vw;
 }
 
 .lower-item p, .lower-item2 p {
@@ -283,8 +124,16 @@ body {
   cursor: pointer;
 }
 
+.lower-item2 p {
+  margin-left: 0.17vw;
+}
+
 .lower-item div {
   display: flex;
   align-items: center;
   gap: 0.5vw;
+}
+
+.title {
+  font-size: 0.9rem;
 }

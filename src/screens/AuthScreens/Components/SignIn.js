@@ -60,7 +60,7 @@ const SignIn = (props) => {
                 props.Progress(100);
 
                 navigate("/dashboard");
-
+                handleToastDisplay("You have successfully logged in!", "success");
             }).catch(error => {
                 props.Progress(100);
                 clearFields();
@@ -140,7 +140,13 @@ const SignIn = (props) => {
                     <div className="cantSignIn" onClick={() => navigate("/forgotpassword")}>
                         Can’t sign in?
                     </div>
-                    <button className="submitButton" type="Submit" disabled={!isFormValid()}>
+                    <button 
+                        className="submitButton" 
+                        type="Submit"
+                        title={!isFormValid() ? 
+                            "You cannot sign in until all the required fields are filled." : ""} 
+                        disabled={!isFormValid()}
+                    >
                         Sign In
                     </button>
                 </div>

@@ -1,81 +1,10 @@
-.header {
-    height: 10%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 77vw;
-    margin: auto;
-}
-
-.header .title,
-.header .profile {
-    display: flex;
-}
-
-.profile{
-    /* margin-right:20px ; */
-    transform: translateX(-15px);
-}
-
-.title img{
-    width: 15px;
-    height: 15px;
-}
-.profile img {
-    width: 22px;
-    height: 22px;
-}
-
-.profile img:hover{
-    cursor: pointer;
-
-}
-
-.title img {
-    filter: invert(50%);
-}
-
-.title p,
-.user-profile p:first-child {
-    font-size: 17px;
-    margin-left: 7px;
-
-}
-
-.title p {
-    color: rgba(132, 129, 138, 0.77);
-}
-
-.user-profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    margin-top: 4px;
-}
-
-.user-profile p {
-    margin: -3px 0 -3px 10px;
-}
-
-.user-profile p:last-child {
-    font-size: 10px;
-    color: rgba(132, 129, 138, 0.77);
-    margin-top: 2px;
-}
-
-
-.title,
-.profile {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
-
 .IP-Section {
     padding: 10px;
+}
+
+.dashboard {
+    width: 100%;
+    height: 100%;
 }
 
 .Registered-IP,
@@ -85,9 +14,13 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    padding: 10px 15px;
-    border-radius: 23px;
-    width: 75vw;
+    padding: 0vh 1.25vw;
+    padding-bottom: 2vh;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2.5vh;
 }
 
 .Registered-IP>p,
@@ -115,7 +48,7 @@
     height: 100%;
     justify-content: space-around;
     align-items: center;
-
+    width: 18vw;
 }
 
 .menu img {

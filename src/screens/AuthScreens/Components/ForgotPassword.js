@@ -90,7 +90,13 @@ const ForgotPassword = (props) => {
                     />
                     <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="submit" disabled={email === ""}>
+                <button 
+                    className="submitButton sendRecoveryEmailButton" 
+                    type="submit"
+                    title={email === "" ? 
+                        "You cannot send recovery email until all the required field is filled." : ""} 
+                    disabled={email === ""}
+                >
                     Send Recovery Email
                 </button>
             </form>

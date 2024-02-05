@@ -13,7 +13,8 @@ const CreateNewPassword = (props) => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         newPassword: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isNew: true
     });
 
     useEffect(() => {
@@ -42,27 +43,22 @@ const CreateNewPassword = (props) => {
             return;
         }
 
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            isNew: true,
-        }));
-
         await axios.put(`/ipo/users/changePassword/${user._id}`, formData)
             .then(response => {
                 handleToastDisplay("You have successfully updated your password!", "success");
                 navigate("/signin");
             }).catch(error => {
-                // clearFields();
+                clearFields();
                 if (error.response !== undefined) {
                     if (error.response.data) {
                         handleToastDisplay(`${error.response.data.error}`, "error");
                     } else {
-                        handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                        handleToastDisplay("Error inserting data", "error");
                     }
-                } else {
-                    handleToastDisplay("Error inserting data", "error");
-                }
-            });
+                };
+            })
+
+
     };
 
     const handleToastDisplay = (message, type) => {
@@ -140,7 +136,13 @@ const CreateNewPassword = (props) => {
                     </span>
                     <div className="line" />
                 </div>
-                <button className="submitButton sendRecoveryEmailButton" type="Submit" disabled={areRequiredFieldsEmpty()}>
+                <button
+                    className="submitButton sendRecoveryEmailButton"
+                    type="Submit"
+                    title={areRequiredFieldsEmpty() ?
+                        "You cannot change your password until all the required fields are filled." : ""}
+                    disabled={areRequiredFieldsEmpty()}
+                >
                     Change password
                 </button>
             </form>

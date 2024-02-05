@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ChangePass from './assets/components/ChangePass';
 import UserProfile from './assets/components/UserProfile';
 import IPO_Dashboard from './assets/pages/IPO_Dashboard';
@@ -12,9 +12,9 @@ import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import NotFoundPage from './assets/pages/NotFoundPage';
-import React, { useState } from 'react'
 import LoadingBar from 'react-top-loading-bar'
 
+import { ToastContainer } from "react-toastify";
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
   const loadingProgress = (progress) => {
     setProgress(progress)
   }
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const path = document.location.pathname;
@@ -45,24 +46,24 @@ function App() {
     } else if (isLogin && autthRoutes.includes(path)) {
       navigate("/dashboard");
     }
-
-    if (path === "/signin")
-      document.title = "Sign In - IPO"
+    
+    if (path === "/signin") 
+      document.title = "Sign In - IPO";
     else if (path === "/signup")
-      document.title = "Sign Up - IPO"
+      document.title = "Sign Up - IPO";
     else if (path === "/forgotpassword")
-      document.title = "Forgot Password - IPO"
+      document.title = "Forgot Password - IPO";
     else if (path === "/createpassword")
-      document.title = "Create Password - IPO"
+      document.title = "Create Password - IPO";
     else if (path === "/verification")
-      document.title = "Verification - IPO"
+      document.title = "Verification - IPO";
     else if (path === "/dashboard")
-      document.title = "Dashboard - IPO"
+      document.title = "Dashboard - IPO";
     else if (path === "/profile")
-      document.title = "Profile - IPO"
+      document.title = "Profile - IPO";
     else if (path === "/changepassword")
-      document.title = "Change Password - IPO"
-
+      document.title = "Change Password - IPO";
+    setTitle(document.title.replace(" - IPO", ""));
   });
 
   return (
@@ -74,9 +75,9 @@ function App() {
         height={2}
       />
       <Routes>
-        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />} />} />
-        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} />} />
-        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} />} />
+        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
+        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
         <Route path="/signup" element={<AuthHome screen={<SignUp Progress={loadingProgress} />} />} />
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword Progress={loadingProgress} />} />} />
@@ -85,6 +86,19 @@ function App() {
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
 
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{marginTop: "5vh"}}
+      />
     </div >
   );
 }
