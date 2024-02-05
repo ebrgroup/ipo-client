@@ -1,38 +1,29 @@
 .Dashboard-Section{
-<<<<<<< HEAD
-    width: 98.5vw;
-    /* height: fit-content; */
-=======
-    width: 100vw;
+    width: 98.7vw;
     height: fit-content;
->>>>>>> 3de42ae40a196c02ab92d99ce3c793aecd5c879c
     background-color: ivory;
     display: flex;
 }
 
 .left-Subsection{
-<<<<<<< HEAD
-    width: 18%;
-    height: 96vh;
-    margin: 2px;
-=======
     width: 15.5vw;
     height: 98.8vh;
     padding: 0.6vh 0.3vw;
     position: fixed;
->>>>>>> 3de42ae40a196c02ab92d99ce3c793aecd5c879c
 }
 
 .right-Subsection{
     width: 85vw;
     margin-left: 16.1vw;
-    min-height: 89.8vh;
     padding: 0vh 0.5vw;
+    height: fit-content;
+    box-sizing: border-box;
     font-family: Poppins;
 }
 
 .screenContent {
-    height: calc(100vh - 10.15vh);
+    min-height: calc(100vh - 10.15vh);
+    box-sizing: border-box;
     margin-top: 10.15vh;
 }
 
