@@ -1,10 +1,6 @@
-.IP-Section {
-    /* padding: 10px; */
-}
-
 .dashboard {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 10.15vh);
 }
 
 .Registered-IP,
@@ -12,15 +8,18 @@
     display: flex;
     background-color: #ffff;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: space-between;
+    align-items: center;
     padding: 0vh 1.25vw;
-    padding-bottom: 2vh;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
     border-radius: 10px;
     box-sizing: border-box;
     width: 100%;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 2.5vh;
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0px 0px 10px rgba(171, 170, 170, 0.727);
+    /* margin-bottom: 2.5vh; */
+    /* background-color: blue; */
 }
 
 .Registered-IP>p,
@@ -36,6 +35,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    font-size: 1.1rem;
 }
 
 .IPMenus>.menu {
@@ -67,24 +67,46 @@
 
 .IPMenus>.Trademark {
     background-color: #15cab8;
-    width: 14vw;
+    width: 17vw;
 }
 
 .IPMenus>.Patent {
     background-color: #44a6e9;
-    width: 14vw;
+    width: 17vw;
 }
 
 .IPMenus>.Design {
     background-color: #ff8548;
-    width: 14vw;
+    width: 17vw;
 }
 
 .IPMenus>.Copyright {
     background-color: #ff6a6a;
-    width: 14vw;
+    width: 17vw;
 }
 
 .Applied-IP {
     margin-top: 10px;
+}
+
+.dashboardHeadingDiv {
+    font-weight: bold;
+    color: white;
+    height: 6vh;
+    width: 20vw;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    /* background-color: #ffd700; */
+    background: linear-gradient(to right, #02aab0, #00cdac);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5vh 0vw;
+    margin-bottom: 3.2vh;
+}
+
+.registeredDiv {
+    padding-top: 5vh;
+    padding-bottom: 0vh;
 }

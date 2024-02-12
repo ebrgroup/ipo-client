@@ -218,28 +218,16 @@ function UserProfile() {
 
     return (
         <div className='profile-container'>
-            <section className="profile-image">
-                <div className='profile-image-container'>
-                    <h2>{`${user_profile.firstName} ${user_profile.lastName}`}</h2>
-                    <div className='profile-image-span'>
-                    <img src={userIcon} alt="" />
-                    <div className="input-div">
+            <section className="profile-info">
+                <div className="editProfilePicDiv">
+                    <h2>Edit Profile</h2>
+                    <div>
+                        <span>
+                            <img src={userIcon} alt="" />
+                        </span>   
                         <input className='file-input' name="file" type="file" id="file-input" />
-                        <label htmlFor="file-input">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" 
-                                stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                                <line y2="21" x2="12" y1="12" x1="12"></line>
-                                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                            </svg>
-                        </label>
-                    </div>
                     </div>
                 </div>
-            </section>
-            <section className="profile-info">
-                <h2>Edit Profile</h2>
                 <form className='form' onSubmit={handleSubmit}>
                     <div className='flex'>
                         <div class="coolinput">
@@ -273,8 +261,8 @@ function UserProfile() {
                     </div>
                     <span className='gender-container'>
                         <p className="genderUpdateLabel">Gender: </p>
-                        <div class="mydict">
-                            <div>
+                        <div>
+                            <div className="genderOptionsDiv">
                                 <label>
                                     <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
                                     <span>Male</span>

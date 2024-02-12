@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import userIcon from '../Icons/image@2x.png';
 import dashboardIcon from '../Icons/bars-sort.png';
 import { useSelector } from 'react-redux';
+import ProfileDropdown from './Components/ProfileDropdown';
 
 function Main_Dashboard(props) {
   const navigate = useNavigate();
   const userFirstName = useSelector(state => state.userReducer.userData?.firstName);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   return (
     <main className="Dashboard-Section">
@@ -26,15 +28,18 @@ function Main_Dashboard(props) {
               <img
                 src={userIcon}
                 onClick={() => {
-                  navigate('/profile');
+                  setShowProfileDropdown(!showProfileDropdown);
                 }}
               />
             </span>
             <div className="user-profile">
-              <p>{userFirstName}</p>
+              <p className='firstName' onClick={() => {
+                  setShowProfileDropdown(!showProfileDropdown);
+                }}>{userFirstName}</p>
               <p>USER</p>
             </div>
           </div>
+          {showProfileDropdown && <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown}/>}
         </div>
         <div className="screenContent">{props.screen}</div>
       </div>
