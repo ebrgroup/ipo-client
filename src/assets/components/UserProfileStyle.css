@@ -1,6 +1,7 @@
 .profile-container {
   width: 100%;
-  padding: 3vh 1vw;
+  padding: 0vh 1vw;
+  padding-bottom: 3vh;
   box-sizing: border-box;
   overflow: auto;
 }
@@ -79,7 +80,7 @@
   flex-wrap: wrap;
 }
 
-.flex input {
+.flex .coolinput input {
   width: 22vw;
 }
 
@@ -183,70 +184,14 @@
   width: 24vw;
   padding-top: 1.5vh;
   padding-right: 0.17vw;
-}
+} */
 
-.gender-container b {
+/* .gender-container b {
   margin-top: 1vh;
   margin-right: 1.5vw;
   font-size: 0.95rem;
   color: #036666;
-}
-
-.mydict:focus {
-  outline: 0;
-  border-color: #036666;
-  box-shadow: 0 0 0 4px #b5c9fc;
-}
-
-.mydict div {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-  justify-content: space-between;
-}
-
-.mydict input[type="radio"] {
-  clip: rect(0 0 0 0);
-  clip-path: inset(100%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.mydict input[type="radio"]:checked + span {
-  box-shadow: 0 0 0 0.0625em #036666;
-  background-color: #dee7ff;
-  z-index: 1;
-  color: #036666;
-}
-
-.mydict label span {
-  display: block;
-  cursor: pointer;
-  background-color: #fff;
-  padding: 0.75em 1.69em;
-  position: relative;
-  margin-left: .0625em;
-  box-shadow: 0 0 0 0.0625em #b5bfd9;
-  letter-spacing: .05em;
-  color: #3e4963;
-  text-align: center;
-  transition: background-color .5s ease;
-}
-
-.mydict label {
-  font-size: 0.8rem;
-}
-
-.mydict label:first-child span {
-  border-radius: .375em 0 0 .375em;
-}
-
-.mydict label:last-child span {
-  border-radius: 0 .375em .375em 0;
-}
+} */
 
 .input {
   width: 49vw;
@@ -324,7 +269,7 @@
   font-size: 0.8rem;
   font-weight: bold;
   color: #036666;
-  margin-bottom: 1vh;
+  /* margin-bottom: 1vh; */
   margin-left: 0.15vw;
 }
 
@@ -349,4 +294,49 @@
   font-size: 0.8rem;
   font-weight: bold;
   color: #036666;
+}
+
+.editProfilePicDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2vh 0vw;
+}
+
+.editProfilePicDiv div {
+  margin-right: 13.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editProfilePicDiv div input {
+  width: 13vw;
+}
+
+.genderOptionsDiv {
+  font-size: 0.85rem;
+  display: flex;
+  width: 18.5vw;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0vh 0.5vw;
+}
+
+.genderOptionsDiv label {
+  cursor: pointer;
+}
+
+.genderOptionsDiv label input {
+  cursor: pointer;
+  margin-right: 0.5vw;
+}
+
+.gender-container {
+  display: flex;
+  width: 24vw;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-top: 3vh;
 }

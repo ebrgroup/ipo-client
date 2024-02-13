@@ -244,16 +244,16 @@ function UserProfile() {
     
     return (
         <div className='profile-container'>
-            <section className="profile-image">
-                <div className='profile-image-container'>
-                    <h2>{`${user_profile.firstName} ${user_profile.lastName}`}</h2>
-                    <div className='profile-image-span'>
-                    <img src={userIcon} alt="" />
+            <section className="profile-info">
+                <div className="editProfilePicDiv">
+                    <h2>Edit Profile</h2>
+                    <div>
+                        <span>
+                            <img src={userIcon} alt="" />
+                        </span>   
+                        <input className='file-input' name="file" type="file" id="file-input" />
                     </div>
                 </div>
-            </section>
-            <section className="profile-info">
-                <h2>Edit Profile</h2>
                 <form className='form' onSubmit={handleSubmit}>
                     <div className='flex'>
                     <div className={`coolinput ${errors.firstNameError && user_profile.firstName === "" ? 'error' : ''}`}>
@@ -312,8 +312,8 @@ function UserProfile() {
                     </div>
                     <span className='gender-container'>
                         <p className="genderUpdateLabel">Gender: </p>
-                        <div class="mydict">
-                            <div>
+                        <div>
+                            <div className="genderOptionsDiv">
                                 <label>
                                     <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
                                     <span>Male</span>

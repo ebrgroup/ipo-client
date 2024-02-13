@@ -11,4 +11,3 @@ export const updateUser = (id, user) =>
         dispatch(updateProfile(response.data.userData));
         dispatch(loadingBar(100))
     };
-
