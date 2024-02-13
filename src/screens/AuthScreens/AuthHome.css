@@ -81,7 +81,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 1.4vh 0 0;
+    padding: 1.7vh 0 0;
     gap: 0.6vh;
     margin: 3.1vh 0vw;
     position: relative;
@@ -203,25 +203,27 @@
 }
 
 .signUpInputDiv {
-    margin: 1.9vh 0vw;
+    margin: 2vh 0vw;
 }
 
 .agreeCheckBox {
     height: 2.5vh;
-    width: 2.5vw;
+    width: fit-content;
     cursor: pointer;
+    justify-self: flex-start;
+    margin-right: 0vw;
 }
 
 .termsText {
     color: #555555;
     font-size: 1.05vw;
-    width: 27vw;
+    width: 27.5vw;
 }
 
 .redTermsText {
     color: rgb(255, 55, 55);
     font-size: 1.05vw;
-    width: 27vw;
+    width: 27.5vw;
 }
 
 .errorText {
@@ -318,3 +320,7 @@
         width: 80vw; */
     /* }  */
 /* }  */
+
+.passwordDiv {
+    margin: 0;
+}

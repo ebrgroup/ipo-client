@@ -26,7 +26,8 @@ const SignUp = (props) => {
         showPhoneError: false,
         showPasswordError: false,
         showConfirmPasswordError: false,
-        showServiceProviderError: false
+        showServiceProviderError: false,
+        showAgreeTermsError: false
     });
     const [validatedUser, setValidatedUser] = useState(false);
 
@@ -115,7 +116,8 @@ const SignUp = (props) => {
                 showPhoneError: true,
                 showPasswordError: true,
                 showConfirmPasswordError: true,
-                showServiceProviderError: true
+                showServiceProviderError: true,
+                showAgreeTermsError: true
             }));
         }
     };
@@ -153,7 +155,7 @@ const SignUp = (props) => {
     const areRequiredFieldsEmpty = () => {
         return !(Object.entries(formData).every(([key, value]) => {
             if (['showPassword', 'showConfirmPassword', 'isProviderMenuActive', 'showCnicError', 'showEmailError', 
-            'showPhoneError', 'showPasswordError', 'showConfirmPasswordError'].includes(key)) {
+            'showPhoneError', 'showPasswordError', 'showConfirmPasswordError', 'showAgreeTermsError'].includes(key)) {
                 return true;
             } else if (key === 'serviceProvider' && value === "Service Provider") {
                 return false;
@@ -166,6 +168,7 @@ const SignUp = (props) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
             agreeTerms: !prevFormData.agreeTerms,
+            showAgreeTermsError: true
         }));
     };
 
@@ -259,7 +262,7 @@ const SignUp = (props) => {
                         "Email address should be of valid format." : "")) : ""}
                     </span>
                 </div>
-                <div className="twoInputFieldsDiv">
+                <div className="twoInputFieldsDiv serviceProviderDivMargin">
                     <span>
                         <Combobox
                             selectedItem={formData.serviceProvider}
@@ -296,7 +299,7 @@ const SignUp = (props) => {
                         </span>
                     </div>
                 </div>
-                <div className="inputDiv signUpInputDiv">
+                <div className="inputDiv signUpInputDiv passwordDiv">
                     <input
                         className="inputField passwordField"
                         placeholder="Password"
@@ -342,10 +345,8 @@ const SignUp = (props) => {
                     </span>
                 </div>
                 <div className="twoInputFieldsDiv">
-                    <div>
-                        <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
-                    </div>
-                    <p className={formData.isEmptyFieldsError && !formData.agreeTerms ? "redTermsText" : "termsText"}>
+                    <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
+                    <p className={formData.showAgreeTermsError && !formData.agreeTerms ? "redTermsText" : "termsText"}>
                         By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy Policy.
                     </p>
                 </div>
