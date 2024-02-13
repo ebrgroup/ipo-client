@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-
 function ChangePass(props) {
     const User_ID = useSelector(state => state.userReducer.userData?._id);
     const navigate = useNavigate();

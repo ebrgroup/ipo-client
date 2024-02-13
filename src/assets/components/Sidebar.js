@@ -38,23 +38,25 @@ function Sidebar() {
                                 <Link to="/dashboard">Dashboard</Link>
                             </div>
                         </div>
-                        <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <div className="menu-item">
                             <div className="menu-icon">
                                 <img src={menuIcon} alt="" />
                             </div>
-                            <div className="title">Register IP</div>
+                            <div className="title">
+                                <Link to="/registerip">Register IP</Link>
+                            </div>
                         </div>
-                        <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <div className="menu-item">
                             <div className="menu-icon">
                                 <img src={menuIcon} alt="" />
                             </div>
                             <div className="title">Search IP</div>
                         </div>
-                        <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <div className="menu-item">
                             <div className="menu-icon">
                                 <img src={menuIcon} alt="" />
                             </div>
-                            <div className="title" onClick={() => navigate("/dashboard")}>
+                            <div className="title">
                                 Track IP Status
                             </div>
                         </div>

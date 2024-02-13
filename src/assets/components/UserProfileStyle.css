@@ -74,7 +74,6 @@
 .flex {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
@@ -150,6 +149,14 @@
   width: fit-content;
 }
 
+.coolinput.error label.text {
+  color: red;
+}
+
+.coolinput.error input[type=text].input {
+  border: 2px red solid;
+}
+
 .coolinput input[type=text].input {
   padding: 11px 10px;
   font-size: 0.75rem;
@@ -160,6 +167,12 @@
 
 .coolinput input[type=text].input:focus {
   outline: none;
+}
+
+.FieldError {
+  margin-top: 1%;
+  color: red;
+  font-size: 12px;
 }
 
 .gender-container {

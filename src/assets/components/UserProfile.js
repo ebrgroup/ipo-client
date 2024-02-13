@@ -8,6 +8,13 @@ import { toast } from 'react-toastify';
 import Combobox from './Combobox/Combobox'
 import CitySearchComboBox from './SearchComboBox/CitySearchComboBox'
 
+
+const ErrorMessage = (prop) => {
+    return (
+      <p className="FieldError">{ prop.error }</p>
+    );
+  };
+
 function UserProfile() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,6 +45,20 @@ function UserProfile() {
         provinceMenuOptions: [ 
             "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
         ]
+    });
+
+    const [errors, setErrors] = useState({
+        cnicError: false,
+        emailError: false,
+        phoneError: false,
+        passwordError: false,
+        firstNameError: false,
+        lastNameError: false,
+        landlineNumError: false,
+        faxNumError: false,
+        addressError: false,
+        provinceError: false,
+        cityError: false,
     });
 
     const toggleMenu = (menuType) => {
@@ -216,6 +237,11 @@ function UserProfile() {
         }
     };
 
+    const validateEmail = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return !emailRegex.test(user_profile.email) ? true : false;
+    };
+    
     return (
         <div className='profile-container'>
             <section className="profile-image">
@@ -223,18 +249,6 @@ function UserProfile() {
                     <h2>{`${user_profile.firstName} ${user_profile.lastName}`}</h2>
                     <div className='profile-image-span'>
                     <img src={userIcon} alt="" />
-                    <div className="input-div">
-                        <input className='file-input' name="file" type="file" id="file-input" />
-                        <label htmlFor="file-input">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" 
-                                stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                                <line y2="21" x2="12" y1="12" x1="12"></line>
-                                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-                                <polyline points="16 16 12 12 8 16"></polyline>
-                            </svg>
-                        </label>
-                    </div>
                     </div>
                 </div>
             </section>
@@ -242,34 +256,59 @@ function UserProfile() {
                 <h2>Edit Profile</h2>
                 <form className='form' onSubmit={handleSubmit}>
                     <div className='flex'>
-                        <div class="coolinput">
+                    <div className={`coolinput ${errors.firstNameError && user_profile.firstName === "" ? 'error' : ''}`}>
                             <label for="input" class="text">First Name:</label>
                             <input type="text" placeholder="Write here..." name="firstName" class="input"
-                                onChange={handleChange} value={user_profile.firstName} />
+                                onChange={handleChange} value={user_profile.firstName}
+                                onBlur={ user_profile.firstName === "" ? (e) => setErrors({ ...errors, firstNameError: true }) : null }
+                                onFocus={ (e) => setErrors({ ...errors, firstNameError: false }) } />
+                                {errors.firstNameError ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
-                        <div class="coolinput">
+                        <div className={`coolinput ${errors.lastNameError && user_profile.lastName === "" ? 'error' : ''}`}>
                             <label for="input" class="text">Last Name:</label>
                             <input type="text" placeholder="Write here..." name="lastName" class="input"
-                                onChange={handleChange} value={user_profile.lastName} />
+                                onChange={handleChange} value={user_profile.lastName} 
+                                onBlur={ user_profile.lastName === "" ? (e) => setErrors({ ...errors, lastNameError: true }) : null }
+                                onFocus={ (e) => setErrors({ ...errors, lastNameError: false }) } />
+                                {errors.lastNameError ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
                     </div>
                     <div className='flex'>
-                        <div class="coolinput">
+                        <div className={`coolinput ${errors.emailError && (user_profile.email === "" || validateEmail()) ? 
+                            'error' : ''}`}>
                             <label for="input" class="text">@Email:</label>
-                            <input type="text" placeholder="Write here..." name="email" class="input"
-                                onChange={handleChange} value={user_profile.email} />
+                            <input type="text" placeholder="Write here..." name="email" 
+                                className="input"
+                                onChange={handleChange} value={user_profile.email} 
+                                onBlur={ () => setErrors({ ...errors, emailError: true }) }
+                                onFocus={ (e) => setErrors({ ...errors, emailError: false }) } />
+                                {errors.emailError && user_profile.email === "" ? <ErrorMessage error="This field is required!" /> : null}
+                                {errors.emailError && user_profile.email !== "" ? validateEmail() ? 
+                                    <ErrorMessage error="Please enter valid email address! " /> : null : null}
                         </div>
-                        <div class="coolinput">
+                        <div className={`coolinput ${errors.cnicError && (user_profile.email === "" || user_profile.cnic.length < 13) ?
+                                         'error' : ''}`}>
                             <label for="input" class="text">#CNIC:</label>
                             <input type="text" placeholder="Write here..." name="cnic" class="input" 
-                                onChange={handleChange} value={user_profile.cnic} />
+                                onChange={handleChange} value={user_profile.cnic} 
+                                onBlur={ () => setErrors({ ...errors, cnicError: true }) }
+                                onFocus={ (e) => setErrors({ ...errors, cnicError: false }) } />
+                                {errors.cnicError && user_profile.cnic === "" ? <ErrorMessage error="This field is required!" /> : null}
+                                {errors.cnicError && user_profile.cnic !== "" && user_profile.cnic.length < 13  ? 
+                                    <ErrorMessage error="Please enter valid cnic number! " /> : null}
                         </div>
                     </div>
                     <div className='flex'>
-                    <div class="coolinput">
+                    <div className={`coolinput ${errors.phoneError && (user_profile.phone === "" || user_profile.phone.length < 11) ?
+                                         'error' : ''}`}>
                         <label for="input" class="text">#Phone Number:</label>
                         <input type="text" placeholder="Write here..." name="phone" class="input" 
-                            onChange={handleChange} value={user_profile.phone} />
+                            onChange={handleChange} value={user_profile.phone} 
+                            onBlur={ () => setErrors({ ...errors, phoneError: true }) }
+                            onFocus={ (e) => setErrors({ ...errors, phoneError: false }) } />
+                            {errors.phoneError && user_profile.phone === "" ? <ErrorMessage error="This field is required!" /> : null}
+                            {errors.phoneError && user_profile.phone !== "" && user_profile.phone.length < 11  ? 
+                                <ErrorMessage error="Please enter valid phone number! " /> : null}
                     </div>
                     <span className='gender-container'>
                         <p className="genderUpdateLabel">Gender: </p>
@@ -292,18 +331,20 @@ function UserProfile() {
                         </span>
                     </div>
                     <div className='flex'>
-                    <span className='combobox-container'>
-                        <p className="combobox-label">Province: </p>
-                        <Combobox
-                        selectedItem={user_profile.province}
-                        menuType="province"
-                        isMenuActive={user_profile.isProvinceMenuActive}
-                        toggleMenu={toggleMenu}
-                        options={user_profile.provinceMenuOptions}
-                        handleOptionClick={handleOptionClick}
-                        width="18vw"
-                        />
-                    </span>
+                    <div>
+                        <span className='combobox-container'>
+                            <p className="combobox-label">Province: </p>
+                            <Combobox
+                            selectedItem={user_profile.province}
+                            menuType="province"
+                            isMenuActive={user_profile.isProvinceMenuActive}
+                            toggleMenu={toggleMenu}
+                            options={user_profile.provinceMenuOptions}
+                            handleOptionClick={handleOptionClick}
+                            width="18vw"
+                            />
+                        </span>
+                    </div>
                     <span className='combobox-container'>
                         <p className="combobox-label">City: </p>
                         <CitySearchComboBox 
@@ -317,22 +358,33 @@ function UserProfile() {
                         />
                     </span>
                     </div>
-                    <div class="coolinput addressDiv">
+                    <div className={`coolinput addressDiv ${errors.addressError ? 'error' : ''}`}>
                         <label for="input" class="text">Address:</label>
                         <input type="text" placeholder="Write here..." name="address" class="input"
-                            onChange={handleChange} value={user_profile.address} />
+                            onChange={handleChange} value={user_profile.address} 
+                            onBlur={ user_profile.address === "" ? () => setErrors({ ...errors, addressError: true }) : null }
+                            onFocus={ (e) => setErrors({ ...errors, addressError: false }) } />
+                            {errors.addressError ? <ErrorMessage error="This field is required!" /> : null}
                     </div>
                     <div className='flex'>
-                        <div class="coolinput">
+                        <div className={`coolinput ${errors.landlineNumError ? 'error' : ''}`}>
                             <label for="input" class="text">#Landline:</label>
                             <input type="text" placeholder="Write here..." name="landlineNum" class="input"
-                                onChange={handleChange} value={user_profile.landlineNum} />
+                                onChange={handleChange} value={user_profile.landlineNum} 
+                                onBlur={ user_profile.landlineNum.length < 7 ? 
+                                            () => setErrors({ ...errors, landlineNumError: true }) : null }
+                                onFocus={ (e) => setErrors({ ...errors, landlineNumError: false }) } />
+                                {errors.landlineNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
                         </div>
-                        <div class="coolinput">
-                        <label for="input" class="text">#Fax:</label>
-                        <input type="text" placeholder="Write here..." name="faxNum" class="input" 
-                            onChange={handleChange} value={user_profile.faxNum} />
-                    </div>
+                        <div className={`coolinput ${errors.faxNumError ? 'error' : ''}`}>
+                            <label for="input" class="text">#Fax:</label>
+                            <input type="text" placeholder="Write here..." name="faxNum" class="input" 
+                                onChange={handleChange} value={user_profile.faxNum} 
+                                onBlur={ user_profile.faxNum.length < 7 ? 
+                                            () => setErrors({ ...errors, faxNumError: true }) : null }
+                                onFocus={ (e) => setErrors({ ...errors, faxNumError: false }) } />
+                                {errors.faxNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
+                        </div>
                     </div>
                     <div className="buttons">
                         <button 

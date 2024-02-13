@@ -13,7 +13,6 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import NotFoundPage from './assets/pages/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
-
 import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -63,6 +62,8 @@ function App() {
       document.title = "Profile - IPO";
     else if (path === "/changepassword")
       document.title = "Change Password - IPO";
+    else if (path == "/registerip")
+      document.title = "Register IP - IPO";
     setTitle(document.title.replace(" - IPO", ""));
   });
 
@@ -83,7 +84,7 @@ function App() {
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword Progress={loadingProgress} />} />} />
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
-        <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword />} />} />
+        <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
 
       </Routes>
