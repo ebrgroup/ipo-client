@@ -70,7 +70,7 @@ const ForgotPassword = (props) => {
     };
 
     return (
-        <div className="forgotPasswordDiv">
+        <div className="forgotPasswordDiv forgotPassScreen">
             <h2 className="formTypeHeading">
                 Forgot Password?
             </h2>

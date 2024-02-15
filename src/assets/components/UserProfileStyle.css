@@ -2,12 +2,16 @@
   width: 100%;
   padding: 3vh 1vw;
   box-sizing: border-box;
-  overflow: auto;
+
 }
 
 .profile-image {
-  width: 65%;
-  margin: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
 }
 
 .profile-image-container {
@@ -36,6 +40,12 @@
   background-color: #036666ab;
 }
 
+.profile-image-span {
+
+  width: 80%;
+  text-align: center;
+}
+
 .profile-info {
   background-color: white;
   box-shadow: 0px 0px 10px rgba(171, 170, 170, 0.727);
@@ -46,6 +56,8 @@
   margin-top: 3vh;
   box-sizing: border-box;
   padding: 10px 0;
+
+
 }
 
 .profile-info h2 {
@@ -101,41 +113,20 @@
   outline: none;
 }
 
-.buttons .cancelBtn {
-  width: 8vw;
-  height: 6vh;
-  text-align: center;
-  color: white;
-  margin: 5px;
-  border-radius: 15px;
-  border: none;
-  font-weight: 600;
-}
+
 
 .flex .genderBox {
   transform: translateX(-10px);
 }
 
-.cancelBtn:hover {
-  cursor: pointer;
-}
 
-.buttons .cancelBtn {
-  background-color: white;
-  color: black;
-  border: 1px solid #036666ab;
-}
-
-.cancelBtn:hover {
-  background-color: rgb(255, 28, 28);
-  color: white;
-}
 
 .coolinput {
   display: flex;
   flex-direction: column;
   width: fit-content;
   position: static;
+
 }
 
 .coolinput label.text {
@@ -202,7 +193,7 @@
   width: 1px;
 }
 
-.mydict input[type="radio"]:checked + span {
+.mydict input[type="radio"]:checked+span {
   box-shadow: 0 0 0 0.0625em #036666;
   background-color: #dee7ff;
   z-index: 1;
@@ -239,27 +230,63 @@
   width: 49vw;
 }
 
+
+.buttons .cancelBtn {
+  /* width: 7vw;
+  height: 6vh; */
+  padding: 0.7rem 1.6rem;
+
+  text-align: center;
+  /* outline: ; */
+  border: 1px solid black;
+  color: black;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 500;
+  /* padding: 0.8rem 1.5rem; */
+}
+
+.cancelBtn:hover {
+  cursor: pointer;
+}
+
+.buttons:hover .cancelBtn {
+  outline: none;
+  border: none;
+}
+
+.buttons .cancelBtn {
+  background-color: white;
+  color: black;
+  border: 1px solid #036666ab;
+}
+
+.cancelBtn:hover {
+  background-color: rgb(255, 28, 28);
+  outline: none;
+  border: none;
+  color: white;
+}
+
 .save-button {
-  width: 7.5vw;
-  height: 6vh;
+  padding: 0.7rem 1.6rem;
   font-family: inherit;
   background: #036666;
   color: white;
   fill: rgb(155, 153, 153);
-  display: flex;
-  align-items: center;
   cursor: pointer;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   font-weight: normal;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 500;
 }
 
 .save-button span {
   display: block;
-  /* margin-left: 0.3em; */
   transition: all 0.3s ease-in-out;
 }
 
@@ -286,6 +313,8 @@
 
 .save-button:hover {
   background: #036666;
+  outline: none;
+  border: none;
 }
 
 .save-button:hover .svg-wrapper {
@@ -329,11 +358,67 @@
   align-items: center;
   justify-content: space-between;
   width: 23.7vw;
-  margin-top: 1.5vh;
 }
 
 .combobox-label {
   font-size: 0.8rem;
   font-weight: bold;
   color: #036666;
+}
+
+@media (min-width : 576px) and (max-width:992px) {
+  .profile-info {
+    width: 90%;
+  }
+
+  .coolinput {
+    width: 45%;
+  }
+
+  .addressDiv {
+    width: 100%;
+  }
+}
+
+@media (max-width : 576px) {
+
+  .profile-info {
+    width: 100%;
+    padding: 1rem 1rem;
+  }
+
+  .coolinput {
+
+    width: 100%;
+
+  }
+
+  .gender-container {
+    width: 100%;
+    justify-content: start;
+    gap: 1rem;
+  }
+
+  .coolinput input {
+    width: 90%;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .flex {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .combobox-container {
+    width: 100%;
+  }
+
+
+  .profile-info>h2 {
+    margin: 0;
+  }
+
 }

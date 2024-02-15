@@ -121,7 +121,6 @@ function CitySearchComboBox(props) {
             isMenuActive={props.isMenuActive}
             toggleMenu={props.toggleMenu}
             handleOptionClick={props.handleOptionClick}
-            width={props.width}
             filteredOptions={filteredOptions}
             searchText={searchText}
             setSearchText={setSearchText}

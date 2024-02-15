@@ -103,6 +103,7 @@ const SignIn = (props) => {
 
     return (
         <div className="signUpDiv">
+            
             <h2 className="formTypeHeading">
                 Sign in
             </h2>
@@ -136,11 +137,11 @@ const SignIn = (props) => {
                     <div className="cantSignIn" onClick={() => navigate("/forgotpassword")}>
                         Can’t sign in?
                     </div>
-                    <button 
-                        className="submitButton" 
+                    <button
+                        className="submitButton"
                         type="Submit"
-                        title={!isFormValid() ? 
-                            "You cannot sign in until all the required fields are filled." : ""} 
+                        title={!isFormValid() ?
+                            "You cannot sign in until all the required fields are filled." : ""}
                         disabled={!isFormValid()}
                     >
                         Sign In

@@ -120,7 +120,7 @@ const Verification = (props) => {
     }, [otpVerified]);
 
     return (
-        <div className="forgotPasswordDiv">
+        <div className="forgotPasswordDiv  verificationScreen">
             <h2 className="formTypeHeading">
                 Verification
             </h2>

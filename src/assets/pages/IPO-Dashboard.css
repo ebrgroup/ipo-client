@@ -1,7 +1,3 @@
-.IP-Section {
-    /* padding: 10px; */
-}
-
 .dashboard {
     width: 100%;
     height: 100%;
@@ -18,7 +14,7 @@
     padding-bottom: 2vh;
     border-radius: 10px;
     box-sizing: border-box;
-    width: 100%;
+    width: 100%t;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 2.5vh;
 }
@@ -32,23 +28,21 @@
 .Registered-IP>.IPMenus,
 .Applied-IP>.IPMenus {
     width: 100%;
+    height: fit-content;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .IPMenus>.menu {
     display: flex;
-    flex-direction: row;
-    color: white;
-    padding: 1px 3px;
-    margin: 5px 0px;
-    border-radius: 12px;
-    height: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 18vw;
+    color: white;
+    padding: 2px 0.7rem;
+    margin: 0.4rem 0;
+    border-radius: 12px;
+    width: 24%;
 }
 
 .menu img {
@@ -67,24 +61,52 @@
 
 .IPMenus>.Trademark {
     background-color: #15cab8;
-    width: 14vw;
 }
 
 .IPMenus>.Patent {
     background-color: #44a6e9;
-    width: 14vw;
 }
 
 .IPMenus>.Design {
     background-color: #ff8548;
-    width: 14vw;
 }
 
 .IPMenus>.Copyright {
     background-color: #ff6a6a;
-    width: 14vw;
 }
 
 .Applied-IP {
     margin-top: 10px;
+}
+
+@media (min-width:768px) and (max-width:992px) {
+    .IPMenus .menu {
+        width: 27%;
+    }
+
+    .IPMenus {
+        flex-wrap: wrap;
+    }
+}
+
+@media (min-width:572px) and (max-width:768px) {
+    .IPMenus .menu {
+        width: 40%;
+    }
+
+    .IPMenus {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width:572px) {
+    .IPMenus .menu {
+        width: 85%;
+        margin: auto;
+        margin-top: 0.5rem;
+    }
+
+    .IPMenus {
+        flex-wrap: wrap;
+    }
 }

@@ -438,7 +438,7 @@ const SignUp = (props) => {
                     </span>
                     <div className="line" />
                 </div>
-                <div className="twoInputFieldsDiv">
+                <div className="twoInputFieldsDiv checkboxDiv">
                     <div>
                         <input type="checkbox" className="agreeCheckBox" checked={formData.agreeTerms} onChange={handleAgreeTermsChange} />
                     </div>

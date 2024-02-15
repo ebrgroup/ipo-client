@@ -105,7 +105,7 @@ const CreateNewPassword = (props) => {
     };
 
     return (
-        <div className="forgotPasswordDiv">
+        <div className="forgotPasswordDiv createPassScreen">
             <h2 className="formTypeHeading">
                 Create new password
             </h2>

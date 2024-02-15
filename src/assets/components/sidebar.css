@@ -18,6 +18,8 @@ body {
   height: 100%;
   border-radius: 15px;
   font-family: Poppins;
+
+  /* z-index: 99; */
 }
 
 .sidebar a {
@@ -32,6 +34,7 @@ body {
 
 .sidebar-header img {
   height: 7.5vw;
+
 }
 
 .sidebar-header b {
@@ -75,7 +78,8 @@ body {
   cursor: pointer;
 }
 
-.menu-item img, .menu-item-dashboard img {
+.menu-item img,
+.menu-item-dashboard img {
   width: 15px;
   height: 15px;
   margin-top: 0.8vh;
@@ -96,7 +100,8 @@ body {
   margin-left: 0.5vw;
 }
 
-.lower-item, .lower-item2 {
+.lower-item,
+.lower-item2 {
   display: flex;
   align-items: center;
   color: var(--color-gainsboro);
@@ -118,7 +123,8 @@ body {
   margin-left: 0.01vw;
 }
 
-.lower-item p, .lower-item2 p {
+.lower-item p,
+.lower-item2 p {
   font-size: 0.820rem;
   font-family: Poppins;
   cursor: pointer;
@@ -136,4 +142,92 @@ body {
 
 .title {
   font-size: 0.9rem;
+}
+
+.close .sidebar-header img {
+  width: 6rem;
+  height: 6rem;
+  transform: translateX(-15px);
+
+}
+
+.close .menu-items-container .menu-item {
+  width: 11rem;
+  gap: 1rem;
+  border-radius: 8px;
+  height: 2.5rem;
+}
+
+.close .menu-heading {
+  transform: translateX(-15px);
+}
+
+.close .menu-items-container .menu-item .title {
+  font-size: 17px;
+
+  color: rgba(255, 255, 255, 0);
+}
+
+
+.close .menu-items-container .menu-item img {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+
+.close .lower-menu-container img {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.close .lower-menu-container p {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0);
+
+}
+
+.close .menu-items-container .menu-item:hover {
+
+  background-color: #036666;
+  color: white;
+}
+
+.close .menu-items-container .menu-item:hover .title {
+  color: white;
+}
+
+.close .lower-menu-container .lower-item,
+.close .lower-menu-container .lower-item2 {
+  width: 12rem;
+   border-radius: 8px;
+  }
+  
+  .close .lower-menu-container .lower-item2{
+    gap: 1rem;
+    
+  }
+
+  .close .lower-menu-container .lower-item > div{
+    gap: 0.8rem;
+    
+  }
+
+.close .lower-menu-container .lower-item:hover {
+
+  background-color: #036666;
+  color: white;
+}
+
+.close .lower-menu-container .lower-item:hover p {
+
+  color: white;
+}
+
+.close .lower-menu-container .lower-item2:hover {
+  background-color: #036666;
+  color: white;
+}
+
+.close .lower-menu-container .lower-item2:hover p {
+  color: white;
 }

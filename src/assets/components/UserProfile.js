@@ -35,15 +35,14 @@ function UserProfile() {
         city: '',
         isProvinceMenuActive: false,
         isCityMenuActive: false,
-        provinceMenuOptions: [ 
+        provinceMenuOptions: [
             "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
         ]
     });
 
     const toggleMenu = (menuType) => {
         console.log(user_profile)
-        if(menuType === "serviceProvider")
-        {
+        if (menuType === "serviceProvider") {
             setUser_profile(prevuser_profile => ({
                 ...prevuser_profile,
                 isProviderMenuActive: !user_profile.isProviderMenuActive,
@@ -51,8 +50,7 @@ function UserProfile() {
                 isCityMenuActive: false
             }));
         }
-        else if(menuType === "province")
-        {
+        else if (menuType === "province") {
             setUser_profile(prevuser_profile => ({
                 ...prevuser_profile,
                 isProvinceMenuActive: !user_profile.isProvinceMenuActive,
@@ -60,12 +58,10 @@ function UserProfile() {
                 isCityMenuActive: false
             }));
         }
-        else if(menuType == "city")
-        {
-            if(user_profile.province === 'Province')
+        else if (menuType == "city") {
+            if (user_profile.province === 'Province')
                 return;
-            else
-            {
+            else {
                 setUser_profile(prevuser_profile => ({
                     ...prevuser_profile,
                     isCityMenuActive: !user_profile.isCityMenuActive,
@@ -77,14 +73,13 @@ function UserProfile() {
     };
 
     const handleOptionClick = (optionText, menuType) => {
-        if(menuType === "province")
-        {
+        if (menuType === "province") {
             setUser_profile((prevuser_profile) => ({
                 ...prevuser_profile,
                 city: prevuser_profile.province === optionText ? prevuser_profile.city : "City"
             }));
         }
-        
+
         toggleMenu(menuType);
 
         setUser_profile((prevuser_profile) => ({
@@ -97,7 +92,7 @@ function UserProfile() {
         const { name, value } = e.target;
         const getNumericValue = (input) => input.replace(/\D/g, '');
         let processedValue = value;
-    
+
         switch (name) {
             case 'cnic':
                 processedValue = getNumericValue(value).slice(0, 13);
@@ -110,12 +105,12 @@ function UserProfile() {
             default:
                 break;
         }
-    
+
         setUser_profile((prevState) => ({
             ...prevState,
             ...(name === "male" || name === "female" || name === "other" ? { gender: name } : { [name]: processedValue })
         }));
-    };    
+    };
 
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
@@ -124,7 +119,7 @@ function UserProfile() {
             ...User,
             isProvinceMenuActive: false,
             isCityMenuActive: false,
-            provinceMenuOptions: [ 
+            provinceMenuOptions: [
                 "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
             ]
         });
@@ -138,25 +133,24 @@ function UserProfile() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(user_profile.cnic.length !== 13) {
+        if (user_profile.cnic.length !== 13) {
             handleToastDisplay("CNIC should be 13 digits long.", "error");
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(user_profile.email))
-        {
+        if (!emailRegex.test(user_profile.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
-        if(user_profile.phone.length !== 11) {
+        if (user_profile.phone.length !== 11) {
             handleToastDisplay("Phone no. should be 11 digits long.", "error");
             return;
         }
-        if(user_profile.landlineNum.length !== 0 && user_profile.landlineNum.length < 7) {
+        if (user_profile.landlineNum.length !== 0 && user_profile.landlineNum.length < 7) {
             handleToastDisplay("Landline no. should be 7-11 digits long.", "error");
             return;
         }
-        if(user_profile.faxNum.length !== 0 && user_profile.faxNum.length < 7) {
+        if (user_profile.faxNum.length !== 0 && user_profile.faxNum.length < 7) {
             handleToastDisplay("Fax no. should be 7-11 digits long.", "error");
             return;
         }
@@ -165,7 +159,7 @@ function UserProfile() {
             navigate('/dashboard');
             handleToastDisplay("You have successfully updated your profile.", "success")
         }).catch((error) => {
-            if(error.response.data) {
+            if (error.response.data) {
                 handleToastDisplay(error.response.data.error, "error")
             } else {
                 handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
@@ -175,8 +169,8 @@ function UserProfile() {
 
     const areRequiredFieldsEmpty = () => {
         return !(Object.entries(user_profile).every(([key, value]) => {
-            if (['landlineNum', 'faxNum', 'isProviderMenuActive', 'isProvinceMenuActive', 
-            'isCityMenuActive'].includes(key)) {
+            if (['landlineNum', 'faxNum', 'isProviderMenuActive', 'isProvinceMenuActive',
+                'isCityMenuActive'].includes(key)) {
                 return true;
             } else if (key === 'serviceProvider' && value === "Service Provider") {
                 return false;
@@ -187,7 +181,7 @@ function UserProfile() {
             else if (key === 'city' && value === "City") {
                 return false;
             }
-            return value; 
+            return value;
         }));
     };
 
@@ -219,13 +213,13 @@ function UserProfile() {
     return (
         <div className='profile-container'>
             <section className="profile-image">
-                <div className='profile-image-container'>
-                    <h2>{`${user_profile.firstName} ${user_profile.lastName}`}</h2>
-                    <div className='profile-image-span'>
-                    <img src={userIcon} alt="" />
-                    <div className="input-div">
-                        <input className='file-input' name="file" type="file" id="file-input" />
-                        <label htmlFor="file-input">
+                {/* <div className='profile-image-container'> */}
+                {/* <h2>{`${user_profile.firstName} ${user_profile.lastName}`}</h2> */}
+                {/* <div className='profile-image-span'> */}
+                <img src={userIcon} alt="" />
+                <div className="input-div">
+                    <input className='file-input' name="file" type="file" id="file-input" />
+                    {/* <label htmlFor="file-input">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" 
                                 stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" className="icon">
                                 <polyline points="16 16 12 12 8 16"></polyline>
@@ -233,10 +227,10 @@ function UserProfile() {
                                 <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
                                 <polyline points="16 16 12 12 8 16"></polyline>
                             </svg>
-                        </label>
-                    </div>
-                    </div>
+                          </label> */}
                 </div>
+                {/* </div> */}
+                {/* </div> */}
             </section>
             <section className="profile-info">
                 <h2>Edit Profile</h2>
@@ -261,61 +255,63 @@ function UserProfile() {
                         </div>
                         <div class="coolinput">
                             <label for="input" class="text">#CNIC:</label>
-                            <input type="text" placeholder="Write here..." name="cnic" class="input" 
+                            <input type="text" placeholder="Write here..." name="cnic" class="input"
                                 onChange={handleChange} value={user_profile.cnic} />
                         </div>
                     </div>
                     <div className='flex'>
-                    <div class="coolinput">
-                        <label for="input" class="text">#Phone Number:</label>
-                        <input type="text" placeholder="Write here..." name="phone" class="input" 
-                            onChange={handleChange} value={user_profile.phone} />
-                    </div>
-                    <span className='gender-container'>
-                        <p className="genderUpdateLabel">Gender: </p>
-                        <div class="mydict">
-                            <div>
-                                <label>
-                                    <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
-                                    <span>Male</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange}/>
-                                    <span>Female</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange}/>
-                                    <span>Other</span>
-                                </label>
-                            </div>
+                        <div class="coolinput">
+                            <label for="input" class="text">#Phone Number:</label>
+                            <input type="text" placeholder="Write here..." name="phone" class="input"
+                                onChange={handleChange} value={user_profile.phone} />
                         </div>
+                        <span className='gender-container'>
+                            <p className="genderUpdateLabel">Gender: </p>
+                            <div class="mydict">
+                                <div>
+                                    <label>
+                                        <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange} />
+                                        <span>Male</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange} />
+                                        <span>Female</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange} />
+                                        <span>Other</span>
+                                    </label>
+                                </div>
+                            </div>
                         </span>
                     </div>
                     <div className='flex'>
-                    <span className='combobox-container'>
-                        <p className="combobox-label">Province: </p>
-                        <Combobox
-                        selectedItem={user_profile.province}
-                        menuType="province"
-                        isMenuActive={user_profile.isProvinceMenuActive}
-                        toggleMenu={toggleMenu}
-                        options={user_profile.provinceMenuOptions}
-                        handleOptionClick={handleOptionClick}
-                        width="18vw"
-                        />
-                    </span>
-                    <span className='combobox-container'>
-                        <p className="combobox-label">City: </p>
-                        <CitySearchComboBox 
-                        selectedItem={user_profile.city}
-                        province={user_profile.province}
-                        menuType="city"
-                        isMenuActive={user_profile.isCityMenuActive}
-                        toggleMenu={toggleMenu}
-                        handleOptionClick={handleOptionClick}
-                        width="18vw"
-                        />
-                    </span>
+                        <span className='combobox-container'>
+                            <p className="combobox-label">Province: </p>
+                            <Combobox
+                                selectedItem={user_profile.province}
+                                menuType="province"
+                                className="provinceCombobox"
+
+                                isMenuActive={user_profile.isProvinceMenuActive}
+                                toggleMenu={toggleMenu}
+                                options={user_profile.provinceMenuOptions}
+                                handleOptionClick={handleOptionClick}
+                            // width='18vw'
+                            />
+                        </span>
+                        <span className='combobox-container'>
+                            <p className="combobox-label">City: </p>
+                            <CitySearchComboBox
+                                selectedItem={user_profile.city}
+                                province={user_profile.province}
+                                menuType="city"
+                                isMenuActive={user_profile.isCityMenuActive}
+                                toggleMenu={toggleMenu}
+                                handleOptionClick={handleOptionClick}
+                            // width="18vw"
+                            />
+                        </span>
                     </div>
                     <div class="coolinput addressDiv">
                         <label for="input" class="text">Address:</label>
@@ -329,20 +325,20 @@ function UserProfile() {
                                 onChange={handleChange} value={user_profile.landlineNum} />
                         </div>
                         <div class="coolinput">
-                        <label for="input" class="text">#Fax:</label>
-                        <input type="text" placeholder="Write here..." name="faxNum" class="input" 
-                            onChange={handleChange} value={user_profile.faxNum} />
-                    </div>
+                            <label for="input" class="text">#Fax:</label>
+                            <input type="text" placeholder="Write here..." name="faxNum" class="input"
+                                onChange={handleChange} value={user_profile.faxNum} />
+                        </div>
                     </div>
                     <div className="buttons">
-                        <button 
+                        <button
                             className='save-button'
-                            type="Submit" 
+                            type="Submit"
                             disabled={areRequiredFieldsEmpty()}
-                            title={areRequiredFieldsEmpty() ? 
-                            "You cannot save until all the required fields are filled except Landline and Fax." : ""} 
+                            title={areRequiredFieldsEmpty() ?
+                                "You cannot save until all the required fields are filled except Landline and Fax." : ""}
                         >
-                            <div class="svg-wrapper-1">
+                            {/* <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -356,7 +352,7 @@ function UserProfile() {
                                     ></path>
                                 </svg>
                                 </div>
-                            </div>
+                            </div> */}
                             <span>Save</span>
                         </button>
                         <button className='cancelBtn' onClick={handleCancelbtn}>Cancel</button>
