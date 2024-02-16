@@ -12,40 +12,13 @@ function IPO_Dashboard(props) {
     }, [])
     return (
 
-        <section className='dashboard'>
-            <div className="IP-Section">
+        <div className='dashboard'>
+            <div className='registeredDiv'>
+
                 <div className="Registered-IP">
-                    <p className>Registered</p>
-                    <div className="IPMenus">
-                        <div className='Trademark menu'>
-                            <p>8</p>
-                            <p className="IP-title">TRADEMARK</p>
-                            <img src={trademarkIcon} alt="" />
-                        </div>
-
-                        <div className='Copyright menu'>
-                            <p>8</p>
-                            <p className="IP-title">COPYRIGHT</p>
-                            <img src={copyrightIcon} alt="" />
-                        </div>
-
-                        <div className='Patent menu'>
-                            <p>8</p>
-                            <p className="IP-title">PATENT</p>
-                            <img src={patentIcon} alt="" />
-                        </div>
-
-                        <div className='Design menu'>
-                            <p>8</p>
-                            <p className="IP-title">DESIGN</p>
-                            <img src={designIcon} alt="" />
-                        </div>
-
+                    <div className="dashboardHeadingDiv">
+                        <p>Registered</p>
                     </div>
-                </div>
-
-                <div className="Applied-IP">
-                    <p className>Applied</p>
                     <div className="IPMenus">
                         <div className='Trademark menu'>
                             <p>8</p>
@@ -74,7 +47,40 @@ function IPO_Dashboard(props) {
                     </div>
                 </div>
             </div>
-        </section>
+            <div className='registeredDiv'>
+                <div className="Applied-IP">
+                    <div className="dashboardHeadingDiv">
+                        <p>Applied</p>
+                    </div>
+                    <div className="IPMenus">
+                        <div className='Trademark menu'>
+                            <p>8</p>
+                            <p className="IP-title">TRADEMARK</p>
+                            <img src={trademarkIcon} alt="" />
+                        </div>
+
+                        <div className='Copyright menu'>
+                            <p>8</p>
+                            <p className="IP-title">COPYRIGHT</p>
+                            <img src={copyrightIcon} alt="" />
+                        </div>
+
+                        <div className='Patent menu'>
+                            <p>8</p>
+                            <p className="IP-title">PATENT</p>
+                            <img src={patentIcon} alt="" />
+                        </div>
+
+                        <div className='Design menu'>
+                            <p>8</p>
+                            <p className="IP-title">DESIGN</p>
+                            <img src={designIcon} alt="" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

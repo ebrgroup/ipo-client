@@ -1,11 +1,12 @@
 .profile-container {
   width: 100%;
-  padding: 3vh 1vw;
+  padding: 0vh 1vw;
+  padding-bottom: 3vh;
   box-sizing: border-box;
 
 }
 
-.profile-image {
+/* .profile-image {
 
   display: flex;
   justify-content: center;
@@ -38,13 +39,13 @@
 .profile-image button:hover {
   cursor: pointer;
   background-color: #036666ab;
-}
+} */
 
-.profile-image-span {
+/* .profile-image-span {
 
   width: 80%;
   text-align: center;
-}
+} */
 
 .profile-info {
   background-color: white;
@@ -59,6 +60,20 @@
 
 
 }
+
+.profile-info .editProfilePicDiv {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+}
+
+.profile-info .editProfilePicDiv div img {
+  width: 3.5rem;
+  height: 3.5rem;
+  /* transform: translateX(-5rem); */
+}
+
 
 .profile-info h2 {
   color: #84818A;
@@ -86,13 +101,12 @@
 .flex {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.flex input {
+.flex .coolinput input {
   width: 22vw;
 }
 
@@ -141,6 +155,14 @@
   width: fit-content;
 }
 
+.coolinput.error label.text {
+  color: red;
+}
+
+.coolinput.error input[type=text].input {
+  border: 2px red solid;
+}
+
 .coolinput input[type=text].input {
   padding: 11px 10px;
   font-size: 0.75rem;
@@ -153,6 +175,12 @@
   outline: none;
 }
 
+.FieldError {
+  margin-top: 1%;
+  color: red;
+  font-size: 12px;
+}
+
 .gender-container {
   display: flex;
   flex-direction: row;
@@ -163,7 +191,8 @@
   padding-right: 0.17vw;
 }
 
-.gender-container b {
+*/
+/* .gender-container b {
   margin-top: 1vh;
   margin-right: 1.5vw;
   font-size: 0.95rem;
@@ -228,24 +257,7 @@
 
 .input {
   width: 49vw;
-}
-
-
-.buttons .cancelBtn {
-  /* width: 7vw;
-  height: 6vh; */
-  padding: 0.7rem 1.6rem;
-
-  text-align: center;
-  /* outline: ; */
-  border: 1px solid black;
-  color: black;
-  margin: 5px;
-  border-radius: 10px;
-  border: none;
-  font-weight: 500;
-  /* padding: 0.8rem 1.5rem; */
-}
+}*/
 
 .cancelBtn:hover {
   cursor: pointer;
@@ -260,6 +272,11 @@
   background-color: white;
   color: black;
   border: 1px solid #036666ab;
+  padding: 0.7rem 1.6rem;
+  text-align: center;
+  margin: 5px;
+  border-radius: 10px;
+  font-weight: 500;
 }
 
 .cancelBtn:hover {
@@ -267,6 +284,7 @@
   outline: none;
   border: none;
   color: white;
+  cursor: pointer;
 }
 
 .save-button {
@@ -284,45 +302,45 @@
   align-items: center;
   font-weight: 500;
 }
-
+/* 
 .save-button span {
   display: block;
   transition: all 0.3s ease-in-out;
-}
-
+} */
+/* 
 .save-button svg {
   display: block;
   transform-origin: center center;
   transition: transform 0.3s ease-in-out;
   margin-top: 0vh;
   margin-right: 0.3vw;
-}
+} */
 
 .save-button:disabled {
   background: #036666;
   cursor: default;
 }
 
-.save-button:disabled .svg-wrapper {
+/* .save-button:disabled .svg-wrapper {
   display: none;
 }
 
 .save-button:disabled:hover span {
   opacity: 1;
-}
+} */
 
 .save-button:hover {
-  background: #036666;
+  background: #036666da;
   outline: none;
   border: none;
 }
-
+/* 
 .save-button:hover .svg-wrapper {
   transform: scale(1);
   transition: 0.5s linear;
-}
+} */
 
-.save-button:hover svg {
+/* .save-button:hover svg {
   transform: translateX(0.65em) scale(1.1);
   fill: #fff;
 }
@@ -334,13 +352,13 @@
 
 .save-button:active {
   transform: scale(0.95);
-}
+} */
 
 .genderUpdateLabel {
   font-size: 0.8rem;
   font-weight: bold;
   color: #036666;
-  margin-bottom: 1vh;
+  /* margin-bottom: 1vh; */
   margin-left: 0.15vw;
 }
 
@@ -389,7 +407,7 @@
 
   .coolinput {
 
-    width: 100%;
+    width: 90%;
 
   }
 
@@ -398,9 +416,12 @@
     justify-content: start;
     gap: 1rem;
   }
+  .coolinput input[type=text].input  {
+    width: 100%;
+  }
 
-  .coolinput input {
-    width: 90%;
+  .select-menu .select-btn{
+    width: 100;
   }
 
   .form {

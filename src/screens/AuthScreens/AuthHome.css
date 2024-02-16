@@ -3,104 +3,85 @@
 
 .authHome {
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: center;
     background-color: #90b444;
     font-family: 'Poppins', sans-serif;
     color: white;
-    /* min-height: 92vh; */
-    /* padding: 3.75vh 0vw; */
-    min-height: 84vh;
-
-    /* border: 2px solid red; */
-    padding: 3.75rem 0;
-    height: fit-content;
+    min-height: 92vh;
+    padding: 3.75vh 0vw;
+    flex-wrap: wrap;
 }
 
 .formHolderDiv {
-    /* padding: 3.7vh 0vw; */
-    padding: 3.7rem 0;
-
-    
+    padding: 3.7vh 0vw;
     border-radius: 30px;
-    /* min-height: 85vh; */
-    /* height:85% ; */
-    height: fit-content ;
-    min-width: 42%;
-    max-width: fit-content;
+    min-height: 85vh;
+    width: 42vw;
     background-color: white;
     display: flex;
     justify-content: center;
-    
+    align-content: center;
     color: black;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sideContentDiv {
-    width: 50%;
-    transform: translateY(10rem);
-    /* height: 100%; */
-    height: fit-content;
+    height: 92.5vh;
+    width: 50vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* position: fixed; */
-
-    /* top: 5rem; */
-
-
+    position: sticky;
+    top: 0;
 }
 
 .authContentDiv {
     width: 40vw;
-    height: fit-content;
 }
 
 .authHeading {
-
-    font-size: 40px;
+    /* font-size: 2.5rem; */
+    font-size: 3vw;
     text-align: left;
     margin: 0;
 }
 
 .ipoDescText {
-    font-size: 15px;
+    font-size: 1.2vw;
 }
 
 .joinedUsText {
     font-weight: 100;
-    font-size: 15px;
-
+    font-size: 1vw;
 }
 
 .ipoLogoImg {
-    width: 13rem;
+    width: 19vw;
 }
 
 .formHolderDivContent {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    /* width: 34vw; */
     flex-direction: column;
-    
-    min-width: 50%;
-    max-width: fit-content;
-   
 }
 
 .formTypeHeading {
+    /* font-size: 2rem; */
+    font-size: 2.35vw;
     font-weight: 500;
-    /* font-size: 2.35vw; */
-    font-size: 2.3rem ;
 }
 
 .inputDiv {
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 1.2vh 0 0;
+    padding: 1.7vh 0 0;
     gap: 0.6vh;
     margin: 3.1vh 0vw;
     position: relative;
@@ -114,6 +95,7 @@
     height: 3vh;
     text-align: left;
     display: inline-block;
+    /* font-size: 1rem; */
     font-size: 1.2vw;
     align-self: stretch;
 }
@@ -123,6 +105,14 @@
     height: 0.15vh;
     background-color: #dcdcdc;
     align-self: stretch;
+}
+
+.redLine {
+    background-color: rgb(255, 95, 95);
+}
+
+.redText {
+    color: rgb(255, 95, 95);
 }
 
 .buttonDiv {
@@ -136,9 +126,11 @@
 .submitButton {
     cursor: pointer;
     border: 0;
-    padding: 0.5rem 2rem;
+    padding: 0.5vw;
     background-color: #089484;
+    width: 12vw;
     border-radius: 10px;
+    height: 6vh;
     justify-content: center;
     box-sizing: border-box;
     z-index: 1;
@@ -170,25 +162,7 @@
 }
 
 .forgotPasswordDiv {
-    width: 100%;
-    margin: auto;
-}
-
-
-.forgotPassScreen, .verificationScreen, .createPassScreen{
-    width: 60%;
-    /* border: 2px solid red; */
-}
-
-.createPassScreen{
-    width: 70%;
-    /* border: 2px solid red; */
-}
-
-
-.forgotPassScreen .createAccountForm, .verificationScreen .createAccountForm,
-.createPassScreen .createAccountForm{
-    width: 100%;
+    width: 30vw;
 }
 
 .sendRecoveryEmailButton {
@@ -229,19 +203,34 @@
 }
 
 .signUpInputDiv {
-    margin: 1.9vh 0vw;
+    margin: 2vh 0vw;
 }
 
 .agreeCheckBox {
     height: 2.5vh;
-    width: 2.5vw;
+    width: fit-content;
     cursor: pointer;
+    justify-self: flex-start;
+    margin-right: 0vw;
 }
 
 .termsText {
     color: #555555;
     font-size: 1.05vw;
-    width: 27vw;
+    width: 27.5vw;
+}
+
+.redTermsText {
+    color: rgb(255, 55, 55);
+    font-size: 1.05vw;
+    width: 27.5vw;
+}
+
+.errorText {
+    color: red;
+    font-size: 0.65rem;
+    position: absolute;
+    margin-top: 5.2vh;
 }
 
 .genderDiv {
@@ -287,188 +276,42 @@
 }
 
 .signUpDiv {
-    width: 100%;
+    width: 22vw;
 }
 
 .twoDropdownsDiv {
     margin-top: 1.5vh;
 }
 
-@media (min-width: 768px) and (max-width:992px) {
-    .authHome {
-        flex-direction: column-reverse;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .formHolderDiv {
-        width: 80%;
-    }
-
-    .formHolderDivContent {
-        width: 70%;
-    }
-
-    .sideContentDiv {
-        width: 70%;
-        height: fit-content;
-    }
-    
-    .authContentDiv{
-        width: 100%;
-    }
-
-    .authContentDiv > h1{
-        font-size: 40px;
-    }
-    .authContentDiv p{
-        font-size: 23px;
-    }
-    .createAccountForm .checkboxDiv {
-        justify-content: start;
-        gap: 10px;
-    }
-
-    .createAccountForm .checkboxDiv>div {
-        width: fit-content;
-    }
-
-    .signUpDiv .createAccountForm>* {
-        font-size: 25px;
-    }
-
-    .signUpDiv .createAccountForm .inputField {
-        font-size: 25px;
-    }
-    
-    .submitButton{
-        font-size: 25px;
-
-    }
-
+.comboboxErrorMargin {
+    margin: 0.2vh 0 0 0;
 }
 
 
-@media (min-width: 576px) and (max-width:767px) {
-    .authHome {
-        flex-direction: column-reverse;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .sideContentDiv{
-        display: none;
-    }
-
-    .twoInputFieldsDiv {
-        flex-direction: column;
-    }
-
-    .twoInputFieldsDiv>* {
-        width: 100%;
-    }
-
-    .createAccountForm .checkboxDiv {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .createAccountForm .checkboxDiv>div {
-        width: fit-content;
-    }
-
-    .formHolderDiv {
-        width: 60%;
-    }
-
-    .formHolderDivContent {
-        width: 65%;
-    }
-
-    .sideContentDiv {
-        height: fit-content;
-    }
-
-    .signUpDiv .createAccountForm>* {
-        font-size: 20px;
-    }
-
-    .signUpDiv .createAccountForm .inputField {
-        font-size: 20px;
-    }
-    
-    .submitButton{
-        font-size: 20px;
-
-    }
-
-    .formTypeHeading {
-        font-size: 2rem ;
-    }
+.passwordDiv {
+    margin: 0;
 }
 
-@media (max-width: 576px) {
-    .authHome {
-        flex-direction: column-reverse;
-        align-items: center;
-    }
+@media (min-width : 1200px) {
+    /* For extra large screen */
 
-    .sideContentDiv{
-        display: none;
-    }
+}
 
+@media (min-width : 992px) and (max-width : 1200px) {
+    /* For large screen */
 
-    .formHolderDiv {
-        width: 90%;
-    }
+}
 
-    .formHolderDivContent {
-        width: 70%;
+@media (min-width : 768px) and (max-width : 992px) {
+    /* For medium screen */
 
-    }
+}
 
-    .buttonDiv .submitButton {
-        width: fit-content;
-        font-size: 8px;
-    }
+@media (min-width : 572px) and (max-width : 768px) {
+    /* For  small screen */
 
-    .twoInputFieldsDiv {
-        flex-direction: column;
-    }
+}
 
-    .twoInputFieldsDiv>* {
-        width: 100%;
-    }
-
-    .createAccountForm .checkboxDiv {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .createAccountForm .checkboxDiv>div {
-        width: fit-content;
-    }
-
-    .sideContentDiv {
-        height: fit-content;
-    }
-
-    .signUpDiv .createAccountForm>* {
-        font-size: 10px;
-    }
-
-
-    .signUpDiv .createAccountForm>* {
-        font-size: 15px;
-    }
-
-    .signUpDiv .createAccountForm .inputField {
-        font-size: 17px;
-    }
-    
-    .submitButton{
-        font-size: 17px;
-        padding: 0.5rem 1rem;
-
-    }
+@media (max-width : 572px) {
+    /* For extra small screen */
 }

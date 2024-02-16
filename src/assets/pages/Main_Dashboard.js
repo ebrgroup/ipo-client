@@ -6,6 +6,7 @@ import dashboardIcon from '../Icons/bars-sort.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleSidebar } from '../states/actions/Toggle-Sidebar';
 import { useState } from 'react';
+import ProfileDropdown from './Components/ProfileDropdown';
 
 function Main_Dashboard(props) {
   const navigate = useNavigate();
@@ -18,15 +19,13 @@ function Main_Dashboard(props) {
     dispatch(toggleSidebar(toggleBar));
   }
 
-
-  // const [className,setClassName] = useState('')
   const toggle_Sidebar = useSelector(state => state.toggleReducer?.val); //Complete user details in {User} object
-  // console.log(toggle);
 
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   return (
     <main className="Dashboard-Section">
-<div className={`left-Subsection ${!toggle_Sidebar ? 'close' : 'open'}`} >
+      <div className={`left-Subsection ${!toggle_Sidebar ? 'close' : 'open'}`} >
         <Sidebar />
       </div>
       <div className="right-Subsection">
@@ -40,15 +39,18 @@ function Main_Dashboard(props) {
               <img
                 src={userIcon}
                 onClick={() => {
-                  navigate('/profile');
+                  setShowProfileDropdown(!showProfileDropdown);
                 }}
               />
             </span>
             <div className="user-profile">
-              <p>{userFirstName}</p>
+              <p className='firstName' onClick={() => {
+                setShowProfileDropdown(!showProfileDropdown);
+              }}>{userFirstName}</p>
               <p>USER</p>
             </div>
           </div>
+          {showProfileDropdown && <ProfileDropdown setShowProfileDropdown={setShowProfileDropdown} />}
         </div>
         <div className="screenContent">{props.screen}</div>
       </div>

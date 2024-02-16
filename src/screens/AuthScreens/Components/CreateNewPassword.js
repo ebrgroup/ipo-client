@@ -14,6 +14,8 @@ const CreateNewPassword = (props) => {
     const [formData, setFormData] = useState({
         newPassword: '',
         confirmPassword: '',
+        showNewPasswordError: false,
+        showConfirmPasswordError: false,
     });
 
     useEffect(() => {
@@ -32,38 +34,46 @@ const CreateNewPassword = (props) => {
     }, [userToken]);
 
     const handleSubmit = async (e) => {
+        props.Progress(50);
         e.preventDefault();
 
-        if (formData.newPassword !== formData.confirmPassword) {
-            clearFields();
-            handleToastDisplay("Passwords do not match!", "error");
-            return;
-        }
-        const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-        if (!passwordRegex.test(formData.newPassword)) {
-            clearFields();
-            handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
-            return;
-        }
-
-        await axios.put(`/ipo/users/resetPassword/${ token }`, {
-            newPassword: formData.newPassword
-        })
-        .then(response => {
-            handleToastDisplay("You have successfully updated your password!", "success");
-            navigate("/signin");
-        }).catch(error => {
-            clearFields();
-            if(error.response !== undefined){
-                if (error.response.data) {
-                    handleToastDisplay(`${error.response.data.error}`, "error");
-                } else {
-                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
-                }
-            } else {
-                handleToastDisplay("Error inserting data", "error");
+        if (!areRequiredFieldsEmpty()) {
+            if (formData.newPassword !== formData.confirmPassword) {
+                handleToastDisplay("Passwords do not match!", "error");
+                return;
             }
-        });
+            const passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/;
+            if (!passwordRegex.test(formData.newPassword)) {
+                handleToastDisplay("Password must have atleast eight characters with atleast one special character, uppercase letter, and number.", "error");
+                return;
+            }
+
+            await axios.put(`/ipo/users/resetPassword/${ token }`, {
+                newPassword: formData.newPassword
+            })
+            .then(response => {
+                handleToastDisplay("You have successfully updated your password!", "success");
+                navigate("/signin");
+            }).catch(error => {
+                if(error.response !== undefined){
+                    if (error.response.data) {
+                        handleToastDisplay(`${error.response.data.error}`, "error");
+                    } else {
+                        handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                    }
+                } else {
+                    handleToastDisplay("Error inserting data", "error");
+                }
+            });
+        }
+        else {
+            handleToastDisplay("Required fields must not be left empty.", "error");
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                showNewPasswordError: true,
+                showConfirmPasswordError: true
+            }));
+        }
     };
 
     const handleToastDisplay = (message, type) => {
@@ -91,13 +101,6 @@ const CreateNewPassword = (props) => {
         }
     };
 
-    const clearFields = () => {
-        setFormData({
-            newPassword: '',
-            confirmPassword: ''
-        });
-    }
-
     const areRequiredFieldsEmpty = () => {
         return !(
             formData.newPassword && formData.confirmPassword
@@ -105,7 +108,7 @@ const CreateNewPassword = (props) => {
     };
 
     return (
-        <div className="forgotPasswordDiv createPassScreen">
+        <div className="forgotPasswordDiv">
             <h2 className="formTypeHeading">
                 Create new password
             </h2>
@@ -121,11 +124,20 @@ const CreateNewPassword = (props) => {
                         name="newPassword"
                         value={formData.newPassword}
                         onChange={handleInputChange}
+                        onBlur={() => setFormData({ ...formData, showNewPasswordError: true })}
+                        onFocus={() => setFormData({ ...formData, showNewPasswordError: false })}
                     />
                     <span className="passwordIcon" onClick={() => setShowNewPassword(!showNewPassword)}>
                         <box-icon name={showNewPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
-                    <div className="line" />
+                    <div className={`line ${formData.showNewPasswordError && formData.newPassword.length == 0 ? "redLine" : ""}`} />
+                    <span className="errorText">
+                        {formData.showNewPasswordError ? 
+                        (formData.newPassword.length === 0 ? 
+                        "This field is required." : (formData.newPassword.length < 8 ?
+                            "Password should atleast have eight characters." : (!/^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*\d)(?=.*[A-Z]).{8,}$/.test(formData.newPassword) ? 
+                            "Password requires a special character, a number, and an uppercase letter." : ""))) : ""}
+                    </span>
                 </div>
                 <div className="inputDiv">
                     <input
@@ -135,18 +147,23 @@ const CreateNewPassword = (props) => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
+                        onBlur={() => setFormData({ ...formData, showConfirmPasswordError: true })}
+                        onFocus={() => setFormData({ ...formData, showConfirmPasswordError: false })}
                     />
                     <span className="passwordIcon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                         <box-icon name={showConfirmPassword ? "hide" : "show"} color="grey" size="sm" />
                     </span>
-                    <div className="line" />
+                    <div className={`line ${formData.showConfirmPasswordError && formData.confirmPassword.length == 0 ? "redLine" : ""}`} />
+                    <span className="errorText">
+                        {formData.showConfirmPasswordError ? 
+                        (formData.confirmPassword.length === 0 ? 
+                        "This field is required." : (!(formData.newPassword === formData.confirmPassword) ? 
+                        "Passwords do not match" : "")) : ""}
+                    </span>
                 </div>
                 <button
                     className="submitButton sendRecoveryEmailButton"
                     type="Submit"
-                    title={areRequiredFieldsEmpty() ?
-                        "You cannot change your password until all the required fields are filled." : ""}
-                    disabled={areRequiredFieldsEmpty()}
                 >
                     Change password
                 </button>

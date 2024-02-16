@@ -29,4 +29,4 @@ const AuthHome = (props) => {
     );
 };
 
-export default AuthHome
+export default AuthHome;
