@@ -11,9 +11,9 @@ import CitySearchComboBox from './SearchComboBox/CitySearchComboBox'
 
 const ErrorMessage = (prop) => {
     return (
-      <p className="FieldError">{ prop.error }</p>
+        <p className="FieldError">{prop.error}</p>
     );
-  };
+};
 
 function UserProfile() {
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ function UserProfile() {
         city: '',
         isProvinceMenuActive: false,
         isCityMenuActive: false,
-        provinceMenuOptions: [ 
+        provinceMenuOptions: [
             "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
         ]
     });
@@ -64,8 +64,7 @@ function UserProfile() {
 
     const toggleMenu = (menuType) => {
         console.log(user_profile)
-        if(menuType === "serviceProvider")
-        {
+        if (menuType === "serviceProvider") {
             setUser_profile(prevuser_profile => ({
                 ...prevuser_profile,
                 isProviderMenuActive: !user_profile.isProviderMenuActive,
@@ -73,8 +72,7 @@ function UserProfile() {
                 isCityMenuActive: false
             }));
         }
-        else if(menuType === "province")
-        {
+        else if (menuType === "province") {
             setUser_profile(prevuser_profile => ({
                 ...prevuser_profile,
                 isProvinceMenuActive: !user_profile.isProvinceMenuActive,
@@ -82,12 +80,10 @@ function UserProfile() {
                 isCityMenuActive: false
             }));
         }
-        else if(menuType == "city")
-        {
-            if(user_profile.province === 'Province')
+        else if (menuType == "city") {
+            if (user_profile.province === 'Province')
                 return;
-            else
-            {
+            else {
                 setUser_profile(prevuser_profile => ({
                     ...prevuser_profile,
                     isCityMenuActive: !user_profile.isCityMenuActive,
@@ -99,14 +95,13 @@ function UserProfile() {
     };
 
     const handleOptionClick = (optionText, menuType) => {
-        if(menuType === "province")
-        {
+        if (menuType === "province") {
             setUser_profile((prevuser_profile) => ({
                 ...prevuser_profile,
                 city: prevuser_profile.province === optionText ? prevuser_profile.city : "City"
             }));
         }
-        
+
         toggleMenu(menuType);
 
         setUser_profile((prevuser_profile) => ({
@@ -119,7 +114,7 @@ function UserProfile() {
         const { name, value } = e.target;
         const getNumericValue = (input) => input.replace(/\D/g, '');
         let processedValue = value;
-    
+
         switch (name) {
             case 'cnic':
                 processedValue = getNumericValue(value).slice(0, 13);
@@ -132,12 +127,12 @@ function UserProfile() {
             default:
                 break;
         }
-    
+
         setUser_profile((prevState) => ({
             ...prevState,
             ...(name === "male" || name === "female" || name === "other" ? { gender: name } : { [name]: processedValue })
         }));
-    };    
+    };
 
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
@@ -146,7 +141,7 @@ function UserProfile() {
             ...User,
             isProvinceMenuActive: false,
             isCityMenuActive: false,
-            provinceMenuOptions: [ 
+            provinceMenuOptions: [
                 "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
             ]
         });
@@ -160,25 +155,24 @@ function UserProfile() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(user_profile.cnic.length !== 13) {
+        if (user_profile.cnic.length !== 13) {
             handleToastDisplay("CNIC should be 13 digits long.", "error");
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(user_profile.email))
-        {
+        if (!emailRegex.test(user_profile.email)) {
             handleToastDisplay("Invalid email format!", "error");
             return;
         }
-        if(user_profile.phone.length !== 11) {
+        if (user_profile.phone.length !== 11) {
             handleToastDisplay("Phone no. should be 11 digits long.", "error");
             return;
         }
-        if(user_profile.landlineNum.length !== 0 && user_profile.landlineNum.length < 7) {
+        if (user_profile.landlineNum.length !== 0 && user_profile.landlineNum.length < 7) {
             handleToastDisplay("Landline no. should be 7-11 digits long.", "error");
             return;
         }
-        if(user_profile.faxNum.length !== 0 && user_profile.faxNum.length < 7) {
+        if (user_profile.faxNum.length !== 0 && user_profile.faxNum.length < 7) {
             handleToastDisplay("Fax no. should be 7-11 digits long.", "error");
             return;
         }
@@ -187,7 +181,7 @@ function UserProfile() {
             navigate('/dashboard');
             handleToastDisplay("You have successfully updated your profile.", "success")
         }).catch((error) => {
-            if(error.response.data) {
+            if (error.response.data) {
                 handleToastDisplay(error.response.data.error, "error")
             } else {
                 handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
@@ -197,8 +191,8 @@ function UserProfile() {
 
     const areRequiredFieldsEmpty = () => {
         return !(Object.entries(user_profile).every(([key, value]) => {
-            if (['landlineNum', 'faxNum', 'isProviderMenuActive', 'isProvinceMenuActive', 
-            'isCityMenuActive'].includes(key)) {
+            if (['landlineNum', 'faxNum', 'isProviderMenuActive', 'isProvinceMenuActive',
+                'isCityMenuActive'].includes(key)) {
                 return true;
             } else if (key === 'serviceProvider' && value === "Service Provider") {
                 return false;
@@ -209,7 +203,7 @@ function UserProfile() {
             else if (key === 'city' && value === "City") {
                 return false;
             }
-            return value; 
+            return value;
         }));
     };
 
@@ -242,7 +236,7 @@ function UserProfile() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return !emailRegex.test(user_profile.email) ? true : false;
     };
-    
+
     return (
         <div className='profile-container'>
             <section className="profile-info">
@@ -256,58 +250,58 @@ function UserProfile() {
                 </div>
                 <form className='form' onSubmit={handleSubmit}>
                     <div className='flex'>
-                    <div className={`coolinput ${errors.firstNameError && user_profile.firstName === "" ? 'error' : ''}`}>
+                        <div className={`coolinput ${errors.firstNameError && user_profile.firstName === "" ? 'error' : ''}`}>
                             <label for="input" class="text">First Name:</label>
                             <input type="text" placeholder="Write here..." name="firstName" class="input"
                                 onChange={handleChange} value={user_profile.firstName}
-                                onBlur={ user_profile.firstName === "" ? (e) => setErrors({ ...errors, firstNameError: true }) : null }
-                                onFocus={ (e) => setErrors({ ...errors, firstNameError: false }) } />
-                                {errors.firstNameError ? <ErrorMessage error="This field is required!" /> : null}
+                                onBlur={user_profile.firstName === "" ? (e) => setErrors({ ...errors, firstNameError: true }) : null}
+                                onFocus={(e) => setErrors({ ...errors, firstNameError: false })} />
+                            {errors.firstNameError ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
                         <div className={`coolinput ${errors.lastNameError && user_profile.lastName === "" ? 'error' : ''}`}>
                             <label for="input" class="text">Last Name:</label>
                             <input type="text" placeholder="Write here..." name="lastName" class="input"
-                                onChange={handleChange} value={user_profile.lastName} 
-                                onBlur={ user_profile.lastName === "" ? (e) => setErrors({ ...errors, lastNameError: true }) : null }
-                                onFocus={ (e) => setErrors({ ...errors, lastNameError: false }) } />
-                                {errors.lastNameError ? <ErrorMessage error="This field is required!" /> : null}
+                                onChange={handleChange} value={user_profile.lastName}
+                                onBlur={user_profile.lastName === "" ? (e) => setErrors({ ...errors, lastNameError: true }) : null}
+                                onFocus={(e) => setErrors({ ...errors, lastNameError: false })} />
+                            {errors.lastNameError ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
                     </div>
                     <div className='flex'>
-                        <div className={`coolinput ${errors.emailError && (user_profile.email === "" || validateEmail()) ? 
+                        <div className={`coolinput ${errors.emailError && (user_profile.email === "" || validateEmail()) ?
                             'error' : ''}`}>
                             <label for="input" class="text">@Email:</label>
-                            <input type="text" placeholder="Write here..." name="email" 
+                            <input type="text" placeholder="Write here..." name="email"
                                 className="input"
-                                onChange={handleChange} value={user_profile.email} 
-                                onBlur={ () => setErrors({ ...errors, emailError: true }) }
-                                onFocus={ (e) => setErrors({ ...errors, emailError: false }) } />
-                                {errors.emailError && user_profile.email === "" ? <ErrorMessage error="This field is required!" /> : null}
-                                {errors.emailError && user_profile.email !== "" ? validateEmail() ? 
-                                    <ErrorMessage error="Please enter valid email address! " /> : null : null}
+                                onChange={handleChange} value={user_profile.email}
+                                onBlur={() => setErrors({ ...errors, emailError: true })}
+                                onFocus={(e) => setErrors({ ...errors, emailError: false })} />
+                            {errors.emailError && user_profile.email === "" ? <ErrorMessage error="This field is required!" /> : null}
+                            {errors.emailError && user_profile.email !== "" ? validateEmail() ?
+                                <ErrorMessage error="Please enter valid email address! " /> : null : null}
                         </div>
                         <div className={`coolinput ${errors.cnicError && (user_profile.email === "" || user_profile.cnic.length < 13) ?
-                                         'error' : ''}`}>
+                            'error' : ''}`}>
                             <label for="input" class="text">#CNIC:</label>
-                            <input type="text" placeholder="Write here..." name="cnic" class="input" 
-                                onChange={handleChange} value={user_profile.cnic} 
-                                onBlur={ () => setErrors({ ...errors, cnicError: true }) }
-                                onFocus={ (e) => setErrors({ ...errors, cnicError: false }) } />
-                                {errors.cnicError && user_profile.cnic === "" ? <ErrorMessage error="This field is required!" /> : null}
-                                {errors.cnicError && user_profile.cnic !== "" && user_profile.cnic.length < 13  ? 
-                                    <ErrorMessage error="Please enter valid cnic number! " /> : null}
+                            <input type="text" placeholder="Write here..." name="cnic" class="input"
+                                onChange={handleChange} value={user_profile.cnic}
+                                onBlur={() => setErrors({ ...errors, cnicError: true })}
+                                onFocus={(e) => setErrors({ ...errors, cnicError: false })} />
+                            {errors.cnicError && user_profile.cnic === "" ? <ErrorMessage error="This field is required!" /> : null}
+                            {errors.cnicError && user_profile.cnic !== "" && user_profile.cnic.length < 13 ?
+                                <ErrorMessage error="Please enter valid cnic number! " /> : null}
                         </div>
                     </div>
                     <div className='flex'>
-                    <div className={`coolinput ${errors.phoneError && (user_profile.phone === "" || user_profile.phone.length < 11) ?
-                                         'error' : ''}`}>
-                        <label for="input" class="text">#Phone Number:</label>
-                        <input type="text" placeholder="Write here..." name="phone" class="input" 
-                            onChange={handleChange} value={user_profile.phone} 
-                            onBlur={ () => setErrors({ ...errors, phoneError: true }) }
-                            onFocus={ (e) => setErrors({ ...errors, phoneError: false }) } />
+                        <div className={`coolinput ${errors.phoneError && (user_profile.phone === "" || user_profile.phone.length < 11) ?
+                            'error' : ''}`}>
+                            <label for="input" class="text">#Phone Number:</label>
+                            <input type="text" placeholder="Write here..." name="phone" class="input"
+                                onChange={handleChange} value={user_profile.phone}
+                                onBlur={() => setErrors({ ...errors, phoneError: true })}
+                                onFocus={(e) => setErrors({ ...errors, phoneError: false })} />
                             {errors.phoneError && user_profile.phone === "" ? <ErrorMessage error="This field is required!" /> : null}
-                            {errors.phoneError && user_profile.phone !== "" && user_profile.phone.length < 11  ? 
+                            {errors.phoneError && user_profile.phone !== "" && user_profile.phone.length < 11 ?
                                 <ErrorMessage error="Please enter valid phone number! " /> : null}
                     </div>
                     <span className='gender-container'>
@@ -329,75 +323,75 @@ function UserProfile() {
                                     <span>Other</span>
                                 </label>
                             </div>
-                            {errors.genderError && user_profile.gender === "" ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
+                            {errors.genderError && user_profile.gender === "" ? <ErrorMessage error="This field is required!" /> : null}
                         </span>
-                    </div>
+                        </div>
                     <div className='flex'>
-                    <div>
+                        <div>
+                            <span className='combobox-container'>
+                                <p className="combobox-label">Province: </p>
+                                <Combobox
+                                    selectedItem={user_profile.province}
+                                    menuType="province"
+                                    isMenuActive={user_profile.isProvinceMenuActive}
+                                    toggleMenu={toggleMenu}
+                                    options={user_profile.provinceMenuOptions}
+                                    handleOptionClick={handleOptionClick}
+                                    width="18vw"
+                                />
+                            </span>
+                        </div>
                         <span className='combobox-container'>
-                            <p className="combobox-label">Province: </p>
-                            <Combobox
-                            selectedItem={user_profile.province}
-                            menuType="province"
-                            isMenuActive={user_profile.isProvinceMenuActive}
-                            toggleMenu={toggleMenu}
-                            options={user_profile.provinceMenuOptions}
-                            handleOptionClick={handleOptionClick}
-                            width="18vw"
+                            <p className="combobox-label">City: </p>
+                            <CitySearchComboBox
+                                selectedItem={user_profile.city}
+                                province={user_profile.province}
+                                menuType="city"
+                                isMenuActive={user_profile.isCityMenuActive}
+                                toggleMenu={toggleMenu}
+                                handleOptionClick={handleOptionClick}
+                                width="18vw"
                             />
                         </span>
-                    </div>
-                    <span className='combobox-container'>
-                        <p className="combobox-label">City: </p>
-                        <CitySearchComboBox 
-                        selectedItem={user_profile.city}
-                        province={user_profile.province}
-                        menuType="city"
-                        isMenuActive={user_profile.isCityMenuActive}
-                        toggleMenu={toggleMenu}
-                        handleOptionClick={handleOptionClick}
-                        width="18vw"
-                        />
-                    </span>
                     </div>
                     <div className={`coolinput addressDiv ${errors.addressError ? 'error' : ''}`}>
                         <label for="input" class="text">Address:</label>
                         <input type="text" placeholder="Write here..." name="address" class="input"
-                            onChange={handleChange} value={user_profile.address} 
-                            onBlur={ user_profile.address === "" ? () => setErrors({ ...errors, addressError: true }) : null }
-                            onFocus={ (e) => setErrors({ ...errors, addressError: false }) } />
-                            {errors.addressError ? <ErrorMessage error="This field is required!" /> : null}
+                            onChange={handleChange} value={user_profile.address}
+                            onBlur={user_profile.address === "" ? () => setErrors({ ...errors, addressError: true }) : null}
+                            onFocus={(e) => setErrors({ ...errors, addressError: false })} />
+                        {errors.addressError ? <ErrorMessage error="This field is required!" /> : null}
                     </div>
                     <div className='flex'>
                         <div className={`coolinput ${errors.landlineNumError ? 'error' : ''}`}>
                             <label for="input" class="text">#Landline:</label>
                             <input type="text" placeholder="Write here..." name="landlineNum" class="input"
-                                onChange={handleChange} value={user_profile.landlineNum} 
-                                onBlur={ user_profile.landlineNum.length < 7 ? 
-                                            () => setErrors({ ...errors, landlineNumError: true }) : null }
-                                onFocus={ (e) => setErrors({ ...errors, landlineNumError: false }) } />
-                                {errors.landlineNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
+                                onChange={handleChange} value={user_profile.landlineNum}
+                                onBlur={user_profile.landlineNum.length < 7 ?
+                                    () => setErrors({ ...errors, landlineNumError: true }) : null}
+                                onFocus={(e) => setErrors({ ...errors, landlineNumError: false })} />
+                            {errors.landlineNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
                         </div>
                         <div className={`coolinput ${errors.faxNumError ? 'error' : ''}`}>
                             <label for="input" class="text">#Fax:</label>
-                            <input type="text" placeholder="Write here..." name="faxNum" class="input" 
-                                onChange={handleChange} value={user_profile.faxNum} 
-                                onBlur={ user_profile.faxNum.length < 7 ? 
-                                            () => setErrors({ ...errors, faxNumError: true }) : null }
-                                onFocus={ (e) => setErrors({ ...errors, faxNumError: false }) } />
-                                {errors.faxNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
+                            <input type="text" placeholder="Write here..." name="faxNum" class="input"
+                                onChange={handleChange} value={user_profile.faxNum}
+                                onBlur={user_profile.faxNum.length < 7 ?
+                                    () => setErrors({ ...errors, faxNumError: true }) : null}
+                                onFocus={(e) => setErrors({ ...errors, faxNumError: false })} />
+                            {errors.faxNumError ? <ErrorMessage error="Please enter valid landline number! " /> : null}
                         </div>
                     </div>
                     <div className="buttons">
-                        <button 
+                        <button
                             className='save-button'
-                            type="Submit" 
+                            type="Submit"
                             disabled={areRequiredFieldsEmpty()}
-                            title={areRequiredFieldsEmpty() ? 
-                            "You cannot save until all the required fields are filled except Landline and Fax." : ""} 
+                            title={areRequiredFieldsEmpty() ?
+                                "You cannot save until all the required fields are filled except Landline and Fax." : ""}
                         >
-                            <div class="svg-wrapper-1">
+                            {/* <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -411,7 +405,7 @@ function UserProfile() {
                                     ></path>
                                 </svg>
                                 </div>
-                            </div>
+                            </div> */}
                             <span>Save</span>
                         </button>
                         <button className='cancelBtn' onClick={handleCancelbtn}>Cancel</button>

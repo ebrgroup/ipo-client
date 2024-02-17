@@ -3,20 +3,12 @@ import trademarkIcon from '../Icons/icons8trademark641-1@2x.png'
 import patentIcon from '../Icons/icons8patent64-1@2x.png'
 import designIcon from '../Icons/icons8design64-1@2x.png'
 import copyrightIcon from '../Icons/icons8copyright64-1@2x.png'
-import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
 function IPO_Dashboard(props) {
 
-    const navigate = useNavigate();
-    const userFirstName = useSelector(state => state.userReducer.userData?.firstName);
-
     useEffect(() => {
-        props.Progress(50);
         props.Progress(100);
-
-
     }, [])
     return (
 

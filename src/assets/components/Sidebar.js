@@ -1,13 +1,9 @@
-import React from 'react';
 import "../components/sidebar.css";
 import ipoImg from '../Icons/IPO_Img.png';
-import settingIcon from '../Icons/settingIcon.png';
-import logoutIcon from '../Icons/user-logout.png';
-import menuIcon from '../Icons/menu-bar.png';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "boxicons";
 import { logout } from '../states/actions/user-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Sidebar() {
     const navigate = useNavigate();
@@ -17,9 +13,11 @@ function Sidebar() {
         navigate("/signin")
     }
 
+    const toggle_Sidebar = useSelector(state => state.toggleReducer?.val); //Complete user details in {User} object
+
     return (
-        <div className="sidebar">
-           <div className='upper-menu-container'>
+        <div className={`sidebar ${!toggle_Sidebar} ? 'close' : 'open' `}>
+            <div className='upper-menu-container'>
                 <div className='sidebar-header'>
                     <img
                         loading="eager"
@@ -29,61 +27,42 @@ function Sidebar() {
                     <b>Intellectual Property Organization</b>
                 </div>
                 <div className='menu-heading'>Menu</div>
+                <hr className='hr-element'></hr>
                 <div className='menu-items-container'>
-                <div className="menu-item-dashboard" onClick={() => navigate("/dashboard")}>
-                            <div className="menu-icon">
-                                <img src={menuIcon} alt="" />
-                            </div>
-                            <div className="title">
-                                <Link to="/dashboard">Dashboard</Link>
-                            </div>
-                        </div>
-                        <div className="menu-item">
-                            <div className="menu-icon">
-                                <img src={menuIcon} alt="" />
-                            </div>
-                            <div className="title">
-                                <Link to="/registerip">Register IP</Link>
-                            </div>
-                        </div>
-                        <div className="menu-item">
-                            <div className="menu-icon">
-                                <img src={menuIcon} alt="" />
-                            </div>
-                            <div className="title">Search IP</div>
-                        </div>
-                        <div className="menu-item">
-                            <div className="menu-icon">
-                                <img src={menuIcon} alt="" />
-                            </div>
-                            <div className="title">
-                                Track IP Status
-                            </div>
-                        </div>
+                    <div className="menu-item-dashboard menu-item" onClick={() => navigate("/dashboard")}>
+                        <i class="fa-sharp fa-light fa-gauge"></i>
+                        <p className="title" >
+                            Dashboard
+                        </p>
+                    </div>
+                    <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <i class="fa-sharp fa-light fa-grid-2"></i>
+                        <p className="title">Register IP</p>
+                    </div>
+                    <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <i class="fa-sharp fa-light fa-grid-2"></i>
+                        <p className="title">Search IP</p>
+                    </div>
+                    <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                        <i class="fa-sharp fa-light fa-grid-2"></i>
+                        <p className="title" >
+                            Track IP Status
+                        </p>
+                    </div>
                 </div>
-            </div> 
+            </div>
             <div className='lower-menu-container'>
                 <hr className='hr-element'></hr>
-                    <span className='lower-item' onClick={() => navigate("/profile")}>
-                        <span className="settingsSpan">
-                            <box-icon name="user-circle" color="white" size="1.2rem" />
-                        </span>
-                        <p>Profile</p>
-                    </span>
-                    <span className='lower-item' onClick={() => navigate("/changepassword")}>
-                        <span className="settingsSpan">
-                            <box-icon name="cog" color="white" size="1.2rem" />
-                        </span>
-                        <p>Change Password</p>
-                    </span>
-                    <span className='lower-item' onClick={handleLogout}>
-                        <span className="logoutSpan">
-                            <box-icon name="log-out" color="white" size="1.2rem" />
-                        </span>
-                        <p>Logout</p>
-                    </span>
+                <div className='lower-item' onClick={() => navigate("/changepassword")}>
+                    <i class="fa-light fa-gear"></i>
+                    <p className="title">Change Password</p>
+                </div>
+                <div className='lower-item2' onClick={handleLogout}>
+                    <i class="fa-light fa-arrow-right-from-bracket"></i>
+                    <p className="title">Logout</p>
+                </div>
             </div>
-        </div>
+        </div >
     );
 }
 

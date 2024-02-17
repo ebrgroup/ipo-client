@@ -44,6 +44,9 @@
     max-height: 25vh;
     overflow-y: auto;
 }
+.select-menu{
+    width: 18vw;
+}
 
 .select-menu.active .options{
     display: block;
@@ -69,3 +72,13 @@
     font-size: 0.8rem;
     color: #333;
 }
+
+@media (max-width : 576px) {
+
+      .select-menu{
+        width: 68%;
+      }
+}
+
+
+

@@ -1,30 +1,32 @@
-.Dashboard-Section{
-    width: 98.7vw;
+.Dashboard-Section {
+    width: 99.6vw;
     height: fit-content;
     background-color: ivory;
     display: flex;
 }
 
-.left-Subsection{
-    width: 15.5vw;
+.left-Subsection {
+    width: 16%;
     height: 98.8vh;
-    padding: 0.6vh 0.3vw;
-    position: fixed;
+    padding: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all .3s ease-in-out;
 }
 
-.right-Subsection{
-    width: 85vw;
-    margin-left: 16.1vw;
-    padding: 0vh 0.5vw;
+.right-Subsection {
+    padding: 0 1rem;
     height: fit-content;
+    width: 100%;
     box-sizing: border-box;
     font-family: Poppins;
 }
 
 .screenContent {
-    min-height: calc(100vh - 10.15vh);
+    height: fit-content;
     box-sizing: border-box;
-    margin-top: 10.15vh;
+    margin-top: 1rem;
 }
 
 .header {
@@ -32,9 +34,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 82.9%;
-    margin: auto;
-    position: fixed;
+    position: sticky;
+    top: 0;
     background-color: #fffcf4;
     z-index: 100;
 }
@@ -44,14 +45,17 @@
     display: flex;
 }
 
-.profile{
-    /* margin-right:20px ; */
+.profile {
     transform: translateX(-15px);
 }
 
-.title img{
+.title img {
     width: 15px;
     height: 15px;
+}
+
+.title img:hover,.profile img:hover {
+    cursor: pointer;
 }
 
 .profile img {
@@ -59,10 +63,6 @@
     height: 22px;
 }
 
-.profile img:hover{
-    cursor: pointer;
-
-}
 
 .title img {
     filter: invert(50%);
@@ -107,11 +107,31 @@
     padding: 5px;
 }
 
+
+.open {
+    width: 15.4rem;
+}
+
+.close {
+    width: 3rem;
+    /* overflow: hidden; */
+}
+
+@media (min-width : 280px) and (max-width: 572px) {
+    .close {
+        margin-left: -3rem;
+    }
+
+    .open {
+        left: 0;
+    }
+}
+
 .profileDropdownDiv {
     position: absolute;
     top: 10.3vh;
     right: 0.55vw;
-    width: 10vw;
+    width: 9rem;
     border-radius: 8px;
     background-color: white;
     font-size: 0.75rem;

@@ -2,7 +2,7 @@ import "./SearchComboBox.css";
 
 function SearchComboBox(props) {
     return (
-        <div style={{ width: props.width, cursor: (props.province && props.province !== 'Province') ? "pointer" : "default" }} 
+        <div style={{  cursor: (props.province && props.province !== 'Province') ? "pointer" : "default" }} 
             className={`wrapper ${props.isMenuActive ? 'active' : ''}`}
         >
             <div className="searchSelect-btn" onClick={() => {

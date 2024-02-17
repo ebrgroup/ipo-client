@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+
+import './App.css'
 import ChangePass from './assets/components/ChangePass';
 import UserProfile from './assets/components/UserProfile';
 import IPO_Dashboard from './assets/pages/IPO_Dashboard';
