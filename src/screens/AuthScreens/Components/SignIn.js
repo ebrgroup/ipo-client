@@ -142,7 +142,7 @@ const SignIn = (props) => {
                     <input
                         className="inputField passwordField"
                         placeholder="Password"
-                        type={showPassword ? "text" : "password"}
+                        type={formData.showPassword ? "text" : "password"}
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}

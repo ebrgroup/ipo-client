@@ -14,7 +14,6 @@ function IPO_Dashboard(props) {
 
         <div className='dashboard'>
             <div className='registeredDiv'>
-
                 <div className="Registered-IP">
                     <div className="dashboardHeadingDiv">
                         <p>Registered</p>

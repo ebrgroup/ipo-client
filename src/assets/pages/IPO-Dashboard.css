@@ -3,6 +3,15 @@
     height: calc(100vh - 10.15vh);
 }
 
+.dashboardHeadingDiv p {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.dashboardHeadingDiv {
+    height: 9.4vh;
+}
+
 .Registered-IP,
 .Applied-IP {
     display: flex;
@@ -11,13 +20,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 0vh 1.25vw;
-    padding-top: 2vh;
+    /* padding-top: 2vh; */
     padding-bottom: 3vh;
     border-radius: 10px;
     box-sizing: border-box;
     width: 100%t;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 2.5vh;
+    border: 3px solid #086464;
 }
 
 .Registered-IP>p,
