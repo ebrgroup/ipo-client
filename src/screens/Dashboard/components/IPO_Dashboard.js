@@ -1,8 +1,8 @@
-import '../pages/IPO-Dashboard.css';
-import trademarkIcon from '../Icons/icons8trademark641-1@2x.png'
-import patentIcon from '../Icons/icons8patent64-1@2x.png'
-import designIcon from '../Icons/icons8design64-1@2x.png'
-import copyrightIcon from '../Icons/icons8copyright64-1@2x.png'
+import './IPO-Dashboard.css';
+import trademarkIcon from '../../../assets/Icons/icons8trademark641-1@2x.png'
+import patentIcon from '../../../assets/Icons/icons8patent64-1@2x.png'
+import designIcon from '../../../assets/Icons/icons8design64-1@2x.png'
+import copyrightIcon from '../../../assets/Icons/icons8copyright64-1@2x.png'
 import { useEffect } from 'react'
 
 function IPO_Dashboard(props) {

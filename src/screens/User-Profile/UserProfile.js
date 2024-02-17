@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import '../components/UserProfileStyle.css'
-import userIcon from '../Icons/image@2x.png'
+import './UserProfileStyle.css'
+import userIcon from '../../assets/Icons/image@2x.png';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateUser } from '../states/middlewares/update-user'
+import { updateUser } from '../../assets/states/middlewares/update-user'
 import { toast } from 'react-toastify';
-import Combobox from './Combobox/Combobox'
-import CitySearchComboBox from './SearchComboBox/CitySearchComboBox'
+import Combobox from '../global-components/Combobox/Combobox'
+import CitySearchComboBox from '../global-components/SearchComboBox/CitySearchComboBox'
 
 
 const ErrorMessage = (prop) => {

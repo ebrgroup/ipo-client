@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import './App.css'
-import ChangePass from './assets/components/ChangePass';
-import UserProfile from './assets/components/UserProfile';
-import IPO_Dashboard from './assets/pages/IPO_Dashboard';
-import Main_Dashboard from './assets/pages/Main_Dashboard';
+import ChangePass from './screens/ChangePassword/ChangePass';
+import UserProfile from './screens/User-Profile/UserProfile';
+import IPO_Dashboard from './screens/Dashboard/components/IPO_Dashboard';
+import Main_Dashboard from './screens/Dashboard/Main_Dashboard';
 import AuthHome from './screens/AuthScreens/AuthHome';
 import SignUp from "./screens/AuthScreens/Components/SignUp";
 import SignIn from "./screens/AuthScreens/Components/SignIn";
@@ -13,7 +13,7 @@ import CreateNewPassword from "./screens/AuthScreens/Components/CreateNewPasswor
 import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import NotFoundPage from './assets/pages/NotFoundPage';
+import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 

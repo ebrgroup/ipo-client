@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import '../components/ChangePassStyle.css';
-import IPO_icon from '../Icons/rectangle-8@2x.png';
+import './ChangePassStyle.css';
+import IPO_icon from '../../assets/Icons/rectangle-8@2x.png';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';

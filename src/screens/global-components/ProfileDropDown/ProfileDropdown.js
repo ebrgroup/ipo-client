@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../states/actions/user-action';
+import { logout } from '../../../assets/states/actions/user-action';
 
 const ProfileDropdown = (props) => {
     const navigate = useNavigate();

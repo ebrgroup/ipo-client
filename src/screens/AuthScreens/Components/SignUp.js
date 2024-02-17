@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
-import Combobox from "../../../assets/components/Combobox/Combobox";
-import CitySearchComboBox from "../../../assets/components/SearchComboBox/CitySearchComboBox";
+import Combobox from "../../global-components/Combobox/Combobox";
 
 const SignUp = (props) => {
 
