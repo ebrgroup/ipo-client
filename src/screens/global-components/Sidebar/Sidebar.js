@@ -33,7 +33,7 @@ function Sidebar() {
                         <i className="fa-sharp fa-light fa-gauge"></i>
                         <p className="title">Dashboard</p>
                     </div>
-                    <div className="menu-item" onClick={() => navigate("/dashboard")}>
+                    <div className="menu-item" onClick={() => navigate("/registeripo")}>
                         <i className="fa-sharp fa-light fa-grid-2"></i>
                         <p className="title">Register IP</p>
                     </div>

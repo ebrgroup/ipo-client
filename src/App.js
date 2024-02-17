@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
+import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
 
 function App() {
 
@@ -60,6 +61,8 @@ function App() {
       document.title = "Verification - IPO";
     else if (path === "/dashboard")
       document.title = "Dashboard - IPO";
+    else if (path === "/registeripo")
+      document.title = "Register - IPO"
     else if (path === "/profile")
       document.title = "Profile - IPO";
     else if (path === "/changepassword")
@@ -79,6 +82,7 @@ function App() {
       />
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
