@@ -54,6 +54,7 @@ function UserProfile() {
         passwordError: false,
         firstNameError: false,
         lastNameError: false,
+        genderError: false,
         landlineNumError: false,
         faxNumError: false,
         addressError: false,
@@ -250,8 +251,7 @@ function UserProfile() {
                     <div>
                         <span>
                             <img src={userIcon} alt="" />
-                        </span>   
-                        <input className='file-input' name="file" type="file" id="file-input" />
+                        </span> 
                     </div>
                 </div>
                 <form className='form' onSubmit={handleSubmit}>
@@ -312,8 +312,10 @@ function UserProfile() {
                     </div>
                     <span className='gender-container'>
                         <p className="genderUpdateLabel">Gender: </p>
-                        <div>
-                            <div className="genderOptionsDiv">
+                        <div className='gender-child-container'>
+                            <div className="genderOptionsDiv" 
+                                onBlur={() => setErrors({ ...errors, genderError: true })}
+                                onFocus={() => setErrors({ ...errors, genderError: false })}>
                                 <label>
                                     <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
                                     <span>Male</span>
@@ -327,6 +329,7 @@ function UserProfile() {
                                     <span>Other</span>
                                 </label>
                             </div>
+                            {errors.genderError && user_profile.gender === "" ? <ErrorMessage error="This field is required!" /> : null}
                         </div>
                         </span>
                     </div>
