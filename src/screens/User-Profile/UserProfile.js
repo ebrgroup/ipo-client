@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import '../components/UserProfileStyle.css'
-import userIcon from '../Icons/image@2x.png'
+import './UserProfileStyle.css'
+import userIcon from '../../assets/Icons/image@2x.png';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { updateUser } from '../states/middlewares/update-user'
+import { updateUser } from '../../assets/states/middlewares/update-user'
 import { toast } from 'react-toastify';
-import Combobox from './Combobox/Combobox'
-import CitySearchComboBox from './SearchComboBox/CitySearchComboBox'
+import Combobox from '../global-components/Combobox/Combobox'
+import CitySearchComboBox from '../global-components/SearchComboBox/CitySearchComboBox'
 
 
 const ErrorMessage = (prop) => {
@@ -54,6 +54,7 @@ function UserProfile() {
         passwordError: false,
         firstNameError: false,
         lastNameError: false,
+        genderError: false,
         landlineNumError: false,
         faxNumError: false,
         addressError: false,
@@ -242,10 +243,9 @@ function UserProfile() {
                 <div className="editProfilePicDiv">
                     <h2>Edit Profile</h2>
                     <div>
-                        {/* <span> */}
-                        <img src={userIcon} alt="" />
-                        {/* </span>    */}
-                        <input className='file-input' name="file" type="file" id="file-input" />
+                        <span>
+                            <img src={userIcon} alt="" />
+                        </span> 
                     </div>
                 </div>
                 <form className='form' onSubmit={handleSubmit}>
@@ -303,29 +303,30 @@ function UserProfile() {
                             {errors.phoneError && user_profile.phone === "" ? <ErrorMessage error="This field is required!" /> : null}
                             {errors.phoneError && user_profile.phone !== "" && user_profile.phone.length < 11 ?
                                 <ErrorMessage error="Please enter valid phone number! " /> : null}
-                        </div>
-                        <span className='gender-container'>
-                            <p className="genderUpdateLabel">Gender: </p>
-                            <div class="mydict">
-                            
-                                    <label>
-                                        <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange} />
-                                        <span>Male</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange} />
-                                        <span>Female</span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange} />
-                                        <span>Other</span>
-                                    </label>
-
-                                    
-                                
-                            </div>
-                        </span>
                     </div>
+                    <span className='gender-container'>
+                        <p className="genderUpdateLabel">Gender: </p>
+                        <div className='gender-child-container'>
+                            <div className="genderOptionsDiv" 
+                                onBlur={() => setErrors({ ...errors, genderError: true })}
+                                onFocus={() => setErrors({ ...errors, genderError: false })}>
+                                <label>
+                                    <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
+                                    <span>Male</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange}/>
+                                    <span>Female</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange}/>
+                                    <span>Other</span>
+                                </label>
+                            </div>
+                        </div>
+                            {errors.genderError && user_profile.gender === "" ? <ErrorMessage error="This field is required!" /> : null}
+                        </span>
+                        </div>
                     <div className='flex'>
                         <div>
                             <span className='combobox-container'>

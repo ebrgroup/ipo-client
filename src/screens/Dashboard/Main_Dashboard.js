@@ -1,12 +1,12 @@
-import Sidebar from '../components/Sidebar';
-import '../pages/Main-Dashboard.css';
+import Sidebar from '../global-components/Sidebar/Sidebar';
+import './Main-Dashboard.css';
 import { useNavigate } from 'react-router-dom';
-import userIcon from '../Icons/image@2x.png';
-import dashboardIcon from '../Icons/bars-sort.png';
+import userIcon from '../../assets/Icons/image@2x.png';
+import dashboardIcon from '../../assets/Icons/bars-sort.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSidebar } from '../states/actions/Toggle-Sidebar';
+import { toggleSidebar } from '../../assets/states/actions/Toggle-Sidebar';
 import { useState } from 'react';
-import ProfileDropdown from './Components/ProfileDropdown';
+import ProfileDropdown from '../global-components/ProfileDropDown/ProfileDropdown';
 
 function Main_Dashboard(props) {
   const navigate = useNavigate();
