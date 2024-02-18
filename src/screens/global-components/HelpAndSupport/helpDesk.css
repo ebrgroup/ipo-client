@@ -1,0 +1,70 @@
+:root {
+    --gray: #6B6B6B;
+    --lightgray: #84818A;
+}
+
+.helpDesk-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.879);
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 1px rgba(185, 185, 185, 0.384);
+    box-sizing: border-box;
+    min-height: 33rem;
+}
+
+.helpDesk-container .helpDesk-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.helpDesk-header > span:hover{
+    cursor: pointer;
+}
+
+#heading {
+    font-weight: 500;
+    color: var(--gray);
+    font-size: 25px;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+}
+
+.helpDesk-header i {
+    font-size: 18px;
+    color: var(--gray);
+}
+
+.helpDesk-content .item {
+    margin-top: 1rem;
+    transform: translateX(-2rem);
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.helpDesk-content p {
+    font-size: 14px;
+    margin-top: 4rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.helpDesk-content ul i {
+    font-size: 9px;
+    margin-top: 7px;
+    color: var(--lightgray);
+}
+.helpDesk-content>ul li a {
+    text-decoration: none;
+    color: var(--lightgray);
+    font-size: medium;
+    font-weight: 500;
+}
+
+.helpDesk-content a:hover {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}

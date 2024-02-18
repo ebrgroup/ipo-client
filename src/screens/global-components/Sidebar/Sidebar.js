@@ -1,8 +1,9 @@
 import "./sidebar.css";
 import ipoImg from "../../../assets/Icons/IPO_Img.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../assets/states/actions/user-action';
+import { registerIPHelp } from "../../../assets/states/actions/Helpdesk-Content";
 
 function Sidebar() {
     const navigate = useNavigate();
@@ -15,6 +16,10 @@ function Sidebar() {
 
     const toggle_Sidebar = useSelector(state => state.toggleReducer?.val);
 
+    const handleRegerterIP = () => {
+        dispatch(registerIPHelp())
+        navigate("/registeripo")
+    }
     return (
         <div className={`sidebar ${!toggle_Sidebar ? 'close' : 'open'}`}>
             <div className='upper-menu-container'>
@@ -33,7 +38,7 @@ function Sidebar() {
                         <i className="fa-sharp fa-light fa-gauge"></i>
                         <p className="title">Dashboard</p>
                     </div>
-                    <div className="menu-item" onClick={() => navigate("/registeripo")}>
+                    <div className="menu-item" onClick={handleRegerterIP}>
                         <i className="fa-sharp fa-light fa-grid-2"></i>
                         <p className="title">Register IP</p>
                     </div>

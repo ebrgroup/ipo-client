@@ -17,17 +17,19 @@ import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
+import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
+
 
 function App() {
 
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
   const [progress, setProgress] = useState(0);
+  const [title, setTitle] = useState("");
 
   const loadingProgress = (progress) => {
     setProgress(progress)
   }
-  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const path = document.location.pathname;
@@ -82,7 +84,7 @@ function App() {
       />
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO Progress={loadingProgress} />} title={title} />} />
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus/>} Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />

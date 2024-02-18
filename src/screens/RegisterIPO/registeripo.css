@@ -1,0 +1,16 @@
+.IP-Registration{
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    gap: 5px;
+}
+
+
+.IP-Registration > section{
+    width: 100%;
+}
+
+.IP-Registration aside{
+    width: 40%;    
+
+}
