@@ -1,3 +1,8 @@
+:root {
+    --gray: #6B6B6B;
+    --lightgray: #84818A;
+}
+
 .IP-Registration{
     display: flex;
     flex-direction: row;
@@ -7,10 +12,14 @@
 
 
 .IP-Registration > section{
-    width: 100%;
+    width: 80%;
 }
 
 .IP-Registration aside{
-    width: 40%;    
+    width: 20rem;    
+    position: fixed;
+    right: 1.5rem;
+    z-index: 99;
 
 }
+

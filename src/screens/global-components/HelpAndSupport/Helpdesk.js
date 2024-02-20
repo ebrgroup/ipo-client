@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 const Helpdesk = () => {
     const helpContent = useSelector(state => state.helpdeskContentReducer?.content);
     const handleToggle = () => {
-
     }
     return (
         <div className="helpDesk-container">

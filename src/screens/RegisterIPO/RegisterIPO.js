@@ -1,18 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Helpdesk from "../global-components/HelpAndSupport/Helpdesk";
 import './registeripo.css'
 
-const RegisterIPO = (props) => {
-
-    useEffect(() => {
-        props.Progress(100);
-    }, [])
+const RegisterIPO = ({screen}) => {
 
     return (
         <>
             <main className="IP-Registration">
                 <section>
-                    {props.screen}
+                    {screen}
                 </section>
                 <aside>
                     <Helpdesk />
