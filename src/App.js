@@ -17,20 +17,25 @@ import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
+<<<<<<< HEAD
 import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/ConfirmProfile';
 import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
 import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
+=======
+import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
+
+>>>>>>> 9bd998c4d89c6bdc520b019f01f10edca5912e9a
 
 function App() {
 
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
   const [progress, setProgress] = useState(0);
+  const [title, setTitle] = useState("");
 
   const loadingProgress = (progress) => {
     setProgress(progress)
   }
-  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const path = document.location.pathname;
@@ -91,10 +96,14 @@ function App() {
       />
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
+<<<<<<< HEAD
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO Progress={loadingProgress} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<ConfirmProfile Progress={loadingProgress} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Classification Progress={loadingProgress} />} title={title} />} />
         <Route path='/reviewapplication' element={<Main_Dashboard screen={<ReviewApplication Progress={loadingProgress} />} title={title} />} />
+=======
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus/>} Progress={loadingProgress} />} title={title} />} />
+>>>>>>> 9bd998c4d89c6bdc520b019f01f10edca5912e9a
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
