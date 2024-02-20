@@ -1,12 +1,10 @@
 .profile-container {
   width: 100%;
-  padding: 0vh 1vw;
-  padding-bottom: 3vh;
+  padding: 1vh 1vw;
   box-sizing: border-box;
-
 }
 
-/* .profile-image {
+.profile-image {
 
   display: flex;
   justify-content: center;
@@ -39,13 +37,13 @@
 .profile-image button:hover {
   cursor: pointer;
   background-color: #036666ab;
-} */
+}
 
-/* .profile-image-span {
+ .profile-image-span {
 
   width: 80%;
   text-align: center;
-} */
+}
 
 .profile-info {
   background-color: white;
@@ -54,30 +52,29 @@
   width: 80%;
   margin: auto;
   height: fit-content;
-  margin-top: 3vh;
   box-sizing: border-box;
   padding: 10px 0;
-
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-items: center;
 }
 
 .profile-info .editProfilePicDiv {
   display: flex;
   justify-content: space-between;
-
-  padding: 0 1rem;
+  align-items: center;
+  width: 80%;
 }
 
 .profile-info .editProfilePicDiv div img {
-  width: 3.5rem;
-  height: 3.5rem;
-  /* transform: translateX(-5rem); */
+  width: 5rem;
+  height: 5rem;
 }
 
 
 .profile-info h2 {
   color: #84818A;
-  margin-left: 6.2vw;
 }
 
 .profile-info .form {
@@ -133,9 +130,26 @@
   transform: translateX(-10px);
 }
 
-
 .gender-child-container {
+  width: 75%;
+}
+
+.genderOptionsDiv {
   height: 38%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.genderOptionsDiv span {
+  margin-left: 0.3vw;
+  cursor: pointer;
+}
+
+.genderOptionsDiv input {
+  cursor: pointer;
 }
 
 .buttons .cancelBtn {
@@ -277,32 +291,29 @@
   cursor: pointer;
 }
 
-.buttons:hover .cancelBtn {
-  outline: none;
-  border: none;
-}
 
 .buttons .cancelBtn {
   background-color: white;
   color: black;
   border: 1px solid #036666ab;
-  padding: 0.7rem 1.6rem;
+  padding: 0.7rem 0rem;
+  width: 6rem;
   text-align: center;
-  margin: 5px;
+  /* margin: 5px; */
   border-radius: 10px;
   font-weight: 500;
 }
 
 .cancelBtn:hover {
   background-color: rgb(255, 28, 28);
-  outline: none;
-  border: none;
+  border: 1px solid rgb(255, 28, 28);
   color: white;
   cursor: pointer;
 }
 
 .save-button {
-  padding: 0.7rem 1.6rem;
+  padding: 0.7rem 0rem;
+  width: 6rem;
   font-family: inherit;
   background: #036666;
   color: white;
@@ -344,9 +355,9 @@
 } */
 
 .save-button:hover {
-  background: #036666da;
-  outline: none;
-  border: none;
+  background: #088d8dda;
+  cursor: pointer;
+  /* border: none; */
 }
 /* 
 .save-button:hover .svg-wrapper {

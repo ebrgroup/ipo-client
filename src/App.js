@@ -17,6 +17,9 @@ import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
+import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/ConfirmProfile';
+import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
+import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
 
 function App() {
 
@@ -69,6 +72,12 @@ function App() {
       document.title = "Change Password - IPO";
     else if (path == "/registerip")
       document.title = "Register IP - IPO";
+    else if (path == "/confirmprofile")
+      document.title = "Confirm Profile - IPO";
+    else if (path == "/reviewapplication")
+      document.title = "Review Application - IPO";
+    else if (path == "/classification")
+      document.title = "Trademark Classification - IPO";
     setTitle(document.title.replace(" - IPO", ""));
   });
 
@@ -83,6 +92,9 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO Progress={loadingProgress} />} title={title} />} />
+        <Route path='/confirmprofile' element={<Main_Dashboard screen={<ConfirmProfile Progress={loadingProgress} />} title={title} />} />
+        <Route path='/classification' element={<Main_Dashboard screen={<Classification Progress={loadingProgress} />} title={title} />} />
+        <Route path='/reviewapplication' element={<Main_Dashboard screen={<ReviewApplication Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
@@ -92,7 +104,6 @@ function App() {
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
-
       </Routes>
       <ToastContainer
         position="top-center"
