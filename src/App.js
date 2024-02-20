@@ -21,6 +21,11 @@ import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/Confi
 import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
 import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
+import Selfshowcase from './screens/RegisterIPO/Trademark-Registration/Selfshowcase';
+import Registraionflow from './screens/RegisterIPO/Registraionflow';
+import  LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
+import SearchIP from './screens/Search-IP/SearchIP';
+import TrackIIP from './screens/Track-IP/TrackIIP';
 
 
 function App() {
@@ -96,7 +101,11 @@ function App() {
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<ConfirmProfile Progress={loadingProgress} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Classification Progress={loadingProgress} />} title={title} />} />
         <Route path='/reviewapplication' element={<Main_Dashboard screen={<ReviewApplication Progress={loadingProgress} />} title={title} />} />
-        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus/>} Progress={loadingProgress} />} title={title} />} />
+        <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus  Progress={loadingProgress} />}/>} title={title} />} />
+        <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />

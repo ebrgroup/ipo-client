@@ -1,0 +1,78 @@
+#Navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+
+}
+
+#Search-Box {
+    border: 1px solid #6B6B6B;
+    outline: none;
+    border-radius: 8px;
+    width: 70%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: 2.8rem;
+}
+
+#Search-Box>* {
+    color: #6B6B6B;
+    font-size: 17px;
+}
+
+#Search-Box input {
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+
+}
+#Navbar .navbarButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.navbarButtons .btn {
+    height: 2.8rem;
+    width: 10rem;
+    font-size: 16px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.navbarButtons .type i {
+    font-size: 1.2rem;
+
+}
+
+.navbarButtons .type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #aaaaaa14;
+    color: #6B6B6B;
+
+}
+
+.navbarButtons .search {
+    color: white;
+    background-color: #FF8548;
+
+}
+
+.navbarButtons .search:hover {
+    background-color: #ff8548ea;
+
+}
