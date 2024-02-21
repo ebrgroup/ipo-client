@@ -21,15 +21,12 @@ import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/Confi
 import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
 import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
-<<<<<<< HEAD
-import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
-=======
 import Selfshowcase from './screens/RegisterIPO/Trademark-Registration/Selfshowcase';
 import Registraionflow from './screens/RegisterIPO/Registraionflow';
 import  LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
 import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
->>>>>>> 22616cdcd8801b101cbe7076a2eff397e5229b38
+import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
 
 
 function App() {
