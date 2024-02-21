@@ -26,7 +26,7 @@
 
 .reviewAppLabel {
     color: gray;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 0.7rem;
 }
 
@@ -49,8 +49,12 @@
 }
 
 .reviewAppBoxFooter div {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     font-size: 0.8rem;
     gap: 0.35rem;
+}
+
+.reviewAppBoxFooter b {
+    font-weight: 600;
 }

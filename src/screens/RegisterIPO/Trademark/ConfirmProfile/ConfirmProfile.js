@@ -8,8 +8,8 @@ const ConfirmProfile = (props) => {
     const navigate = useNavigate();
 
     return (
-        <div className="confirmProfilePage">
-            <div className="profileDetailsDiv">
+        // <div className="confirmProfilePage">
+            // <div className="profileDetailsDiv">
                 <div className="profileBox">
                     <div className="profileBoxHeader">
                         <h2>Profile</h2>
@@ -188,11 +188,11 @@ const ConfirmProfile = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="helpAndSupportDiv">
+        //     </div>
+        //     <div className="helpAndSupportDiv">
 
-            </div>
-        </div>
+        //     </div>
+        // </div>
     );
 };
 

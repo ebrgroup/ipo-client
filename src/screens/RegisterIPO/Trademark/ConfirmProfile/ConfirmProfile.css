@@ -1,4 +1,4 @@
-.confirmProfilePage {
+/* .confirmProfilePage {
     width: 100%;
     height: 100%;
     display: flex;
@@ -10,7 +10,7 @@
     box-sizing: border-box;
     padding: 1vh 0.5vw;
 }
-
+ */
 .profileBox {
     box-sizing: border-box;
     background-color: white;
@@ -21,6 +21,7 @@
     flex-direction: column;
     padding: 0rem 1rem;
     padding-left: 2rem;
+    width: 87.5%;
 }
 
 .helpAndSupportDiv {

@@ -37,8 +37,8 @@
 .step-btn {
     background-color: var(--darkgreen);
     color: white;
-    width: 200px;
-    height: 100px;
+    width: 90%;
+    height: 5.51rem;
     display: flex;
     justify-content: start;
     align-items: center;

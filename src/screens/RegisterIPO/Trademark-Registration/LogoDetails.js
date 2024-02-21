@@ -29,7 +29,7 @@ const LogoDetails = ({ Progress }) => {
     return (
         <main className="logoDetails-container">
             <section id='cards-section'>
-                <h4>Which of the following best describes the trademark?</h4>
+                <h4 style={{padding: "0", margin: "0", marginBottom: "1rem"}}>Which of the following best describes the trademark?</h4>
                 <div id="radio-cards-container">
                     <div className={`radio-card radio-card-1 ${activeCard == 'card-1' ? 'selected' : ''}`} onClick={() => selectRadioCard(1)}>
                         <div className="radio-card-check">

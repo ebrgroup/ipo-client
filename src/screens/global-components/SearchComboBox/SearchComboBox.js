@@ -22,11 +22,11 @@ function SearchComboBox(props) {
                     onChange={props.handleSearch}
                 />
                 </div>
-                <ul className="searchDropdownOptions">
+                <ul className="searchDropdownOptions searchComboboxOptionsHeight">
                 {props.filteredOptions.map((item, index) => (
-                    <li key={index} onClick={() => {
+                    <li key={index} className="searchComboboxItem" onClick={() => {
                         props.setSearchText("");
-                        props.handleOptionClick(item, props.menuType)
+                        props.handleOptionClick(item, props.menuType);
                     }}>
                     {item}
                     </li>

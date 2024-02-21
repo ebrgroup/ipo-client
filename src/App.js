@@ -98,14 +98,14 @@ function App() {
       />
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/confirmprofile' element={<Main_Dashboard screen={<ConfirmProfile Progress={loadingProgress} />} title={title} />} />
-        <Route path='/classification' element={<Main_Dashboard screen={<Classification Progress={loadingProgress} />} title={title} />} />
-        <Route path='/reviewapplication' element={<Main_Dashboard screen={<ReviewApplication Progress={loadingProgress} />} title={title} />} />
         <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />}   title={title} />} />
         <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />}   title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus  Progress={loadingProgress} />}/>} title={title} />} />
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
+        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />}  />} title={title} />} />
+        <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />}  />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />

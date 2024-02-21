@@ -4,8 +4,8 @@ import logo from '../../../../assets/Icons/coca-cola.png';
 const ReviewApplication = () => {
 
     return (
-        <div className="reviewAppPage">
-            <div className="reviewAppDiv">
+        // <div className="reviewAppPage">
+        //     <div className="reviewAppDiv">
                 <div className="reviewAppBox">
                     <h3>Review your application</h3>
                     <div className="reviewAppColumnsDiv">
@@ -55,17 +55,25 @@ const ReviewApplication = () => {
                         </div>
                     </div>
                     <div className="reviewAppBoxFooter">
-                        <img src={logo} alt="Trademark Logo" height="150" />
-                        <div>
-                            <span><b>Name of Signature: </b> Coca Cola</span>
-                            <span><b>Color Claimed: </b> Coca Cola</span>
-                            <span><b>Word & Design Mark: </b> Coca Cola</span>
-                            <span><b>Series of Marks: </b> Coca Cola</span>
+                        <img src={logo} alt="Trademark Logo" height="140" />
+                        <div style={{display: "flex", flexDirection: "row", gap: "1.5rem"}}>
+                            <div>
+                                <b>Name of Signature: </b> <br />
+                                <b>Color Claimed: </b><br />
+                                <b>Word & Design Mark: </b><br />
+                                <b>Series of Marks: </b>
+                            </div>
+                            <div>
+                                <span>Coca Cola</span><br />
+                                <span>Coca Cola</span><br />
+                                <span>Coca Cola</span><br />
+                                <span>Coca Cola</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+        //     </div>
+        // </div>
     );
 };
 
