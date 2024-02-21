@@ -18,6 +18,7 @@ import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
+import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus/>} Progress={loadingProgress} />} title={title} />} />
+        <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />

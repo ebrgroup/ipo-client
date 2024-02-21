@@ -15,23 +15,19 @@ const IPMenus = () => {
 
     const trademarkBtnClick = () => {
         dispatch(registerTrademarkHelp())
-        navigate('/registeripo')
+        navigate('/confirmationScreen')
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())
-        navigate('/registeripo')
+        navigate('/confirmationScreen')
     }
     const patentBtnClick = () => {
         dispatch(registerPatentHelp())
-
-        navigate('/registeripo')
-
+        navigate('/confirmationScreen')
     }
     const designBtnClick = () => {
         dispatch(registerDesignHelp())
-
-        navigate('/registeripo')
-
+        navigate('/confirmationScreen')
     }
 
     return (
