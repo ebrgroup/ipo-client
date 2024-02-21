@@ -20,7 +20,7 @@ li {
   align-items: center;
   /* cursor: pointer; */
   justify-content: space-between;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
 .searchSelect-btn i {
@@ -63,11 +63,14 @@ li {
 }
 
 .searchDropdownContent .searchDropdownOptions {
-  max-height: 25vh;
   padding: 0px;
   margin: 0px;
   margin-top: 0.5vh;
   overflow-y: auto;
+}
+
+.searchComboboxOptionsHeight {
+  max-height: 25vh;
 }
 
 .searchDropdownOptions::-webkit-scrollbar {
@@ -88,7 +91,7 @@ li {
   background: #b3b3b3;
 }
 
-.searchDropdownOptions li {
+.searchDropdownOptions .searchComboboxItem {
   height: 6vh;
   padding: 0 1vw;
   font-size: 0.8rem;
@@ -97,7 +100,7 @@ li {
 .searchDropdownOptions li:hover,
 li.selected {
   border-radius: 5px;
-  background: #f2f2f2;
+  background: #e9e9e9;
 }
 
 .wrapper{

@@ -8,14 +8,19 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { registerCopyrightHelp, registerDesignHelp, registerPatentHelp, registerTrademarkHelp }
     from '../../../assets/states/actions/Helpdesk-Content'
+import { useEffect } from 'react'
 
-const IPMenus = () => {
+const IPMenus = ({Progress}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    useEffect(()=>{
+        Progress(100);
+    },[])
+
     const trademarkBtnClick = () => {
         dispatch(registerTrademarkHelp())
-        navigate('/confirmationScreen')
+        navigate('/selfshowcase')
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())

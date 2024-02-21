@@ -17,8 +17,19 @@ import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
+import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/ConfirmProfile';
+import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
+import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
+<<<<<<< HEAD
 import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
+=======
+import Selfshowcase from './screens/RegisterIPO/Trademark-Registration/Selfshowcase';
+import Registraionflow from './screens/RegisterIPO/Registraionflow';
+import  LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
+import SearchIP from './screens/Search-IP/SearchIP';
+import TrackIIP from './screens/Track-IP/TrackIIP';
+>>>>>>> 22616cdcd8801b101cbe7076a2eff397e5229b38
 
 
 function App() {
@@ -72,6 +83,12 @@ function App() {
       document.title = "Change Password - IPO";
     else if (path == "/registerip")
       document.title = "Register IP - IPO";
+    else if (path == "/confirmprofile")
+      document.title = "Confirm Profile - IPO";
+    else if (path == "/reviewapplication")
+      document.title = "Review Application - IPO";
+    else if (path == "/classification")
+      document.title = "Trademark Classification - IPO";
     setTitle(document.title.replace(" - IPO", ""));
   });
 
@@ -85,8 +102,15 @@ function App() {
       />
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus/>} Progress={loadingProgress} />} title={title} />} />
+        <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />}   title={title} />} />
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus  Progress={loadingProgress} />}/>} title={title} />} />
         <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
+        <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
+        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />}  />} title={title} />} />
+        <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />}  />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
@@ -96,7 +120,6 @@ function App() {
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
-
       </Routes>
       <ToastContainer
         position="top-center"

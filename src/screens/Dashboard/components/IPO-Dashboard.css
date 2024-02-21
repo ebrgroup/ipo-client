@@ -1,6 +1,8 @@
 .dashboard {
     width: 100%;
-    height: calc(100vh - 10.15vh);
+    height: 100%;
+    padding-top: 1rem;
+    box-sizing: border-box;
 }
 
 .dashboardHeadingDiv p {
@@ -24,7 +26,7 @@
     padding-bottom: 3vh;
     border-radius: 10px;
     box-sizing: border-box;
-    width: 100%t;
+    width: 100%;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 2.5vh;
     border: 3px solid #086464;
