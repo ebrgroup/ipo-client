@@ -34,7 +34,6 @@ const IPMenus = ({Progress}) => {
         dispatch(registerDesignHelp())
         navigate('/confirmationScreen')
     }
-
     return (
         <div className="IP-Menus">
             <div className='Ip-btn ' onClick={trademarkBtnClick}>

@@ -5,6 +5,7 @@
 
 #FlowSteps-container {
     padding-bottom: 10px;
+    height: fit-content;
 }
 
 #FlowSteps-container>#flow-title {
@@ -37,8 +38,8 @@
 .step-btn {
     background-color: var(--darkgreen);
     color: white;
-    width: 90%;
-    height: 5.51rem;
+    width: 85%;
+    height: 14.2vh;
     display: flex;
     justify-content: start;
     align-items: center;

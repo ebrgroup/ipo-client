@@ -2,7 +2,7 @@ import React from "react";
 import Helpdesk from "../global-components/HelpAndSupport/Helpdesk";
 import './registeripo.css'
 
-const RegisterIPO = ({screen}) => {
+const RegisterIPO = ({ screen }) => {
 
     return (
         <>

@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './selfShowcase.css';
 import { useNavigate } from 'react-router-dom';
+// import logo from '../../../assets/Icons/coca-cola.png'
 
-const Selfshowcase = ({Progress}) => {
+const Selfshowcase = ({ Progress }) => {
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState('self');
 
@@ -16,7 +17,7 @@ const Selfshowcase = ({Progress}) => {
 
   return (
     <section className='selfShowcaseContainer'>
-      <div className="animation">
+      <div className="animation" style={{ display: selectedRole == 'representative' ? 'none' : 'block' }}>
 
       </div>
       <div className="radioBtns">
@@ -49,6 +50,12 @@ const Selfshowcase = ({Progress}) => {
           <div className="input">
             <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
             <input type="file" />
+          </div>
+          <div className=" input selected-logo">
+            {/* <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
+            <input type="file" /> */}
+            {/* <img src='' alt="Scanned document here" /> */}
+            Scanned document here
           </div>
 
         </div>
