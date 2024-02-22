@@ -63,7 +63,6 @@ function UserProfile() {
     });
 
     const toggleMenu = (menuType) => {
-        console.log(user_profile)
         if (menuType === "serviceProvider") {
             setUser_profile(prevuser_profile => ({
                 ...prevuser_profile,
