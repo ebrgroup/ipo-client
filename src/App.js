@@ -27,6 +27,7 @@ import  LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetai
 import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
 import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
+import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDetails';
 
 
 function App() {
@@ -86,6 +87,8 @@ function App() {
       document.title = "Review Application - IPO";
     else if (path == "/classification")
       document.title = "Trademark Classification - IPO";
+    else if(path == "/ownerDetails")
+      document.title = "Owner and Business Details - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   });
 
@@ -106,6 +109,7 @@ function App() {
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
+        <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />}  />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />}  />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />

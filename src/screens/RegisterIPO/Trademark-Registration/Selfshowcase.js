@@ -54,7 +54,7 @@ const Selfshowcase = ({Progress}) => {
         </div>
       )}
 
-      <button id='continueBtn' onClick={()=>navigate('/logodetails')} >Continue</button>
+      <button id='continueBtn' onClick={()=>navigate('/classification')} >Continue</button>
     </section>
   );
 };

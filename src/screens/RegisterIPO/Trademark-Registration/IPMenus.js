@@ -20,7 +20,7 @@ const IPMenus = ({Progress}) => {
 
     const trademarkBtnClick = () => {
         dispatch(registerTrademarkHelp())
-        navigate('/selfshowcase')
+        navigate('/confirmationScreen')
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
+import { useNavigate } from "react-router-dom";
 
 const Classification = () => {
 
@@ -192,6 +193,7 @@ const Classification = () => {
     const filteredClassifications = classifications.filter((classification) =>
         classification.description.toLowerCase().includes(searchText.toLowerCase())
     );
+    const navigate = useNavigate(null);
 
     return (
         // <div className="classificationPage">
@@ -241,9 +243,8 @@ const Classification = () => {
                         <br />
                         <textarea className="classificationInput classificationTextArea" rows="7" placeholder="Enter details here..." />
                     </div>
+                    <button id='continueBtn' onClick={() => navigate("/ownerDetails")}  >Continue</button>
                 </div>
-            // </div>
-        // </div>
     );
 };
 

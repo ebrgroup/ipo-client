@@ -182,6 +182,7 @@ const ConfirmProfile = (props) => {
                             </div>
                             <button 
                                 className="continueButton"
+                                onClick={ () => navigate("/selfshowcase") }
                             >
                                 Continue
                             </button>

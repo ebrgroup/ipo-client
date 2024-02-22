@@ -3,9 +3,11 @@ import './logoDetails.css'
 import Bhivetxt from '../../../assets/Icons/Bhivetxt.png'
 import BhiveImg from '../../../assets/Icons/Bhiveimg.png'
 import BhiveImgtxt from '../../../assets/Icons/BhiveimgText.png'
+import { useNavigate } from 'react-router-dom'
 const LogoDetails = ({ Progress }) => {
 
     const [activeCard, setActiveCard] = useState('')
+    const navigate = useNavigate();
 
     const selectRadioCard = (cardIdx) => {
 
@@ -93,7 +95,7 @@ const LogoDetails = ({ Progress }) => {
                     </div>
                 {/* </div> */}
             </section>
-            <button id='continueBtn' >Continue</button>
+            <button id='continueBtn' onClick={() => navigate("/reviewapplication")}  >Continue</button>
         </main>
     )
 }

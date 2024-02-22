@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./confirmationScreen.css";
 import PaymentModal from "../Payment-modal/PaymentModal";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmationScreen = () => {
 
@@ -13,6 +14,8 @@ const ConfirmationScreen = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const navigate = useNavigate(null);
 
     return(
         <div className="confirmation-parent-container">
@@ -38,10 +41,10 @@ const ConfirmationScreen = () => {
                     </h6>
                 </div>
                 <div className="confirmation-button-container">
-                    <button onClick={ openModal }>Proceed to apply</button>
+                    <button onClick={ () => navigate("/confirmprofile") }>Proceed to apply</button>
                 </div>
             </div>
-            <PaymentModal isOpen={ isModalOpen } closeModal={ closeModal } />
+            {/* <PaymentModal isOpen={ isModalOpen } closeModal={ closeModal } /> */}
         </div>
     );
 }

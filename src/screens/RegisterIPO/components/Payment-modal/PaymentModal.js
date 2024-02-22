@@ -71,6 +71,7 @@ const PaymentModal = ({ isOpen, closeModal }) => {
     return (
         <Modal
             open={isOpen}
+            onClose={closeModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
