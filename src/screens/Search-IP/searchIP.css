@@ -2,7 +2,9 @@
     background-color: white;
     border-radius: 8px;
     height: fit-content;
-    min-height: 37.5rem;
+    height: 98.5%;
+    border-radius: 10px;
     box-shadow: 0px 0px 4px 1px rgba(213, 212, 212, 0.384);   
-    margin-top: -10px;
+    padding: 1.3rem 1rem;
+    box-sizing: border-box;
 }

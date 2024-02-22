@@ -27,7 +27,7 @@ const Registrationsteps = () => {
                 </div>
                 <div className='step-btn'>
                     <span>5.</span>
-                    <span>Fee and submission</span>
+                    <span>Fee submission</span>
                 </div>
             </div>
         </div>

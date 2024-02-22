@@ -3,10 +3,9 @@
     --lightgray: #84818A;
 }
 
-.IP-Registration{
+.IP-Registration {
     display: flex;
     flex-direction: row;
-    /* height: fit-content; */
     gap: 5px;
     height: 100%;
     width: 100%;
@@ -15,14 +14,14 @@
 }
 
 
-.IP-Registration > section{
+.IP-Registration>section {
     width: 80%;
+    height: 88vh;
 }
 
-.IP-Registration aside{
-    width: 20rem;    
-    position: fixed;
-    right: 1.5rem;
-    z-index: 99;
-}
+.IP-Registration aside {
+    width: 20rem;
+    top: 5rem;
+    height: 88vh;
 
+}
