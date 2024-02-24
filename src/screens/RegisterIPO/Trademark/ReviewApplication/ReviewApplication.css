@@ -58,3 +58,7 @@
 .reviewAppBoxFooter b {
     font-weight: 600;
 }
+
+.reviewAppBox button {
+    margin-right: 5vw;
+}

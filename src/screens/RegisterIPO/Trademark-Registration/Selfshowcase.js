@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './selfShowcase.css';
 import { useNavigate } from 'react-router-dom';
+import { Player } from '@lottiefiles/react-lottie-player';
 // import logo from '../../../assets/Icons/coca-cola.png'
 
 const Selfshowcase = ({ Progress }) => {
@@ -18,7 +19,7 @@ const Selfshowcase = ({ Progress }) => {
   return (
     <section className='selfShowcaseContainer'>
       <div className="animation" style={{ display: selectedRole == 'representative' ? 'none' : 'block' }}>
-
+        <Player src={require("../../../assets/Icons/self-showcase.json")} autoplay loop className='self-lottie' />
       </div>
       <div className="radioBtns">
         <h4>Who is completing this application?</h4>

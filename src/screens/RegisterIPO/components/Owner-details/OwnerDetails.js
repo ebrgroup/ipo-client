@@ -180,7 +180,9 @@ const OwnerDetails = (props) => {
                     <Inputs inputData = { selectedOption.array } />
                 </div>
             </div>
-            <button id='continueBtn' onClick={() => navigate("/logodetails")}>Continue</button>
+            <div className="button-div">
+                <button id='continueBtn' onClick={() => navigate("/logodetails")}>Continue</button>
+            </div>
         </div>
     );
 }

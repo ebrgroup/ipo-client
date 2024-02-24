@@ -12,7 +12,12 @@
 }
 
 .animation {
+    margin-top: 5vh;
     min-height: 300px;
+}
+
+.self-lottie {
+    height: 12rem;
 }
 
 .radioBtns h4 {

@@ -47,3 +47,7 @@
     text-align: justify;
     cursor: pointer;
 }
+
+.classificationBox button {
+    margin-right: 4vw;
+}

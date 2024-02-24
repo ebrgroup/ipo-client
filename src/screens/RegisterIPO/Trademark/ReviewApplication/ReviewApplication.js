@@ -1,7 +1,10 @@
 import "./ReviewApplication.css";
 import logo from '../../../../assets/Icons/coca-cola.png';
+import { useNavigate } from "react-router-dom";
 
 const ReviewApplication = () => {
+
+    const navigate = useNavigate(null);
 
     return (
         // <div className="reviewAppPage">
@@ -71,6 +74,7 @@ const ReviewApplication = () => {
                             </div>
                         </div>
                     </div>
+                    <button id='continueBtn' onClick={ () => navigate("/feesubmission") }>Continue</button>
                 </div>
         //     </div>
         // </div>

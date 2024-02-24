@@ -28,6 +28,8 @@ import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
 import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
 import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDetails';
+import PaymentModal from './screens/RegisterIPO/components/Payment-modal/PaymentModal';
+import FeeSubmission from './screens/RegisterIPO/components/FeeSubmission/FeeSubmission';
 
 
 function App() {
@@ -111,6 +113,7 @@ function App() {
         <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
         <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />}  />} title={title} />} />
+        <Route path='/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission />} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />}  />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />

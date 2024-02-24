@@ -19,6 +19,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 13vh;
 }
 
 .confirmation-lottie {
@@ -37,7 +38,7 @@
 
 .confirmation-text-container {
     width: 100%;
-    margin: 5vh 0 0 5vw;
+    margin: 8vh 0 0 5vw;
 }
 
 .confirmation-text-container h6 {
@@ -57,7 +58,8 @@
     text-decoration: underline;
 }
 
-.confirmation-questions:hover, span:hover {
+.confirmation-questions:hover,
+.confirmation-questions span:hover {
     cursor: pointer;
     color: blue;
 }
@@ -84,7 +86,5 @@
 
 .confirmation-button-container button:hover {
     cursor: pointer;
-    color: #000;
-    background-color: #fff;
-    border: 1px solid #036666;
+    background-color: #036666c9;
 }
