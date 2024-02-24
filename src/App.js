@@ -23,7 +23,7 @@ import Classification from './screens/RegisterIPO/Trademark/Classification/Class
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
 import Selfshowcase from './screens/RegisterIPO/Trademark-Registration/Selfshowcase';
 import Registraionflow from './screens/RegisterIPO/Registraionflow';
-import  LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
+import LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
 import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
 import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
@@ -60,8 +60,8 @@ function App() {
     } else if (isLogin && autthRoutes.includes(path)) {
       navigate("/dashboard");
     }
-    
-    if (path === "/signin") 
+
+    if (path === "/signin")
       document.title = "Sign In - IPO";
     else if (path === "/signup")
       document.title = "Sign Up - IPO";
@@ -87,7 +87,7 @@ function App() {
       document.title = "Review Application - IPO";
     else if (path == "/classification")
       document.title = "Trademark Classification - IPO";
-    else if(path == "/ownerDetails")
+    else if (path == "/ownerDetails")
       document.title = "Owner and Business Details - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   });
@@ -101,19 +101,19 @@ function App() {
         height={2}
       />
       <Routes>
-        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />}   title={title} />} />
-        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus  Progress={loadingProgress} />}/>} title={title} />} />
+        <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />} title={title} />} />
+        <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />} title={title} />} />
+        <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />} title={title} />} />
+        <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress}/>}  />} title={title} />} />
+        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />}  />} title={title} />} />
-        <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />}  />} title={title} />} />
-        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />}  title={title} />} />
-        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />}  title={title} />} />
+        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} title={title} />} />
+        <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
         <Route path="/signup" element={<AuthHome screen={<SignUp Progress={loadingProgress} />} />} />
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword Progress={loadingProgress} />} />} />
@@ -133,7 +133,7 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-        style={{marginTop: "5vh"}}
+        style={{ marginTop: "5vh" }}
       />
     </div >
   );
