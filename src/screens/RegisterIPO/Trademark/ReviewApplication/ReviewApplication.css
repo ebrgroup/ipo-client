@@ -32,13 +32,18 @@
 
 .reviewAppData {
     font-size: 0.9rem;
+    /* margin-top: 15px; */
 }
 
 .reviewAppColumnsDiv {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
+}
+
+.reviewAppColumnsDiv .data-column{
+    margin-top:10px;
 }
 
 .reviewAppBoxFooter {

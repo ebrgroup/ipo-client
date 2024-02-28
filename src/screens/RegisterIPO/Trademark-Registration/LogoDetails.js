@@ -11,29 +11,34 @@ const LogoDetails = ({ Progress }) => {
 
     const [activeCard, setActiveCard] = useState('')
     const [logoDetails, setLogoDetails] = useState({
-        domainName: "", colorClaimed: "", logoFile: "", logoDescription: ""
+        markDesc: "",
+        domainName: "",
+        colorClaimed: "",
+        markSeries: "",
+        logoFile: "",
+        markType: ""
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const selectRadioCard = (cardIdx) => {
-        let logoDescription = "";
+        let markType = "";
         if (cardIdx == 1) {
             setActiveCard('card-1')
-            logoDescription = "It consists of only words, letters or numbers";
+            markType = "Word Mark";
         }
         else if (cardIdx == 2) {
             setActiveCard('card-2')
-            logoDescription = "It is a picture without words, letters or numbers";
+            markType = "Design Mark";
         }
         else if (cardIdx == 3) {
             setActiveCard('card-3')
-            logoDescription = "It consists of words, letters or numbers in a particular picture";
+            markType = "Word & Design Mark";
         }
 
         setLogoDetails((prevData) => ({
             ...prevData,
-            logoDescription
+            markType
         }));
     }
 
@@ -58,7 +63,7 @@ const LogoDetails = ({ Progress }) => {
     return (
         <main className="logoDetails-container">
             <section id='cards-section'>
-                <h4 style={{padding: "0", margin: "0", marginBottom: "1rem"}}>Which of the following best describes the trademark?</h4>
+                <h4 style={{ padding: "0", margin: "0", marginBottom: "1rem" }}>Which of the following best describes the trademark?</h4>
                 <div id="radio-cards-container">
                     <div className={`radio-card radio-card-1 ${activeCard == 'card-1' ? 'selected' : ''}`} onClick={() => selectRadioCard(1)}>
                         <div className="radio-card-check">
@@ -66,7 +71,8 @@ const LogoDetails = ({ Progress }) => {
                         </div>
                         <div className="text-center">
                             <div className="radio-card-label-description">
-                                It consists of only words, letters or numbers                      </div>
+                                It consists of only words, letters or numbers
+                            </div>
                             <div className="radio-card-icon">
                                 <img src={Bhivetxt} />
                             </div>
@@ -106,23 +112,35 @@ const LogoDetails = ({ Progress }) => {
             <section id="logoDetail-section">
                 {/* <div className="representativeFields"> */}
 
-                    <div className="input">
-                        <label htmlFor="">Domain Name (Indicate Whether it is in respect of goods or services)<strong>*</strong></label>
-                        <input type="text" onChange={ handleChange } name="domainName" />
-                    </div>
+                {/* <div className='input-container'> */}
+                <div className="input">
+                    <label htmlFor="">Mark Description<strong>*</strong></label>
+                    <input type="text" onChange={handleChange} name="markDesc" />
+                </div>
 
-                    <div className="input">
-                        <label htmlFor="">Color Claimed (Indicate here and state the colors) <strong>*</strong></label>
-                        <input type="text" onChange={ handleChange } name="colorClaimed" />
-                    </div>
+                <div className="input">
+                    <label htmlFor="">Domain Name (Indicate Whether it is in respect of goods or services)<strong>*</strong></label>
+                    <input type="text" onChange={handleChange} name="domainName" />
+                </div>
+                {/* </div> */}
 
-                    <div className="input">
-                        <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
-                        <input type="file" onChange={ handleChange } name="logoFile" />
-                    </div>
+
+                <div className="input">
+                    <label htmlFor="">Color Claimed (Indicate here and state the colors) <strong>*</strong></label>
+                    <input type="text" onChange={handleChange} name="colorClaimed" />
+                </div>
+                <div className="input">
+                    <label htmlFor="">Marks in series (Write in numbers) <strong>*</strong></label>
+                    <input type="number" onChange={handleChange} name="markSeries" />
+                </div>
+
+                <div className="input">
+                    <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
+                    <input type="file" onChange={handleChange} name="logoFile" />
+                </div>
                 {/* </div> */}
             </section>
-            <button id='continueBtn' onClick={ handleDataAndNavigation }  >Continue</button>
+            <button id='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
         </main>
     )
 }
