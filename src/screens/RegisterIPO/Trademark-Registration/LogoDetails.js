@@ -4,26 +4,53 @@ import Bhivetxt from '../../../assets/Icons/Bhivetxt.png'
 import BhiveImg from '../../../assets/Icons/Bhiveimg.png'
 import BhiveImgtxt from '../../../assets/Icons/BhiveimgText.png'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { logoDetail } from '../../../assets/states/actions/Trademark registration/Trademark-action'
+
 const LogoDetails = ({ Progress }) => {
 
     const [activeCard, setActiveCard] = useState('')
+    const [logoDetails, setLogoDetails] = useState({
+        domainName: "", colorClaimed: "", logoFile: "", logoDescription: ""
+    });
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const selectRadioCard = (cardIdx) => {
-
+        let logoDescription = "";
         if (cardIdx == 1) {
             setActiveCard('card-1')
-            console.log(activeCard);
+            logoDescription = "It consists of only words, letters or numbers";
         }
         else if (cardIdx == 2) {
             setActiveCard('card-2')
-            console.log(activeCard);
+            logoDescription = "It is a picture without words, letters or numbers";
         }
         else if (cardIdx == 3) {
             setActiveCard('card-3')
-            console.log(activeCard);
+            logoDescription = "It consists of words, letters or numbers in a particular picture";
         }
+
+        setLogoDetails((prevData) => ({
+            ...prevData,
+            logoDescription
+        }));
     }
+
+    const handleChange = (e) => {
+        setLogoDetails((prevDetails) => ({
+            ...prevDetails,
+            [e.target.name]: e.target.value
+        }));
+    }
+
+    const handleDataAndNavigation = () => {
+        dispatch(logoDetail({
+            logoDetails
+        }));
+        navigate("/reviewApplication")
+    }
+
     useEffect(() => {
         Progress(100);
     }, [])
@@ -39,7 +66,7 @@ const LogoDetails = ({ Progress }) => {
                         </div>
                         <div className="text-center">
                             <div className="radio-card-label-description">
-                                It consists of only words, letters or numbers.                        </div>
+                                It consists of only words, letters or numbers                      </div>
                             <div className="radio-card-icon">
                                 <img src={Bhivetxt} />
                             </div>
@@ -66,7 +93,7 @@ const LogoDetails = ({ Progress }) => {
                         <div className="text-center">
 
                             <div className="radio-card-label-description">
-                                It consists of words, letters or numbers in a particular picture.
+                                It consists of words, letters or numbers in a particular picture
                             </div>
                             <div className="radio-card-icon">
                                 <img src={BhiveImgtxt} />
@@ -81,21 +108,21 @@ const LogoDetails = ({ Progress }) => {
 
                     <div className="input">
                         <label htmlFor="">Domain Name (Indicate Whether it is in respect of goods or services)<strong>*</strong></label>
-                        <input type="text" />
+                        <input type="text" onChange={ handleChange } name="domainName" />
                     </div>
 
                     <div className="input">
                         <label htmlFor="">Color Claimed (Indicate here and state the colors) <strong>*</strong></label>
-                        <input type="text" />
+                        <input type="text" onChange={ handleChange } name="colorClaimed" />
                     </div>
 
                     <div className="input">
                         <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
-                        <input type="file" />
+                        <input type="file" onChange={ handleChange } name="logoFile" />
                     </div>
                 {/* </div> */}
             </section>
-            <button id='continueBtn' onClick={() => navigate("/reviewapplication")}  >Continue</button>
+            <button id='continueBtn' onClick={ handleDataAndNavigation }  >Continue</button>
         </main>
     )
 }

@@ -2,8 +2,13 @@ import { useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { classification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 
 const Classification = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate(null);
 
     const classifications = [
         {
@@ -190,10 +195,20 @@ const Classification = () => {
     
     const [searchText, setSearchText] = useState("");
     const [isSearchOnFocus, setSearchOnFocus] = useState(false);
+    const [classificationDescription, setDescription] = useState("");
     const filteredClassifications = classifications.filter((classification) =>
         classification.description.toLowerCase().includes(searchText.toLowerCase())
     );
-    const navigate = useNavigate(null);
+
+    const handleDataAndNavigation = () => {
+        dispatch(classification(
+            {
+                classificationClass: searchText,
+                classificationDescription
+            }
+        ));
+        navigate("/ownerDetails")
+    }
 
     return (
         // <div className="classificationPage">
@@ -241,9 +256,10 @@ const Classification = () => {
                             Details of Goods/Services
                         </span>
                         <br />
-                        <textarea className="classificationInput classificationTextArea" rows="7" placeholder="Enter details here..." />
+                        <textarea value = { classificationDescription } className="classificationInput classificationTextArea"
+                            onChange={ (e) => setDescription(e.target.value) } rows="7" placeholder="Enter details here..." />
                     </div>
-                    <button id='continueBtn' onClick={() => navigate("/ownerDetails")}  >Continue</button>
+                    <button id='continueBtn' onClick={ handleDataAndNavigation }  >Continue</button>
                 </div>
     );
 };

@@ -2,48 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import "./ownerdetails.css";
 import Inputs from "./components/Inputs";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 
 const OwnerDetails = (props) => {
-
-    const soleProprieterShip = [
-        { label: "Trading As (Business Name)", placeholder: "Business Name" },
-        { label: "Business Adress", placeholder: "Business Adress" },
-        { label: "Province", placeholder: "Province" },
-        { label: "City", placeholder: "City" },
-    ]
-
-    const partnershipFirm = [
-        { label: "Trading As (Business Name)", placeholder: "Business Name" },
-        { label: "Business Adress", placeholder: "Business Adress" }
-    ]
-
-    const singleMemberCompany = [
-        { label: "Company Name", placeholder: "Company Name" },
-        { label: "Trading As (Business Name)", placeholder: "Business Name" },
-        { label: "Business Adress", placeholder: "Business Adress" },
-    ]
-
-    const other = [
-        { label: "Other (Business Type Description)", placeholder: "Description" },
-        { label: "Company Name", placeholder: "Company Name" },
-        { label: "Trading As (Business Name)", placeholder: "Business Name" },
-        { label: "Business Adress", placeholder: "Business Adress" },
-    ]
-
-    const [selectedOption, setSelectedOption] = useState({
-        name: "soleProprieterShip",
-        array: soleProprieterShip
+    const [ownerDetails, setOwnerDetails] = useState({
+        tradingBusinessName: "", businessAddress: "",
+        province: "", city: "",
+        companyName: "",
+        otherBusinessDescription: ""
     });
-
-    const [partnersData, setPartnersData] = useState([
-    ]);
-
+    const [partnersData, setPartnersData] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
+
     const navigate = useNavigate(null);
 
     const fullNameRef = useRef(null);
     const nationalityRef = useRef(null);
     const cnicRef = useRef(null);
+
+    const dispatch = useDispatch();
 
     const handleAddClick = () => {
         setPartnersData([
@@ -57,23 +36,15 @@ const OwnerDetails = (props) => {
     }
 
     const handleChange = (e) => {
-        let selectedItem = null;
-        if(e.target.name === "singleMemberCompany" || e.target.name === "privateLimitedCompany"
-            || e.target.name === "publicLimitedCompany") {
-            selectedItem = singleMemberCompany;
-            setPartnershipFirm(false);
-        } else if(e.target.name === "partnershipFirm") {
-            selectedItem = partnershipFirm;
-            setPartnershipFirm(true);
-            setPartnersData([]);
-        } else {
-            selectedItem = eval(e.target.name);
-            setPartnershipFirm(false);
-        }
-        setSelectedOption({
-            name: e.target.name,
-            array: selectedItem
-        });
+        setSelectedOption(e.target.name);
+    }
+
+    const handleDataAndNavigation = () => {
+        dispatch(ownerDetail({
+            ownerDetails,
+            partnersData
+        }));
+        navigate("/logodetails");
     }
 
     useEffect(() => {
@@ -91,32 +62,32 @@ const OwnerDetails = (props) => {
                 <div class="radio-inputs">
                     <label class="radio">
                         <input type="radio" name="soleProprieterShip" 
-                            checked = { selectedOption.name === "soleProprieterShip" } onChange={ handleChange } />
+                            checked = { selectedOption === "soleProprieterShip" } onChange={ handleChange } />
                         <span class="name">Sole Proprietorship</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="partnershipFirm" 
-                            checked = { selectedOption.name === "partnershipFirm" } onChange={ handleChange } />
+                            checked = { selectedOption === "partnershipFirm" } onChange={ handleChange } />
                         <span class="name">Parntership Firm</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="singleMemberCompany" 
-                            checked = { selectedOption.name === "singleMemberCompany" }  onChange={ handleChange } />
+                            checked = { selectedOption === "singleMemberCompany" }  onChange={ handleChange } />
                         <span class="name">Single Member Company</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="privateLimitedCompany" 
-                            checked = { selectedOption.name === "privateLimitedCompany" }  onChange={ handleChange } />
+                            checked = { selectedOption === "privateLimitedCompany" }  onChange={ handleChange } />
                         <span class="name">Private Limited Company</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="publicLimitedCompany"
-                            checked = { selectedOption.name === "publicLimitedCompany" }  onChange={ handleChange } />
+                            checked = { selectedOption === "publicLimitedCompany" }  onChange={ handleChange } />
                         <span class="name">Public Limited Company</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="other" 
-                            checked = { selectedOption.name === "other" }  onChange={ handleChange } />
+                            checked = { selectedOption === "other" }  onChange={ handleChange } />
                         <span class="name">Other</span>
                     </label>
                 </div>
@@ -177,11 +148,12 @@ const OwnerDetails = (props) => {
                     </>
                 ) : null}
                 <div className="owner-screen-inputs">
-                    <Inputs inputData = { selectedOption.array } />
+                    <Inputs inputData = { selectedOption } setPartnersData = { setPartnersData }
+                        setPartnershipFirm = { setPartnershipFirm } setOwnerDetails = { setOwnerDetails } />
                 </div>
             </div>
             <div className="button-div">
-                <button id='continueBtn' onClick={() => navigate("/logodetails")}>Continue</button>
+                <button id='continueBtn' onClick={ handleDataAndNavigation }>Continue</button>
             </div>
         </div>
     );

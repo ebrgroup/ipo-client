@@ -2,15 +2,35 @@ import React, { useState, useEffect } from 'react';
 import './selfShowcase.css';
 import { useNavigate } from 'react-router-dom';
 import { Player } from '@lottiefiles/react-lottie-player';
-// import logo from '../../../assets/Icons/coca-cola.png'
+import { representative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
+import { useDispatch } from 'react-redux';
 
 const Selfshowcase = ({ Progress }) => {
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState('self');
+  const [representativeData, setRepresentativeData] = useState({
+    lincenseNo: "", nameOfLawPractice: "", licenseFile: ""
+  });
+  const dispatch = useDispatch();
+
+  const handleRepresentativeData = (e) => {
+    setRepresentativeData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value
+    }));
+  }
 
   const handleChange = (event) => {
     setSelectedRole(event.target.value);
   };
+
+  const handleDataAndNavigation = () => {
+    dispatch(representative({
+      ownerType: selectedRole,
+      representativeData
+    }));
+    navigate("/classification");
+  }
 
   useEffect(() => {
     Progress(100);
@@ -40,17 +60,17 @@ const Selfshowcase = ({ Progress }) => {
 
           <div className="input">
             <label htmlFor="">License No <strong>*</strong></label>
-            <input type="text" />
+            <input type="text" name="licenseNo" onChange={ handleRepresentativeData } />
           </div>
 
           <div className="input">
             <label htmlFor="">Name of Law Practice <strong>*</strong></label>
-            <input type="text" />
+            <input type="text" name="nameOfLawPractice" onChange={ handleRepresentativeData } />
           </div>
 
           <div className="input">
             <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
-            <input type="file" />
+            <input type="file"  name="licenseFile" onChange={ handleRepresentativeData } />
           </div>
           <div className=" input selected-logo">
             {/* <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
@@ -62,7 +82,7 @@ const Selfshowcase = ({ Progress }) => {
         </div>
       )}
 
-      <button id='continueBtn' onClick={()=>navigate('/classification')} >Continue</button>
+      <button id='continueBtn' onClick={ handleDataAndNavigation } >Continue</button>
     </section>
   );
 };

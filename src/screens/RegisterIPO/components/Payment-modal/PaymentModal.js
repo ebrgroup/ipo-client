@@ -4,6 +4,9 @@ import visaSvg from "../../../../assets/Icons/visa-svg.svg";
 import paymentHeader from "../../../../assets/Icons/payment-header-svg-2.svg";
 import Modal from '@mui/material/Modal';
 import Combobox from "../../../global-components/Combobox/Combobox";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import trademarkRegistrationReducer from "../../../../assets/states/reducers/Trademark registration/trademark-reducer";
 
 const PaymentModal = ({ isOpen, closeModal }) => {
 
@@ -18,6 +21,7 @@ const PaymentModal = ({ isOpen, closeModal }) => {
         isMonthMenuActive: false,
         isYearMenuActive: false
     });
+    const trademarkData = useSelector(state => state.trademarkRegistrationReducer);
 
     const divRef = useRef(null);
 
@@ -58,6 +62,41 @@ const PaymentModal = ({ isOpen, closeModal }) => {
             ...cardDetails,
             [e.target.name]: e.target.value
         });
+    }
+
+    const handlePayment = () => {
+        const trademark = {
+            applicationOwner: {
+                ownerType: trademarkData.representative.ownerType,
+                ...trademarkData.representative.representativeData
+            },
+            classificationClass: trademarkData.classification.classificationClass,
+            detailsOfGoods: trademarkData.classification.classificationDescription,
+            ownerDetails: {
+                businessName: trademarkData.ownerdetail.ownerDetails.businessName,
+                businessAddress: trademarkData.ownerdetail.ownerDetails.businessAddress,
+                soleProprieterShip: {
+                    province: trademarkData.ownerdetail.ownerDetails.province,
+                    city: trademarkData.ownerdetail.ownerDetails.city
+                },
+                partnerShipFirm: trademarkData.ownerdetail.partnersData,
+                companies: {
+                    companyType: "",
+                    companyName: trademarkData.ownerdetail.ownerDetails.companyName,
+                    otherBusinessDescription: trademarkData.ownerdetail.ownerDetails.otherBusinessDescription
+                }
+            },
+            logoDetails: {
+                ...trademarkData.logodetail.logoDetails
+            }
+        };
+        (async () => {
+            await axios.post("/ipo/trademark", trademark).then(response => {
+                console.log(response);
+            }).catch(error => {
+                console.log(error);
+            })
+        })();
     }
 
     const scrollDiv = () => {
@@ -206,7 +245,7 @@ const PaymentModal = ({ isOpen, closeModal }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="pay-button-container">
+                    <div className="pay-button-container" onClick={ handlePayment }>
                         <div> 
                             <svg viewBox="0 0 24 24" id="cart">
                                 <path fill="#ffffff" d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
