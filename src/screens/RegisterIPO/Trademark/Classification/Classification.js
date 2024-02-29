@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { classification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import Cookies from "js-cookie";
 
 const Classification = () => {
 
@@ -201,14 +202,25 @@ const Classification = () => {
     );
 
     const handleDataAndNavigation = () => {
+        const classificationData = {
+            classificationClass: searchText,
+            classificationDescription
+        };
         dispatch(classification(
-            {
-                classificationClass: searchText,
-                classificationDescription
-            }
+          classificationData  
         ));
+        Cookies.set('classificationData', JSON.stringify(classificationData));
         navigate("/ownerDetails")
     }
+
+    useEffect(() => {
+        const classificationString = Cookies.get("classificationData");
+        const classificationData = classificationString ? JSON.parse(classificationString) : null;
+        if(classificationData != null) {
+            setDescription(classificationData.classificationDescription);
+            setSearchText(classificationData.classificationClass);
+        }
+    }, []);
 
     return (
         // <div className="classificationPage">

@@ -25,7 +25,7 @@ const Registrationsteps = () => {
                     <span>3.</span>
                     <span>Logo Details</span>
                 </div>
-                <div className={`step-btn ${location.pathname === "/reviewapplication" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname === "/reviewApplication" ? "active" : ""}`}>
                     <span>4.</span>
                     <span>Review</span>
                 </div>

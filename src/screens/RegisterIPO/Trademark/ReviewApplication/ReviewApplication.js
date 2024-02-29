@@ -1,8 +1,11 @@
 import "./ReviewApplication.css";
 import logo from '../../../../assets/Icons/coca-cola.png';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ReviewApplication = () => {
+
+    const trademarkData = useSelector(state => state.trademarkRegistrationReducer);
 
     const navigate = useNavigate(null);
 
@@ -16,7 +19,7 @@ const ReviewApplication = () => {
                             <div>
                                 <span className="reviewAppLabel">Trademark Class</span>
                                 <br />
-                                <span className="reviewAppData">1</span>
+                                <span className="reviewAppData">{ trademarkData.classification.classificationClass }</span>
                             </div>
                             <div>
                                 <span className="reviewAppLabel">Services</span>
@@ -26,7 +29,7 @@ const ReviewApplication = () => {
                             <div>
                                 <span className="reviewAppLabel">Business Name</span>
                                 <br />
-                                <span className="reviewAppData">AW Group</span>
+                                <span className="reviewAppData">{ trademarkData.ownerdetail.ownerDetails.businessName }</span>
                             </div>
                             <div>
                                 <span className="reviewAppLabel">Used Since</span>
@@ -38,22 +41,22 @@ const ReviewApplication = () => {
                             <div>
                                 <span className="reviewAppLabel">Province</span>
                                 <br />
-                                <span className="reviewAppData">Punjab</span>
+                                <span className="reviewAppData">{ trademarkData.ownerdetail.ownerDetails.province }</span>
                             </div>
                             <div>
                                 <span className="reviewAppLabel">City</span>
                                 <br />
-                                <span className="reviewAppData">Rawalpindi</span>
+                                <span className="reviewAppData">{ trademarkData.ownerdetail.ownerDetails.city }</span>
                             </div>
                             <div>
                                 <span className="reviewAppLabel">Business Address</span>
                                 <br />
-                                <span className="reviewAppData">House no. 7/c, Lane 3, GC</span>
+                                <span className="reviewAppData">{ trademarkData.ownerdetail.ownerDetails.businessAddress }</span>
                             </div>
                             <div>
                                 <span className="reviewAppLabel">Business Address</span>
                                 <br />
-                                <span className="reviewAppData">House no. 7/c, Lane 3, GC</span>
+                                <span className="reviewAppData">{  trademarkData.ownerdetail.ownerDetails.businessAddress }</span>
                             </div>
                         </div>
                     </div>

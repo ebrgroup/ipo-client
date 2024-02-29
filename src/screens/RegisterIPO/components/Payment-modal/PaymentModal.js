@@ -6,7 +6,6 @@ import Modal from '@mui/material/Modal';
 import Combobox from "../../../global-components/Combobox/Combobox";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import trademarkRegistrationReducer from "../../../../assets/states/reducers/Trademark registration/trademark-reducer";
 
 const PaymentModal = ({ isOpen, closeModal }) => {
 
@@ -64,8 +63,30 @@ const PaymentModal = ({ isOpen, closeModal }) => {
         });
     }
 
+    const generateAlphanumericId = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const length = 7;
+        let id = '#';
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          id += characters[randomIndex];
+        }
+        return id;
+    };
+
+    const getCurrentDate = (separator='-') => {
+        let newDate = new Date()
+        let date = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+        
+        return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
+    }    
+
     const handlePayment = () => {
         const trademark = {
+            trademarkId: generateAlphanumericId(),
+            fileDate: getCurrentDate(),
             applicationOwner: {
                 ownerType: trademarkData.representative.ownerType,
                 ...trademarkData.representative.representativeData
@@ -93,6 +114,7 @@ const PaymentModal = ({ isOpen, closeModal }) => {
         (async () => {
             await axios.post("/ipo/trademark", trademark).then(response => {
                 console.log(response);
+                closeModal();
             }).catch(error => {
                 console.log(error);
             })
