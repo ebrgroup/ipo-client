@@ -2,7 +2,7 @@ import "./ReviewApplication.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const ReviewApplication = () => {
+const ReviewApplication = (props) => {
 
     const navigate = useNavigate(null);
     const {
@@ -82,7 +82,7 @@ const ReviewApplication = () => {
                     {/* <div>
                         <span className="reviewAppLabel">Business Address</span>
                         <br />
-                        <span className="reviewAppData">House no. 7/c, Lane 3, GC</span>
+                        <span c lassName="reviewAppData">House no. 7/c, Lane 3, GC</span>
                     </div> */}
                 </div>
             </div>

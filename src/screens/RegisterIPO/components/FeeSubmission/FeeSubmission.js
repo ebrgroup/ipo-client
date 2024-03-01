@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import "./FeeSubmission.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 import PaymentModal from '../Payment-modal/PaymentModal';
+import { toast } from "react-toastify";
 
-const FeeSubmission = () => {
+const FeeSubmission = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [checkedIndex, setCheckedIndex] = useState(-1);
@@ -19,6 +20,31 @@ const FeeSubmission = () => {
 
     const handleCheckboxChange = (index) => {
         setCheckedIndex(index);
+    };
+
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
     };
 
     return (
@@ -49,8 +75,9 @@ const FeeSubmission = () => {
                         ))}
                     </div>
                 </div>
-                <button id="fee-continueBtn" disabled={ checkedIndex === -1 }onClick={ openModal }>Continue</button>
-                <PaymentModal isOpen={isModalOpen} closeModal={closeModal} />
+                <button id="fee-continueBtn" onClick={ checkedIndex !== -1 ? openModal : 
+                    () => handleToastDisplay("Please select any one payment option!", "error") }>Continue</button>
+                <PaymentModal isOpen={isModalOpen} closeModal={closeModal} Progress={props.Progress} />
             </div>
         </>
     );

@@ -4,10 +4,11 @@ import Inputs from "./components/Inputs";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { toast } from "react-toastify";
 
 const OwnerDetails = (props) => {
     const [ownerDetails, setOwnerDetails] = useState({
-        tradingBusinessName: "", businessAddress: "",
+        businessName: "", businessAddress: "",
         province: "", city: "",
         companyName: "",
         otherBusinessDescription: ""
@@ -40,16 +41,66 @@ const OwnerDetails = (props) => {
     }
 
     const handleDataAndNavigation = () => {
-        dispatch(ownerDetail({
-            ownerDetails,
-            partnersData
-        }));
-        navigate("/logodetails");
+        if(areRequiredFieldsEmpty()) {
+            dispatch(ownerDetail({
+                ownerDetails,
+                partnersData
+            }));
+            navigate("/logodetails");
+        } else {
+            handleToastDisplay("Required fields (*) are empty!", "error");
+        }
     }
 
-    useEffect(() => {
-        props.Progress(100);
-    }, []);
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+
+    const areRequiredFieldsEmpty = () => {
+        console.log(ownerDetails.businessName);
+        if((ownerDetails.businessName === "" || ownerDetails.businessAddress === "") 
+            || (checkUncommonFields() === false)) {
+            return false;
+        }
+        return true;
+    };
+
+    const checkUncommonFields = () => {
+        if(selectedOption === "soleProprieterShip" && 
+            (ownerDetails.city === "" || ownerDetails.province === "")) {
+                return false;
+        } else if (selectedOption === "partnershipFirm" && partnersData.length < 1) {
+            return false;
+        } else if (["singleMemberCompany", "privateLimitedCompany", "publicLimitedCompany"].includes(selectedOption) &&
+            ownerDetails.companyName === "") {
+                return false;
+        } else if(selectedOption === "other" && 
+            (ownerDetails.companyName === "" || ownerDetails.otherBusinessDescription === "" )) {
+                return false;
+        }
+        return true;
+    }
 
     return(
         <div className="owner-screen-background">

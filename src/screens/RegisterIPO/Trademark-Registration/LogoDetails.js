@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './logoDetails.css'
 import Bhivetxt from '../../../assets/Icons/Bhivetxt.png'
 import BhiveImg from '../../../assets/Icons/Bhiveimg.png'
 import BhiveImgtxt from '../../../assets/Icons/BhiveimgText.png'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { logoDetail } from '../../../assets/states/actions/Trademark registration/Trademark-action'
 
 const LogoDetails = ({ Progress }) => {
@@ -18,6 +19,7 @@ const LogoDetails = ({ Progress }) => {
         logoFile: "",
         markType: ""
     });
+    const imageRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -43,17 +45,69 @@ const LogoDetails = ({ Progress }) => {
     }
 
     const handleChange = (e) => {
-        setLogoDetails((prevDetails) => ({
-            ...prevDetails,
-            [e.target.name]: e.target.value
-        }));
+        if(e.target.name === "logoFile") {
+            setLogoDetails((prevDetails) => ({
+                ...prevDetails,
+                [e.target.name]: URL.createObjectURL(e.target.files[0])
+            }));
+        } else {
+            setLogoDetails((prevDetails) => ({
+                ...prevDetails,
+                [e.target.name]: e.target.value
+            }));
+        }
     }
 
     const handleDataAndNavigation = () => {
-        dispatch(logoDetail({
-            logoDetails
-        }));
-        navigate("/reviewApplication")
+        if(areRequiredFieldsEmpty()) {
+            dispatch(logoDetail({
+                logoDetails
+            }));
+            navigate("/reviewApplication")
+        } else {
+            handleToastDisplay("Required fields (*) are empty!", "error");
+        }
+    }
+
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+    
+    const areLogoDetailsEmpty = () => {
+        for (const key in logoDetails) {
+            if (logoDetails.hasOwnProperty(key) && logoDetails[key] === "") {
+                return false;
+            }
+        }
+        return true;
+    };
+    
+    const areRequiredFieldsEmpty = () => {
+        if (activeCard === "" || areLogoDetailsEmpty() === false) {
+            return false;
+        }
+        return true;
     }
 
     useEffect(() => {
@@ -136,7 +190,7 @@ const LogoDetails = ({ Progress }) => {
 
                 <div className="input">
                     <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
-                    <input type="file" onChange={handleChange} name="logoFile" />
+                    <input type="file" ref={imageRef} onChange={handleChange} name="logoFile" />
                 </div>
                 {/* </div> */}
             </section>

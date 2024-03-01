@@ -12,7 +12,7 @@ const Inputs = (props) => {
 
     const partnershipFirm = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessName" }
+        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" }
     ]
 
     const singleMemberCompany = [
