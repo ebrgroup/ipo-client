@@ -168,7 +168,7 @@ const LogoDetails = ({ Progress }) => {
 
                 {/* <div className='input-container'> */}
                 <div className="input">
-                    <label htmlFor="">Mark Description<strong>*</strong></label>
+                    <label htmlFor="">Mark Description<strong>*</strong> (e.g: coca-cola)</label>
                     <input type="text" onChange={handleChange} name="markDesc" />
                 </div>
 

@@ -193,7 +193,7 @@ const Classification = () => {
             description: "Legal services; security services for the physical protection of tangible property and individuals; personal and social services rendered by others to meet the needs of individuals."
         }
     ];
-    
+
     const [searchText, setSearchText] = useState("");
     const [isSearchOnFocus, setSearchOnFocus] = useState(false);
     const [classificationDescription, setDescription] = useState("");
@@ -247,55 +247,55 @@ const Classification = () => {
 
     return (
         // <div className="classificationPage">
-            // <div className="classificationDiv">
-                <div className="classificationBox">
-                    <h3>Trademark Classification</h3>
-                    <div>
-                        <span className="classificationLabel">
-                            Classification
-                        </span>
-                        <br />
-                        <div style={{ width: "100%" }} className="wrapper active">
-                            <input 
-                                className="classificationInput" 
-                                placeholder="Search here..." 
-                                onChange={(e) => {setSearchText(e.target.value)}}
-                                onFocus={() => setSearchOnFocus(true)}
-                                onBlur={() => {
-                                    setTimeout(() => {
-                                        setSearchOnFocus(false)
-                                    }, 300);
-                                }}
-                                value={searchText}
-                                type="text"
-                                spellCheck="false"
-                                autoComplete="false"
-                            />
-                            {isSearchOnFocus && filteredClassifications.length > 0 && <div style={{ width: "88%" }} className="searchDropdownContent">
-                                <ul className="searchDropdownOptions" style={{ maxHeight: "50vh" }}>
-                                {filteredClassifications.map((item, index) => (
-                                    <li key={index} className="classificationItem" onClick={() => {
-                                        setSearchText(item.id.toString());
-                                    }}>
+        // <div className="classificationDiv">
+        <div className="classificationBox">
+            <h3>Trademark Classification</h3>
+            <div>
+                <span className="classificationLabel">
+                    Classification <strong>*</strong>
+                </span>
+                <br />
+                <div style={{ width: "100%" }} className="wrapper active">
+                    <input
+                        className="classificationInput"
+                        placeholder="Search here..."
+                        onChange={(e) => { setSearchText(e.target.value) }}
+                        onFocus={() => setSearchOnFocus(true)}
+                        onBlur={() => {
+                            setTimeout(() => {
+                                setSearchOnFocus(false)
+                            }, 300);
+                        }}
+                        value={searchText}
+                        type="text"
+                        spellCheck="false"
+                        autoComplete="false"
+                    />
+                    {isSearchOnFocus && filteredClassifications.length > 0 && <div style={{ width: "88%" }} className="searchDropdownContent">
+                        <ul className="searchDropdownOptions" style={{ maxHeight: "50vh" }}>
+                            {filteredClassifications.map((item, index) => (
+                                <li key={index} className="classificationItem" onClick={() => {
+                                    setSearchText(item.id.toString());
+                                }}>
                                     <span>
-                                    <b>{item.id} -</b> {`${item.description}`}
+                                        <b>{item.id} -</b> {`${item.description}`}
                                     </span>
-                                    </li>
-                                ))}
-                                </ul>
-                            </div>}
-                        </div>
-                    </div>
-                    <div>
-                        <span className="classificationLabel">
-                            Details of Goods/Services
-                        </span>
-                        <br />
-                        <textarea value = { classificationDescription } className="classificationInput classificationTextArea"
-                            onChange={ (e) => setDescription(e.target.value) } rows="7" placeholder="Enter details here..." />
-                    </div>
-                    <button id='continueBtn' onClick={ handleDataAndNavigation }  >Continue</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>}
                 </div>
+            </div>
+            <div>
+                <span className="classificationLabel">
+                    Details of Goods/Services <strong>*</strong>
+                </span>
+                <br />
+                <textarea value={classificationDescription} className="classificationInput classificationTextArea"
+                    onChange={(e) => setDescription(e.target.value)} rows="7" placeholder="Enter details here..." />
+            </div>
+            <button id='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
+        </div>
     );
 };
 

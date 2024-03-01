@@ -54,7 +54,7 @@ const FeeSubmission = (props) => {
                 <div className="fee-content-parent">
                     <div className="fee-content-heading">
                         <Player src={require("../../../../assets/Icons/fee-lottie.json")} autoplay loop
-                        className="fee-lottie" />
+                            className="fee-lottie" />
                         <p>Select your payment method!</p>
                     </div>
                     <div className="fee-logo-container">

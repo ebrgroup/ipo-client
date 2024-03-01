@@ -87,21 +87,23 @@
 
 
 #logoDetail-section {
+    height: 35vh;
+
     height: fit-content;
     margin: 2.4rem 0;
     width: 70%;
+    /* border: 2px solid red;
+    overflow: scroll; */
+
 }
 
-#logoDetail-section .input-container{
+#logoDetail-section .input-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
     align-items: center;
 }
 
-#logoDetail-section .input strong {
-    color: red;
-}
 
 #logoDetail-section .input input {
     border: 2px solid #f6f7f8;

@@ -28,7 +28,7 @@ const OwnerDetails = (props) => {
     const handleAddClick = () => {
         setPartnersData([
             ...partnersData,
-            { 
+            {
                 fullName: fullNameRef.current.value,
                 nationality: nationalityRef.current.value,
                 cnic: cnicRef.current.value
@@ -102,7 +102,7 @@ const OwnerDetails = (props) => {
         return true;
     }
 
-    return(
+    return (
         <div className="owner-screen-background">
             <h4 className="owner-main-heading">Application for registration of trademark</h4>
             <div className="owner-screen-parent">
@@ -112,33 +112,33 @@ const OwnerDetails = (props) => {
                 </div>
                 <div class="radio-inputs">
                     <label class="radio">
-                        <input type="radio" name="soleProprieterShip" 
-                            checked = { selectedOption === "soleProprieterShip" } onChange={ handleChange } />
+                        <input type="radio" name="soleProprieterShip"
+                            checked={selectedOption === "soleProprieterShip"} onChange={handleChange} />
                         <span class="name">Sole Proprietorship</span>
                     </label>
                     <label class="radio">
-                        <input type="radio" name="partnershipFirm" 
-                            checked = { selectedOption === "partnershipFirm" } onChange={ handleChange } />
+                        <input type="radio" name="partnershipFirm"
+                            checked={selectedOption === "partnershipFirm"} onChange={handleChange} />
                         <span class="name">Parntership Firm</span>
                     </label>
                     <label class="radio">
-                        <input type="radio" name="singleMemberCompany" 
-                            checked = { selectedOption === "singleMemberCompany" }  onChange={ handleChange } />
+                        <input type="radio" name="singleMemberCompany"
+                            checked={selectedOption === "singleMemberCompany"} onChange={handleChange} />
                         <span class="name">Single Member Company</span>
                     </label>
                     <label class="radio">
-                        <input type="radio" name="privateLimitedCompany" 
-                            checked = { selectedOption === "privateLimitedCompany" }  onChange={ handleChange } />
+                        <input type="radio" name="privateLimitedCompany"
+                            checked={selectedOption === "privateLimitedCompany"} onChange={handleChange} />
                         <span class="name">Private Limited Company</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="publicLimitedCompany"
-                            checked = { selectedOption === "publicLimitedCompany" }  onChange={ handleChange } />
+                            checked={selectedOption === "publicLimitedCompany"} onChange={handleChange} />
                         <span class="name">Public Limited Company</span>
                     </label>
                     <label class="radio">
-                        <input type="radio" name="other" 
-                            checked = { selectedOption === "other" }  onChange={ handleChange } />
+                        <input type="radio" name="other"
+                            checked={selectedOption === "other"} onChange={handleChange} />
                         <span class="name">Other</span>
                     </label>
                 </div>
@@ -146,18 +146,18 @@ const OwnerDetails = (props) => {
                     <>
                         <div className="partnership-parent-container">
                             <div className="partnership-input-container">
-                                <label>Name of partner</label>
-                                <input placeholder="Name" type="text" ref={ fullNameRef } />
+                                <label>Name of partner <strong>*</strong></label>
+                                <input placeholder="Name" type="text" ref={fullNameRef} />
                             </div>
                             <div className="partnership-input-container">
-                                <label>Nationality</label>
-                                <input placeholder="Nationality" type="text" ref={ nationalityRef } />
+                                <label>Nationality <strong>*</strong></label>
+                                <input placeholder="Nationality" type="text" ref={nationalityRef} />
                             </div>
                             <div className="partnership-input-container">
-                                <label>CNIC Number</label>
-                                <input placeholder="CNIC" type="text" ref={ cnicRef } />
+                                <label>CNIC Number <strong>*</strong></label>
+                                <input placeholder="CNIC" type="text" ref={cnicRef} />
                             </div>
-                            <button className="partnership-add-button" onClick={ handleAddClick }>Add</button>
+                            <button className="partnership-add-button" onClick={handleAddClick}>Add</button>
                         </div>
                         <div className="owner-dataGrid">
                             <table className="owner-dataTable">
@@ -180,18 +180,18 @@ const OwnerDetails = (props) => {
                                             </tr>
                                         </>
                                     ) :
-                                    <>
-                                         {partnersData.map((data) => {
-                                            return (
-                                                <tr>
-                                                    <td>{data.fullName}</td>
-                                                    <td>{data.nationality}</td>
-                                                    <td>{data.cnic}</td>
-                                                    <td>-</td>
-                                                </tr>
-                                            );
-                                         })}
-                                    </>
+                                        <>
+                                            {partnersData.map((data) => {
+                                                return (
+                                                    <tr>
+                                                        <td>{data.fullName}</td>
+                                                        <td>{data.nationality}</td>
+                                                        <td>{data.cnic}</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </>
                                     }
                                 </tbody>
                             </table>
@@ -199,12 +199,12 @@ const OwnerDetails = (props) => {
                     </>
                 ) : null}
                 <div className="owner-screen-inputs">
-                    <Inputs inputData = { selectedOption } setPartnersData = { setPartnersData }
-                        setPartnershipFirm = { setPartnershipFirm } setOwnerDetails = { setOwnerDetails } />
+                    <Inputs inputData={selectedOption} setPartnersData={setPartnersData}
+                        setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails} />
                 </div>
             </div>
             <div className="button-div">
-                <button id='continueBtn' onClick={ handleDataAndNavigation }>Continue</button>
+                <button id='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
             </div>
         </div>
     );

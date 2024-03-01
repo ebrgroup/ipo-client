@@ -59,7 +59,7 @@ const Inputs = (props) => {
             <div className="owner-input-container">
                 {selectedArray.map((data) => (
                     <>
-                        <label>{ data.label }</label>
+                        <label>{ data.label } <strong>*</strong></label>
                         <input placeholder={ data.placeholder } type="text" name={ data.name } onChange={ handleChange } />
                     </>
                 ))}
