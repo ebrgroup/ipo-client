@@ -28,7 +28,7 @@ const FeeSubmission = () => {
                 <div className="fee-content-parent">
                     <div className="fee-content-heading">
                         <Player src={require("../../../../assets/Icons/fee-lottie.json")} autoplay loop
-                        className="fee-lottie" />
+                            className="fee-lottie" />
                         <p>Select your payment method!</p>
                     </div>
                     <div className="fee-logo-container">
@@ -49,7 +49,7 @@ const FeeSubmission = () => {
                         ))}
                     </div>
                 </div>
-                <button id="fee-continueBtn" disabled={ checkedIndex === -1 }onClick={ openModal }>Continue</button>
+                <button id="fee-continueBtn" disabled={checkedIndex === -1} onClick={openModal}>Continue</button>
                 <PaymentModal isOpen={isModalOpen} closeModal={closeModal} />
             </div>
         </>

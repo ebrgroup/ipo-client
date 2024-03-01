@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './IPGridview.css'
-import logo from '../../../assets/Icons/coca-cola.png'
 
-const IPGridveiw = () => {
+const IPGridveiw = ({ rows }) => {
+    const binary_data = rows[0].logoDetails.logoFile.data;
+    const [logo, setLogo] = useState(binary_data);
+    // const binaryData = atob(logo);
+    // setLogo(binaryData)
+
+
     return (
         <div className='table'>
             <table>
@@ -27,16 +32,21 @@ const IPGridveiw = () => {
                     </tr>
                 </thead>
                 <tbody id='table-body'>
-                    <tr>
-                        <td>#75Y25OP</td>
-                        <td>Coca Cola</td>
-                        <td>29-8-23</td>
-                        <td>3</td>
-                        <td>Registered</td>
-                        <td>
-                            <img src={logo} alt="Logo" />
-                        </td>
-                    </tr>
+                    {(rows) ? (rows.map(data =>
+                        <tr>
+                            <td>{data.trademarkId}</td>
+                            <td>{data.logoDetails.markDesc}</td>
+                            <td>{data.fileDate}</td>
+                            <td>{data.classificationClass}</td>
+                            <td>{data.status}</td>
+                            <td>
+                                {/* <img src={logo} alt="Logo" /> */}
+                                <img src={`data:image/png;base64,${logo}`} /> repeat kro
+                            </td>
+                        </tr>
+                    )) : (<tr></tr>)
+                    }
+
                 </tbody>
             </table>
         </div>

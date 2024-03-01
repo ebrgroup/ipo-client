@@ -12,7 +12,7 @@ import ForgotPassword from "./screens/AuthScreens/Components/ForgotPassword";
 import CreateNewPassword from "./screens/AuthScreens/Components/CreateNewPassword";
 import Verification from "./screens/AuthScreens/Components/Verification";
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
@@ -30,12 +30,17 @@ import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-fo
 import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDetails';
 import PaymentModal from './screens/RegisterIPO/components/Payment-modal/PaymentModal';
 import FeeSubmission from './screens/RegisterIPO/components/FeeSubmission/FeeSubmission';
+import { resetIpStates } from './assets/states/actions/IP-Lookup-actions/Tabledata-action';
 
 
 function App() {
 
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
+  const dispatch = useDispatch();
+
+
+
   const [progress, setProgress] = useState(0);
   const [title, setTitle] = useState("");
 
@@ -63,8 +68,10 @@ function App() {
       navigate("/dashboard");
     }
 
-    if (path === "/signin")
+    if (path === "/signin") {
       document.title = "Sign In - IPO";
+      dispatch(resetIpStates()) //Reset Search IP and track Ip states / objects
+    }
     else if (path === "/signup")
       document.title = "Sign Up - IPO";
     else if (path === "/forgotpassword")

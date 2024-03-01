@@ -27,8 +27,17 @@
     justify-content: space-between;
 }
 
-#table-body>tr td:nth-child(n+2) {
-    transform: translateX(-3em);
+#table-body>tr td:nth-child(n+4) {
+    position: relative;
+    top: 0;
+    right: 3rem;
+}
+
+#table-body>tr td:nth-child(2),
+#table-body>tr td:nth-child(3) {
+    position: relative;
+    top: 0;
+    right: 2.4rem;
 }
 
 #table-header tr td i {
