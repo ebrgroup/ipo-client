@@ -195,12 +195,12 @@ const ConfirmProfile = (props) => {
                 </div>
             </div>
             <div className="btns">
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button
                     className="continueBtn"
                     onClick={() => navigate("/selfshowcase")}>
                     Continue
                 </button>        
-                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
             </div>
 
         </div>

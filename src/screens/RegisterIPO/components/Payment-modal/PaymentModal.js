@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { resetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { countTrademark } from "../../../../assets/states/middlewares/count-ip";
 
 const PaymentModal = ({ isOpen, closeModal, Progress }) => {
     const navigate = useNavigate();
@@ -155,7 +156,10 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             closeModal();
 
             navigate(`/successpayment/${trackId.replace('#','')}`)
+
             dispatch(resetDetails())
+            dispatch(countTrademark(userData.userData._id))
+
 
         }).catch(error => {
             Progress(100);
