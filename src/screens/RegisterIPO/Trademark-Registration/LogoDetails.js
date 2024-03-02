@@ -17,9 +17,9 @@ const LogoDetails = ({ Progress }) => {
         colorClaimed: "",
         markSeries: "",
         logoFile: "",
-        markType: ""
+        markType: "",
+        imageURL: ""
     });
-    const imageRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -48,7 +48,8 @@ const LogoDetails = ({ Progress }) => {
         if(e.target.name === "logoFile") {
             setLogoDetails((prevDetails) => ({
                 ...prevDetails,
-                [e.target.name]: e.target.files[0]
+                [e.target.name]: e.target.files[0],
+                imageURL: URL.createObjectURL(e.target.files[0])
             }));
         } else {
             setLogoDetails((prevDetails) => ({
@@ -190,7 +191,7 @@ const LogoDetails = ({ Progress }) => {
 
                 <div className="input">
                     <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
-                    <input type="file" ref={imageRef} onChange={handleChange} name="logoFile" />
+                    <input type="file" onChange={handleChange} name="logoFile" />
                 </div>
                 {/* </div> */}
             </section>

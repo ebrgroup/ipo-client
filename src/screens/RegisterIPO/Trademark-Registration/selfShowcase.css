@@ -53,16 +53,8 @@
 }
 
 .selected-logo img{
-    width: 110px;
-    height: 110px;
-}
-.selected-logo {
-    /* width: 110px;
-    height: 110px; */
-
-    /* border: 2px solid red;
-    width: fit-content;
-    height: 50px; */
+    margin-top: 1vh;
+    width: 220px;
 }
 
 .representativeFields .input label {

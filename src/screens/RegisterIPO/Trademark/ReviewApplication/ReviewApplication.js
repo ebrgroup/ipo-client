@@ -20,7 +20,9 @@ const ReviewApplication = (props) => {
         businessName,
         businessAddress,
         province,
-        city
+        city,
+        companyName,
+        otherBusinessDescription
     } = ownerdetail.ownerDetails
 
     const {
@@ -28,7 +30,8 @@ const ReviewApplication = (props) => {
         colorClaimed,
         markSeries,
         logoFile,
-        markType
+        markType,
+        imageURL
     } = logodetail.logoDetails
 
 
@@ -56,38 +59,70 @@ const ReviewApplication = (props) => {
                         <br />
                         <span className="reviewAppData">{businessName}</span>
                     </div>
-                    {/* <div>
-                                <span className="reviewAppLabel">Used Since</span>
-                                <br />
-                                <span className="reviewAppData">Proposed to Be Used or since a date</span>
-                            </div> */}
-
                 </div>
                 <div>
                     <div className="data-column">
                         <span className="reviewAppLabel">Province</span>
                         <br />
-                        <span className="reviewAppData">{province}</span>
+                        <span className="reviewAppData">{province ? province : "-"}</span>
                     </div>
                     <div className="data-column">
                         <span className="reviewAppLabel">City</span>
                         <br />
-                        <span className="reviewAppData">{city}</span>
+                        <span className="reviewAppData">{city ? city : "-"}</span>
                     </div>
                     <div className="data-column">
                         <span className="reviewAppLabel">Business Address</span>
                         <br />
                         <span className="reviewAppData">{businessAddress}</span>
                     </div>
-                    {/* <div>
-                        <span className="reviewAppLabel">Business Address</span>
-                        <br />
-                        <span c lassName="reviewAppData">House no. 7/c, Lane 3, GC</span>
-                    </div> */}
                 </div>
+                {companyName !== "" ? (
+                    <div>
+                        <div className="optional-data-column">
+                            <span className="reviewAppLabel">Company Name</span>
+                            <br />
+                            <span className="reviewAppData">{ companyName }</span>
+                            <br />
+                            {otherBusinessDescription !== "" ? (
+                                <>
+                                    <span className="reviewAppLabel">Other Business Description</span>
+                                    <br />
+                                    <span className="reviewAppData">{ otherBusinessDescription }</span>
+                                </>
+                            ) : null}
+                        </div>
+                    </div>
+                ) : null}
             </div>
+            {ownerdetail.partnersData.length > 0 ? (
+                <div>
+                    <table className="review-dataTable">
+                        <thead>
+                            <tr>
+                                <th className="firstHeader">Full name</th>
+                                <th>Nationality</th>
+                                <th className="lastHeader">CNIC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <>
+                                {ownerdetail.partnersData.map((data) => {
+                                    return (
+                                        <tr>
+                                            <td>{data.fullName}</td>
+                                            <td>{data.nationality}</td>
+                                            <td>{data.cnic}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </>
+                        </tbody>
+                    </table>
+                </div>
+            ): null}
             <div className="reviewAppBoxFooter">
-                <img src={logoFile} alt="Trademark Logo" height="140" />
+                <img src={imageURL} alt="Trademark Logo" width="220px" />
                 <div style={{ display: "flex", flexDirection: "row", gap: "1.5rem" }}>
                     <div>
                         <b>Name of Signature: </b> <br />

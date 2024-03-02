@@ -11,6 +11,7 @@ const Selfshowcase = ({ Progress }) => {
   const [representativeData, setRepresentativeData] = useState({
     lincenseNo: "", nameOfLawPractice: "", licenseFile: ""
   });
+  const [licenseFileURL, setLicenseFileURL] = useState(null);
   const dispatch = useDispatch();
 
   const handleRepresentativeData = (e) => {
@@ -19,6 +20,7 @@ const Selfshowcase = ({ Progress }) => {
         ...prevData,
         [e.target.name]: e.target.files[0]
       }));
+      setLicenseFileURL(URL.createObjectURL(e.target.files[0]));
     } else {
       setRepresentativeData((prevData) => ({
         ...prevData,
@@ -41,7 +43,13 @@ const Selfshowcase = ({ Progress }) => {
 
   useEffect(() => {
     Progress(100);
-  }, [])
+
+    return () => {
+      if (licenseFileURL) {
+        URL.revokeObjectURL(licenseFileURL);
+      }
+    };
+  }, [licenseFileURL]);
 
   return (
     <section className='selfShowcaseContainer'>
@@ -80,10 +88,8 @@ const Selfshowcase = ({ Progress }) => {
             <input type="file"  name="licenseFile" onChange={ handleRepresentativeData } />
           </div>
           <div className=" input selected-logo">
-            {/* <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
-            <input type="file" /> */}
-            {/* <img src='' alt="Scanned document here" /> */}
             Scanned document here
+            <img src={licenseFileURL} />
           </div>
 
         </div>
