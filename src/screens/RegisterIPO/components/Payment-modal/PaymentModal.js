@@ -93,7 +93,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
 
     const getCurrentDate = (separator = '-') => {
         let newDate = new Date()
-        let day = newDate.getDay();
+        let day = newDate.getDate();
         let month = newDate.getMonth() + 1;
         let year = newDate.getFullYear();
 
@@ -103,18 +103,12 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
     const handlePayment = async () => {
         setDisabled(true);
         Progress(10);
-<<<<<<< HEAD
-    
-        const formData = new FormData();
-    
-=======
 
         // Create a FormData object to send multipart/form-data
         const formData = new FormData();
         let trackId = generateAlphanumericId();
 
         // Append text data to FormData
->>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         formData.append('userId', userData.userData._id);
         formData.append('trademarkId', trackId);
         formData.append('fileDate', getCurrentDate());
@@ -145,12 +139,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             markSeries: trademarkData.logodetail.logoDetails.markSeries,
             markType: trademarkData.logodetail.logoDetails.markType
         }));
-<<<<<<< HEAD
     
-=======
-
-        // Append image files to FormData
->>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         formData.append('licenseFile', trademarkData.representative.representativeData.licenseFile);
         formData.append('logoFile', trademarkData.logodetail.logoDetails.logoFile);
 
@@ -184,7 +173,6 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
     }
 
     const getExpiryValue = () => {
-<<<<<<< HEAD
         const monthIndex = monthMenuOptions.indexOf(cardDetails.month) + 1;
         const month = monthIndex < 10 ? `0${monthIndex}` : monthIndex;
         
@@ -194,10 +182,6 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             return `MM/${cardDetails.year.toString().slice(-2)}`;
         } else {
             return `${month}/${cardDetails.year.toString().slice(-2)}`;
-=======
-        if (cardDetails.month !== "Choose Month" && cardDetails.year === "Choose Year") {
-            return `${monthMenuOptions.indexOf(cardDetails.month) + 1}/YY`;
->>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         }
     };    
 
@@ -233,22 +217,22 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
         }
     };
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (divRef.current && !divRef.current.contains(event.target)) {
-    //             setMenuActivation({
-    //                 isMonthMenuActive: false,
-    //                 isYearMenuActive: false
-    //             });
-    //             closeModal();
-    //         }
-    //     };
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setMenuActivation({
+                    isMonthMenuActive: false,
+                    isYearMenuActive: false
+                });
+                closeModal();
+            }
+        };
 
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <Modal

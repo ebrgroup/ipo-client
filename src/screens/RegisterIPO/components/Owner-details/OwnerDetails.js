@@ -7,16 +7,17 @@ import { ownerDetail } from "../../../../assets/states/actions/Trademark registr
 import { toast } from "react-toastify";
 
 const OwnerDetails = (props) => {
+    const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
     const [ownerDetails, setOwnerDetails] = useState({
         businessName: "",
         businessAddress: "",
         province: "",
         city: "",
         companyName: "",
-        otherBusinessDescription: ""
+        otherBusinessDescription: "",
+        businessOwnerType: ""
     });
     const [partnersData, setPartnersData] = useState([]);
-    const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
 
     const navigate = useNavigate(null);
@@ -30,56 +31,58 @@ const OwnerDetails = (props) => {
     // Logic for previous data
     //When back button is press
     // The previous data is kept safe
-    // const data = useSelector(state => state.trademarkRegistrationReducer?.ownerdetail);
+    const data = useSelector(state => state.trademarkRegistrationReducer.ownerdetail);
 
-    // useEffect(() => {
-    //     props.Progress(100);
-    //     if (data) {
-    //         const owners = data.ownerDetails
-    //         const partners = data.partnersData
+    useEffect(() => {
+        props.Progress(100);
+        if (data) {
+            const owners = data.ownerDetails;
 
-    //         const {
-    //             businessName,
-    //             businessAddress,
-    //             province,
-    //             city,
-    //             companyName,
-    //             otherBusinessDescription } = owners;
+            if(owners) {
+                const {
+                    businessName,
+                    businessAddress,
+                    province,
+                    city,
+                    companyName,
+                    otherBusinessDescription,
+                    businessOwnerType } = owners;
 
-    //         const {
-    //             fullName,
-    //             nationality,
-    //             cnic
-    //         } = partners
-    //         setOwnerDetails({
-    //             businessName: businessName,
-    //             businessAddress: businessAddress,
-    //             province: province,
-    //             city: city,
-    //             companyName: companyName,
-    //             otherBusinessDescription: otherBusinessDescription
-    //         });
-    //     }
+                setOwnerDetails({
+                    businessName: businessName,
+                    businessAddress: businessAddress,
+                    province: province,
+                    city: city,
+                    companyName: companyName,
+                    otherBusinessDescription: otherBusinessDescription,
+                    businessOwnerType: businessOwnerType
+                });
+                setSelectedOption(businessOwnerType);
+                if(data.partnersData) {
+                    setPartnersData(data.partnersData);
+                }
+            }
+        }
+    }, [data, partnersData]);
 
-    //     // if (partners) {
-    //     //     fullName: fullName
-    //     // }
-    // }, []);
-
-    // console.log(data);
     const handleAddClick = () => {
-        setPartnersData([
-            ...partnersData,
+        setPartnersData(prevData => [
+            ...prevData,
             {
                 fullName: fullNameRef.current.value,
                 nationality: nationalityRef.current.value,
                 cnic: cnicRef.current.value
             }
         ]);
-    }
+    };
+    
 
     const handleChange = (e) => {
         setSelectedOption(e.target.name);
+        setOwnerDetails((prevData) => ({
+            ...prevData,
+            businessOwnerType: e.target.name
+        }));
     }
 
     const handleDataAndNavigation = () => {
@@ -120,7 +123,6 @@ const OwnerDetails = (props) => {
     };
 
     const areRequiredFieldsEmpty = () => {
-        console.log(ownerDetails.businessName);
         if ((ownerDetails.businessName === "" || ownerDetails.businessAddress === "")
             || (checkUncommonFields() === false)) {
             return false;
@@ -242,7 +244,8 @@ const OwnerDetails = (props) => {
                 ) : null}
                 <div className="owner-screen-inputs">
                     <Inputs inputData={selectedOption} setPartnersData={setPartnersData}
-                        setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails} />
+                        setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails}
+                        ownerDetails={ownerDetails} />
                 </div>
             </div>
             <div className="btns">

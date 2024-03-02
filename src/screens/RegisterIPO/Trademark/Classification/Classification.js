@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ const Classification = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate(null);
+    const searchInputRef = useRef(null);
 
     const classifications = [
         {
@@ -196,6 +197,7 @@ const Classification = () => {
 
     const [searchText, setSearchText] = useState("");
     const [isSearchOnFocus, setSearchOnFocus] = useState(false);
+    const [activeOptionIndex, setActiveOptionIndex] = useState(0);
     const [classificationDescription, setDescription] = useState("");
     const filteredClassifications = classifications.filter((classification) =>
         classification.description.toLowerCase().includes(searchText.toLowerCase())
@@ -219,6 +221,21 @@ const Classification = () => {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
     }
+
+    const handleKeyDown = (e) => {
+        if(isSearchOnFocus && filteredClassifications.length > 0) {
+            if(e.key === "ArrowUp") {
+                e.preventDefault();
+                setActiveOptionIndex((activeOptionIndex - 1 + filteredClassifications.length) % filteredClassifications.length)
+            } else if(e.key === "ArrowDown") {
+                e.preventDefault();
+                setActiveOptionIndex((activeOptionIndex + 1) % filteredClassifications.length);
+            } else if (e.key === "Enter") {
+                setSearchText(filteredClassifications[activeOptionIndex].id.toString());
+            }
+        }
+    };
+    
 
     // Logic for previous data
     //When back button is press
@@ -263,8 +280,6 @@ const Classification = () => {
     };
 
     return (
-        // <div className="classificationPage">
-        // <div className="classificationDiv">
         <div className="classificationBox">
             <h3>Trademark Classification</h3>
             <div>
@@ -274,10 +289,11 @@ const Classification = () => {
                 <br />
                 <div style={{ width: "100%" }} className="wrapper active">
                     <input
+                        ref={searchInputRef}
                         className="classificationInput"
                         placeholder="Search here..."
                         onChange={(e) => { setSearchText(e.target.value) }}
-                        onFocus={() => setSearchOnFocus(true)}
+                        onClick={() => setSearchOnFocus(true)}
                         onBlur={() => {
                             setTimeout(() => {
                                 setSearchOnFocus(false)
@@ -287,11 +303,12 @@ const Classification = () => {
                         type="text"
                         spellCheck="false"
                         autoComplete="false"
+                        onKeyDown={handleKeyDown}
                     />
                     {isSearchOnFocus && filteredClassifications.length > 0 && <div style={{ width: "88%" }} className="searchDropdownContent">
                         <ul className="searchDropdownOptions" style={{ maxHeight: "50vh" }}>
                             {filteredClassifications.map((item, index) => (
-                                <li key={index} className="classificationItem" onClick={() => {
+                                <li key={index} className={`classificationItem ${activeOptionIndex === index ? "active" : ""}`} onClick={() => {
                                     setSearchText(item.id.toString());
                                 }}>
                                     <span>

@@ -133,13 +133,11 @@ const LogoDetails = ({ Progress }) => {
                 markType: data.markType
             }
             )
-            if (logoDetails.markType == 'Word Mark') {
+            if (data.markType === 'Word Mark') {
                 setActiveCard('card-1')
-            }
-            if (logoDetails.markType == 'Design Mark') {
+            } else if (data.markType === 'Design Mark') {
                 setActiveCard('card-2')
-            }
-            else {
+            } else {
                 setActiveCard('card-3')
             }
         }
@@ -242,7 +240,7 @@ const LogoDetails = ({ Progress }) => {
 
                 <div className="input">
                     <label htmlFor="">Upload copy of trademark <strong>*</strong></label>
-                    <input type="file" ref={imageRef}
+                    <input type="file"
                         // value={'logoDetails.logoFile'}
                         onChange={handleChange}
                         name="logoFile" />

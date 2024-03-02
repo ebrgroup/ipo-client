@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './selfShowcase.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { Player } from '@lottiefiles/react-lottie-player';
 import { representative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,8 +15,6 @@ const Selfshowcase = ({ Progress }) => {
     licenseFile: ""
   });
   const [licenseFileURL, setLicenseFileURL] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imageSrc, setImageSrc] = useState('');
   const dispatch = useDispatch();
 
   const handleRepresentativeData = (e) => {
@@ -33,56 +32,75 @@ const Selfshowcase = ({ Progress }) => {
     }
   }
 
-  const handleFileInputChange = (file) => {
-    console.log(file);
-    console.log('file');
-    if (file) {
-      try {
-        const reader = new FileReader(); // Create a new FileReader object
-
-        reader.onload = () => {
-          const imageUrl = reader.result; // Get the data URL of the image
-          setImageSrc(imageUrl); // Set the image source
-        };
-
-        reader.readAsDataURL(file); // Read the file as a Data URL
-        setSelectedFile(file); // Set the selected file in state
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
   const handleChange = (event) => {
     setSelectedRole(event.target.value);
   };
 
+  const isAnyAttributeEmpty = (data) => {
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && data[key] === "") {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleDataAndNavigation = () => {
-    dispatch(representative({
-      ownerType: selectedRole,
-      representativeData
-    }));
-    navigate("/classification");
+    let shouldDispatch = true;
+    if(selectedRole === "representative") {
+      shouldDispatch = isAnyAttributeEmpty(representativeData) && licenseFileURL !== null;
+    }
+    if(shouldDispatch) {
+      dispatch(representative({
+        ownerType: selectedRole,
+        representativeData
+      }));
+      navigate("/classification");
+    } else {
+      handleToastDisplay("Required fields (*) are empty!", "error");
+    }
   }
 
-  // Logic for previous data
-  //When back button is press
-  // The previous data is kept safe
-  const data = useSelector(state => state.trademarkRegistrationReducer?.representative);
+  const handleToastDisplay = (message, type) => {
+    const toastConfig = {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    };
 
+    switch (type) {
+        case "success":
+            toast.success(message, toastConfig);
+            break;
+        case "error":
+            toast.error(message, toastConfig);
+            break;
+        default:
+            toast(message, toastConfig);
+            break;
+    }
+};
+
+  const data = useSelector(state => state.trademarkRegistrationReducer?.representative);
 
   useEffect(() => {
     Progress(100);
 
     if (data && data.ownerType === 'representative') {
       const { ownerType } = data;
-      const { lincenseNo, nameOfLawPractice } = data.representativeData;
+      const { lincenseNo, nameOfLawPractice, licenseFile } = data.representativeData;
 
       setRepresentativeData({
         lincenseNo: lincenseNo,
         nameOfLawPractice: nameOfLawPractice
       });
       setSelectedRole(ownerType)
+      setLicenseFileURL(licenseFile ? URL.createObjectURL(licenseFile) : null);
     }
     
     return () => {
@@ -129,7 +147,7 @@ const Selfshowcase = ({ Progress }) => {
             <input type="file" name="licenseFile" onChange={handleRepresentativeData} />
           </div>
           <div className=" input selected-logo">
-            {selectedFile && <img src={imageSrc} alt="Selected" />}
+            <img src={licenseFileURL} alt="No License file selected yet!" width="210px" />
           </div>
 
         </div>
