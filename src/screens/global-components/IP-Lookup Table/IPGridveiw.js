@@ -1,77 +1,85 @@
-// import React, { useEffect, useState } from 'react'
-import './IPGridview.css'
+import React, { useEffect, useState } from 'react';
+import { Buffer } from "buffer";
+import ipologo from '../../../assets/Icons/ipo.png'
+import './IPGridview.css';
 
-const IPGridveiw = ({ rows }) => {
-    // const binary = rows[0].logoDetails.logoFile.data;
-    // const [logo, setLogo] = useState('');
+const IPGridView = ({ rows }) => {
+    const [logos, setLogos] = useState([]);
 
-    // const encodeBase64 = (binary) => {
-    //     let bytes = new Uint8Array(binary);
-    //     let encodedString = '';
-    //     for (let i = 0; i < bytes.byteLength; i++) {
-    //         encodedString += String.fromCharCode(bytes[i]);
-    //     }
-    //     return btoa(encodedString);
-    // };
+    useEffect(() => {
+        const fetchLogos = async () => {
+            const logoData = [];
+            for (let i = 0; i < rows.length; i++) {
+                const imageName = rows[i].logoDetails.logoFile;
+                logoData.push(imageName);
+            }
+            setLogos(logoData);
+        };
 
-    // function fetch() {
-    //     // const blob = new Blob([binary]);
-    //     // const img = URL.createObjectURL(blob);
-
-    //     // setLogo(img);
-
-    //     const base64String = encodeBase64(binary);
-    //     console.log(base64String);
-    //     setLogo(base64String);
-    // }
-
-    // useEffect(() => {
-    //     fetch();
-    // }, [])
+        if (rows && rows.length > 0) {
+            fetchLogos();
+        }
+    }, [rows]);
 
     return (
         <div className='table'>
-            <table>
-                <thead id='table-header'>
-                    <tr  >
-                        <td> TRADEMARK ID</td>
-                        <td>TRADEMARK NAME
-                            <i class="fa-solid fa-sort"></i>
-                        </td>
-                        <td>FILE DATE
-                            <i class="fa-solid fa-sort"></i>
-                        </td>
-                        <td>TRADEMARK CLASS
-                            <i class="fa-solid fa-sort"></i>
-                        </td>
-                        <td> STATUS
-                            <i class="fa-solid fa-sort"></i>
-                        </td>
-                        <td>TRADEMARK LOGO
-                            <i class="fa-solid fa-sort"></i>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody id='table-body'>
-                    {(rows) ? (rows.map(data =>
+            {rows ? (
+                <table>
+                    <thead id='table-header'>
                         <tr>
-                            <td>{data.trademarkId}</td>
-                            <td>{data.logoDetails.markDesc}</td>
-                            <td>{data.fileDate}</td>
-                            <td>{data.classificationClass}</td>
-                            <td>{data.status}</td>
-                            <td>
-                                <img src={'logo'} alt="Logo" />
-                                {/* <img src={`data:image/png;base64,${logo}`} /> */}
+                            <td> TRADEMARK ID</td>
+                            <td>TRADEMARK NAME
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>FILE DATE
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>TRADEMARK CLASS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td> STATUS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>TRADEMARK LOGO
+                                <i className="fa-solid fa-sort"></i>
                             </td>
                         </tr>
-                    )) : (<tr></tr>)
-                    }
+                    </thead>
+                    <tbody id='table-body'>
 
-                </tbody>
-            </table>
-        </div>
-    )
-}
+                        {rows.map((data, index) => (
+                            <tr key={index}>
+                                <td>{data.trademarkId}</td>
+                                <td>{data.logoDetails.markDesc}</td>
+                                <td>{data.fileDate}</td>
+                                <td>{data.classificationClass}</td>
+                                <td className={
+                                    data.status === 'Pending'
+                                        ? 'pending'
+                                        : data.status === 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>
+                                    {logos.length > 0 && logos[index] ? (
+                                        <img src={require(`../../../assets/uploads/${logos[index]}`)} alt={`Logo ${index}`} />
+                                    ) : (
+                                        "Loading..."
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
 
-export default IPGridveiw
+                    </tbody >
+                </table >
+            ) : (
+                <div className="ipo_img">
+                    <img src={ipologo} />
+                </div>
+            )}
+        </div >
+    );
+};
+
+export default IPGridView;

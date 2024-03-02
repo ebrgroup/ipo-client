@@ -14,7 +14,6 @@ export const logoDetail = (data) => ({
     type: "LOGO_DETAILS-DATA",
     payload: data
 })
-export const revireDetail = (data) => ({
-    type: "REVIEW_DETAILS-DATA",
-    payload: data
+export const resetDetails = () => ({
+    type: "RESET_DETAILS"
 })

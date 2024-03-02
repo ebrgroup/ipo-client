@@ -2,13 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import "./ownerdetails.css";
 import Inputs from "./components/Inputs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { toast } from "react-toastify";
 
 const OwnerDetails = (props) => {
     const [ownerDetails, setOwnerDetails] = useState({
-        tradingBusinessName: "", businessAddress: "",
-        province: "", city: "",
+        businessName: "",
+        businessAddress: "",
+        province: "",
+        city: "",
         companyName: "",
         otherBusinessDescription: ""
     });
@@ -24,6 +27,46 @@ const OwnerDetails = (props) => {
 
     const dispatch = useDispatch();
 
+    // Logic for previous data
+    //When back button is press
+    // The previous data is kept safe
+    // const data = useSelector(state => state.trademarkRegistrationReducer?.ownerdetail);
+
+    // useEffect(() => {
+    //     props.Progress(100);
+    //     if (data) {
+    //         const owners = data.ownerDetails
+    //         const partners = data.partnersData
+
+    //         const {
+    //             businessName,
+    //             businessAddress,
+    //             province,
+    //             city,
+    //             companyName,
+    //             otherBusinessDescription } = owners;
+
+    //         const {
+    //             fullName,
+    //             nationality,
+    //             cnic
+    //         } = partners
+    //         setOwnerDetails({
+    //             businessName: businessName,
+    //             businessAddress: businessAddress,
+    //             province: province,
+    //             city: city,
+    //             companyName: companyName,
+    //             otherBusinessDescription: otherBusinessDescription
+    //         });
+    //     }
+
+    //     // if (partners) {
+    //     //     fullName: fullName
+    //     // }
+    // }, []);
+
+    // console.log(data);
     const handleAddClick = () => {
         setPartnersData([
             ...partnersData,
@@ -40,16 +83,66 @@ const OwnerDetails = (props) => {
     }
 
     const handleDataAndNavigation = () => {
-        dispatch(ownerDetail({
-            ownerDetails,
-            partnersData
-        }));
-        navigate("/logodetails");
+        if (areRequiredFieldsEmpty()) {
+            dispatch(ownerDetail({
+                ownerDetails,
+                partnersData
+            }));
+            navigate("/logodetails");
+        } else {
+            handleToastDisplay("Required fields (*) are empty!", "error");
+        }
     }
 
-    useEffect(() => {
-        props.Progress(100);
-    }, []);
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+
+    const areRequiredFieldsEmpty = () => {
+        console.log(ownerDetails.businessName);
+        if ((ownerDetails.businessName === "" || ownerDetails.businessAddress === "")
+            || (checkUncommonFields() === false)) {
+            return false;
+        }
+        return true;
+    };
+
+    const checkUncommonFields = () => {
+        if (selectedOption === "soleProprieterShip" &&
+            (ownerDetails.city === "" || ownerDetails.province === "")) {
+            return false;
+        } else if (selectedOption === "partnershipFirm" && partnersData.length < 1) {
+            return false;
+        } else if (["singleMemberCompany", "privateLimitedCompany", "publicLimitedCompany"].includes(selectedOption) &&
+            ownerDetails.companyName === "") {
+            return false;
+        } else if (selectedOption === "other" &&
+            (ownerDetails.companyName === "" || ownerDetails.otherBusinessDescription === "")) {
+            return false;
+        }
+        return true;
+    }
 
     return (
         <div className="owner-screen-background">

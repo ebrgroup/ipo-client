@@ -7,12 +7,12 @@ const Inputs = (props) => {
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
         { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" },
         { label: "Province", placeholder: "Province", name: "province" },
-        { label: "City", placeholder: "City" , name: "city" },
+        { label: "City", placeholder: "City", name: "city" },
     ]
 
     const partnershipFirm = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessName" }
+        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" }
     ]
 
     const singleMemberCompany = [
@@ -39,11 +39,11 @@ const Inputs = (props) => {
 
     useEffect(() => {
         let selectedItem = null;
-        if(props.inputData === "singleMemberCompany" || props.inputData === "privateLimitedCompany"
+        if (props.inputData === "singleMemberCompany" || props.inputData === "privateLimitedCompany"
             || props.inputData === "publicLimitedCompany") {
             selectedItem = singleMemberCompany;
             props.setPartnershipFirm(false);
-        } else if(props.inputData === "partnershipFirm") {
+        } else if (props.inputData === "partnershipFirm") {
             selectedItem = partnershipFirm;
             props.setPartnershipFirm(true);
             props.setPartnersData([]);
@@ -54,13 +54,13 @@ const Inputs = (props) => {
         setSelectedArray(selectedItem);
     }, [props.inputData]);
 
-    return(
+    return (
         <>
             <div className="owner-input-container">
                 {selectedArray.map((data) => (
                     <>
-                        <label>{ data.label } <strong>*</strong></label>
-                        <input placeholder={ data.placeholder } type="text" name={ data.name } onChange={ handleChange } />
+                        <label>{data.label} <strong>*</strong></label>
+                        <input placeholder={data.placeholder} type="text" name={data.name} onChange={handleChange} />
                     </>
                 ))}
             </div>

@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 const SearchIP = ({ Progress }) => {
 
   const data = useSelector(state => state.IpLookup?.registeredIp?.response)
-  // console.log(data);
   useEffect(() => {
     Progress(100);
   }, [])

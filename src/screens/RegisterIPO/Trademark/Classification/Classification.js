@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { classification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
-import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
 
 const Classification = () => {
 
@@ -201,26 +201,66 @@ const Classification = () => {
         classification.description.toLowerCase().includes(searchText.toLowerCase())
     );
 
+    const areRequiredFieldsEmpty = () => {
+        return (searchText === "" && classificationDescription === "");
+    };
+
     const handleDataAndNavigation = () => {
-        const classificationData = {
-            classificationClass: searchText,
-            classificationDescription
-        };
-        dispatch(classification(
-            classificationData
-        ));
-        Cookies.set('classificationData', JSON.stringify(classificationData));
-        navigate("/ownerDetails")
+        if (!areRequiredFieldsEmpty()) {
+            const classificationData = {
+                classificationClass: searchText,
+                classificationDescription
+            };
+            dispatch(classification(
+                classificationData
+            ));
+            navigate("/ownerDetails")
+        } else {
+            handleToastDisplay("Required fields (*) are empty!", "error");
+        }
     }
 
+    // Logic for previous data
+    //When back button is press
+    // The previous data is kept safe
+    const data = useSelector(state => state.trademarkRegistrationReducer?.classification);
+    
     useEffect(() => {
-        const classificationString = Cookies.get("classificationData");
-        const classificationData = classificationString ? JSON.parse(classificationString) : null;
-        if (classificationData != null) {
-            setDescription(classificationData.classificationDescription);
-            setSearchText(classificationData.classificationClass);
+        if (data) {
+            const { classificationClass, classificationDescription } = data;
+            setSearchText(classificationClass ? classificationClass.toLowerCase() : '');
+            setDescription(classificationDescription ? classificationDescription.toLowerCase() : '');
+        } else {
+            setSearchText('');
+            setDescription('');
         }
     }, []);
+    
+
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
 
     return (
         // <div className="classificationPage">

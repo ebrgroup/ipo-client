@@ -18,6 +18,8 @@ const trademarkRegistrationReducer = (state = initialState, action) => {
             return { ...state, logodetail: action.payload };
         case 'REVIEW_DETAILS-DATA':
             return { ...state, reviewdetail: action.payload };
+        case 'RESET_DETAILS':
+            return initialState;
         default:
             return state;
     }

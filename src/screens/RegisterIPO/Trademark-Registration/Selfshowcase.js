@@ -3,13 +3,15 @@ import './selfShowcase.css';
 import { useNavigate } from 'react-router-dom';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { representative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Selfshowcase = ({ Progress }) => {
   const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState('self');
   const [representativeData, setRepresentativeData] = useState({
-    lincenseNo: "", nameOfLawPractice: "", licenseFile: ""
+    lincenseNo: "",
+    nameOfLawPractice: "",
+    licenseFile: ""
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -17,13 +19,17 @@ const Selfshowcase = ({ Progress }) => {
   const dispatch = useDispatch();
 
   const handleRepresentativeData = (e) => {
-    setRepresentativeData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value
-    }));
-
-    handleFileInputChange(representativeData.licenseFile)
-
+    if (e.target.name === "licenseFile") {
+      setRepresentativeData((prevData) => ({
+        ...prevData,
+        [e.target.name]: e.target.files[0]
+      }));
+    } else {
+      setRepresentativeData((prevData) => ({
+        ...prevData,
+        [e.target.name]: e.target.value
+      }));
+    }
   }
 
   const handleFileInputChange = (file) => {
@@ -58,10 +64,25 @@ const Selfshowcase = ({ Progress }) => {
     navigate("/classification");
   }
 
+  // Logic for previous data
+  //When back button is press
+  // The previous data is kept safe
+  const data = useSelector(state => state.trademarkRegistrationReducer?.representative);
+
+
   useEffect(() => {
     Progress(100);
-  }, [])
+    if (data && data.ownerType === 'representative') {
+      const { ownerType } = data;
+      const { lincenseNo, nameOfLawPractice } = data.representativeData;
 
+      setRepresentativeData({
+        lincenseNo: lincenseNo,
+        nameOfLawPractice: nameOfLawPractice
+      });
+      setSelectedRole(ownerType)
+    }
+  }, []);
 
   return (
     <section className='selfShowcaseContainer'>
@@ -87,12 +108,12 @@ const Selfshowcase = ({ Progress }) => {
 
           <div className="input">
             <label htmlFor="">License No <strong>*</strong></label>
-            <input type="text" name="licenseNo" onChange={handleRepresentativeData} />
+            <input type="text" name="lincenseNo" value={representativeData.lincenseNo} onChange={handleRepresentativeData} />
           </div>
 
           <div className="input">
             <label htmlFor="">Name of Law Practice <strong>*</strong></label>
-            <input type="text" name="nameOfLawPractice" onChange={handleRepresentativeData} />
+            <input type="text" name="nameOfLawPractice" value={representativeData.nameOfLawPractice} onChange={handleRepresentativeData} />
           </div>
 
           <div className="input">
