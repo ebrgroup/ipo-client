@@ -78,9 +78,9 @@ const FeeSubmission = (props) => {
                     </div>
                 </div>
                 <div className="btns">
+                    <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                     <button className="continueBtn" onClick={checkedIndex !== -1 ? openModal :
                         () => handleToastDisplay("Please select any one payment option!", "error")}>Continue</button>
-                    <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 </div>
 
                 <PaymentModal isOpen={isModalOpen} closeModal={closeModal} Progress={props.Progress} />

@@ -312,8 +312,8 @@ const Classification = () => {
                     onChange={(e) => setDescription(e.target.value)} rows="7" placeholder="Enter details here..." />
             </div>
             <div className="btns">
-                <button className='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+                <button className='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
             </div>
         </div>
     );

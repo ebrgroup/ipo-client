@@ -135,10 +135,10 @@ const LogoDetails = ({ Progress }) => {
             if (logoDetails.markType == 'Word Mark') {
                 setActiveCard('card-1')
             }
-            if (logoDetails.markType == 'Design Mark') {
+            else if (logoDetails.markType == 'Design Mark') {
                 setActiveCard('card-2')
             }
-            else {
+            else if( logoDetails.markType = "Word & Design Mark") {
                 setActiveCard('card-3')
             }
         }
@@ -250,8 +250,8 @@ const LogoDetails = ({ Progress }) => {
             </section>
 
             <div className="btns">
-                <button className='continueBtn' onClick={handleDataAndNavigation} >Continue</button>
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+                <button className='continueBtn' onClick={handleDataAndNavigation} >Continue</button>
             </div>
         </main>
     )

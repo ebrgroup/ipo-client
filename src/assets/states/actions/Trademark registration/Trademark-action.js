@@ -17,3 +17,4 @@ export const logoDetail = (data) => ({
 export const resetDetails = () => ({
     type: "RESET_DETAILS"
 })
+

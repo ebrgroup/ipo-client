@@ -31,6 +31,11 @@ import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDe
 import FeeSubmission from './screens/RegisterIPO/components/FeeSubmission/FeeSubmission';
 import { resetIpStates } from './assets/states/actions/IP-Lookup-actions/Tabledata-action';
 import Successpayment from './screens/global-components/Success payment component/Successpayment';
+import { registerIPHelp } from './assets/states/actions/Helpdesk-Content';
+import { logout } from './assets/states/actions/user-action';
+import { resetDetails } from './assets/states/actions/Trademark registration/Trademark-action';
+import { resetcount } from './assets/states/actions/Count IP actions/countTrademark_action';
+import { resetSidebar } from './assets/states/actions/Toggle-Sidebar';
 
 
 function App() {
@@ -65,14 +70,25 @@ function App() {
       navigate("/dashboard");
     }
 
-    if (path != '/searchip' && path != '/trackip' ){
+    if (path != '/searchip' && path != '/trackip') {
 
       dispatch(resetIpStates())
     }
 
+    if (path === '/registeripo') {
+      dispatch(registerIPHelp())
+    }
+
     if (path === "/signin") {
       document.title = "Sign In - IPO";
-      dispatch(resetIpStates()) //Reset Search IP and track Ip states / objects
+
+      //Reset all redux states
+      dispatch(resetIpStates())
+      dispatch(logout());
+      dispatch(resetDetails())
+      dispatch(resetcount())
+      dispatch(resetSidebar())
+
     }
     else if (path === "/signup")
       document.title = "Sign Up - IPO";
@@ -92,14 +108,26 @@ function App() {
       document.title = "Change Password - IPO";
     else if (path == "/registerip")
       document.title = "Register IP - IPO";
-    else if (path == "/confirmprofile")
-      document.title = "Confirm Profile - IPO";
-    else if (path == "/reviewapplication")
-      document.title = "Review Application - IPO";
+    else if (path == "/confirmationScreen")
+      document.title = "Confirmation Screen - IPO";
+    else if (path == "/selfshowcase")
+      document.title = "Self Showcase - IPO";
     else if (path == "/classification")
       document.title = "Trademark Classification - IPO";
     else if (path == "/ownerDetails")
       document.title = "Owner and Business Details - IPO"
+    else if (path == "/logodetails")
+      document.title = "Logo Details - IPO"
+    else if (path == "/feesubmission")
+      document.title = "Fee Submission - IPO"
+    else if (path == "/successpayment/:*")
+      document.title = "Payment Success - IPO"
+    else if (path == "/reviewapplication")
+      document.title = "Review Application - IPO";
+    else if (path == "/searchip")
+      document.title = "Search IP - IPO"
+    else if (path == "/trackip")
+      document.title = "Track My IP - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   }, [path]);
 
@@ -117,14 +145,14 @@ function App() {
         <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
-        <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission  Progress={loadingProgress}/>} />} title={title} />} />
-        <Route path='/successpayment/:trackId' element={<Main_Dashboard screen={<Successpayment Progress={loadingProgress} />} title={title} />} />
+        <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/successpayment/:trackId' element={<Main_Dashboard screen={<Successpayment Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} title={title} />} />
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
