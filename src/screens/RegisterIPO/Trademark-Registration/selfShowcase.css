@@ -53,9 +53,10 @@
 }
 
 .selected-logo img{
-    margin-top: 1vh;
-    width: 220px;
+    width: 110px;
+    height: 110px;
 }
+
 
 .representativeFields .input label {
     font-size: small;
@@ -65,22 +66,26 @@
     outline: none;
 }
 
-.selfShowcaseContainer #continueBtn {
-    position: absolute;
-    right: 2rem;
-    bottom: 1.5rem;
+    .btns{
+        position: absolute;
+        right: 2rem;
+        bottom: 1.5rem;
+    }
+
+ .btns button {
     background-color: #036666;
     border-radius: 8px;
     font-size: 15px;
     font-weight: 400;
     color: white;
-    width: 119px;
-    height: 38px;
+    width: 95px;
+    height: 35px;
     border: none;
+    margin: 0 3px;
 
 }
 
-#continueBtn:hover {
+.btns button:hover {
     cursor: pointer;
     background-color: #036666c9;
 }

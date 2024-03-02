@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import "./FeeSubmission.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 import PaymentModal from '../Payment-modal/PaymentModal';
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const FeeSubmission = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [checkedIndex, setCheckedIndex] = useState(-1);
+    const navigate = useNavigate();
 
     const openModal = (e) => {
         e.stopPropagation();
@@ -75,8 +77,12 @@ const FeeSubmission = (props) => {
                         ))}
                     </div>
                 </div>
-                <button id="fee-continueBtn" onClick={ checkedIndex !== -1 ? openModal : 
-                    () => handleToastDisplay("Please select any one payment option!", "error") }>Continue</button>
+                <div className="btns">
+                    <button className="continueBtn" onClick={checkedIndex !== -1 ? openModal :
+                        () => handleToastDisplay("Please select any one payment option!", "error")}>Continue</button>
+                    <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+                </div>
+
                 <PaymentModal isOpen={isModalOpen} closeModal={closeModal} Progress={props.Progress} />
             </div>
         </>

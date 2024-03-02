@@ -4,12 +4,15 @@ import visaSvg from "../../../../assets/Icons/visa-svg.svg";
 import paymentHeader from "../../../../assets/Icons/payment-header-svg-2.svg";
 import Modal from '@mui/material/Modal';
 import Combobox from "../../../global-components/Combobox/Combobox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { resetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 
 const PaymentModal = ({ isOpen, closeModal, Progress }) => {
-
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
         name: "",
@@ -64,7 +67,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
         let value = "";
         const getNumericValue = (input) => input.replace(/\D/g, '');
         const getAlphabets = (input) => input.replace(/[^a-zA-Z]/g, '');
-        if(e.target.name === "cardNumber") {
+        if (e.target.name === "cardNumber") {
             value = getNumericValue(e.target.value).slice(0, 16);
         } else if (e.target.name === "cvv") {
             value = getNumericValue(e.target.value).slice(0, 4);
@@ -100,11 +103,20 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
     const handlePayment = async () => {
         setDisabled(true);
         Progress(10);
+<<<<<<< HEAD
     
         const formData = new FormData();
     
+=======
+
+        // Create a FormData object to send multipart/form-data
+        const formData = new FormData();
+        let trackId = generateAlphanumericId();
+
+        // Append text data to FormData
+>>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         formData.append('userId', userData.userData._id);
-        formData.append('trademarkId', generateAlphanumericId());
+        formData.append('trademarkId', trackId);
         formData.append('fileDate', getCurrentDate());
         formData.append('applicationOwner', JSON.stringify({
             ownerType: trademarkData.representative.ownerType,
@@ -133,10 +145,15 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             markSeries: trademarkData.logodetail.logoDetails.markSeries,
             markType: trademarkData.logodetail.logoDetails.markType
         }));
+<<<<<<< HEAD
     
+=======
+
+        // Append image files to FormData
+>>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         formData.append('licenseFile', trademarkData.representative.representativeData.licenseFile);
         formData.append('logoFile', trademarkData.logodetail.logoDetails.logoFile);
-    
+
         Progress(50);
         await axios.post("/ipo/trademark", formData, {
             headers: {
@@ -147,9 +164,13 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             handleToastDisplay(response.data.message, "success");
             setDisabled(false);
             closeModal();
+
+            navigate(`/successpayment/${trackId.replace('#','')}`)
+            dispatch(resetDetails())
+
         }).catch(error => {
             Progress(100);
-            if(error.response !== undefined){
+            if (error.response !== undefined) {
                 if (error.response.data) {
                     handleToastDisplay(`${error.response.data.error}`, "error");
                 } else {
@@ -159,10 +180,11 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
                 handleToastDisplay("Error inserting data", "error");
             }
             setDisabled(false);
-        }); 
-    } 
+        });
+    }
 
     const getExpiryValue = () => {
+<<<<<<< HEAD
         const monthIndex = monthMenuOptions.indexOf(cardDetails.month) + 1;
         const month = monthIndex < 10 ? `0${monthIndex}` : monthIndex;
         
@@ -172,6 +194,10 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             return `MM/${cardDetails.year.toString().slice(-2)}`;
         } else {
             return `${month}/${cardDetails.year.toString().slice(-2)}`;
+=======
+        if (cardDetails.month !== "Choose Month" && cardDetails.year === "Choose Year") {
+            return `${monthMenuOptions.indexOf(cardDetails.month) + 1}/YY`;
+>>>>>>> cc17aa5aeff9e1912cc400f657ae9dc01d4d37fc
         }
     };    
 
@@ -232,7 +258,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
             aria-describedby="modal-modal-description"
         >
             <div className="modal-overlay">
-                <div className="modal" ref={ modalRef }>
+                <div className="modal" ref={modalRef}>
                     <div className="payment-header-parent">
                         <div className="payment-header">
                             <div class="visa-card">
@@ -287,8 +313,8 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
 
                                     <div className="expiry-wrapper">
                                         <label className="payment-input-label" for="expiry" disabled={true}>VALID THRU</label>
-                                        <input className="payment-input-style" id="expiry"  disabled={true} 
-                                            placeholder="MM/YY" type="text" value={ getExpiryValue() } />
+                                        <input className="payment-input-style" id="expiry" disabled={true}
+                                            placeholder="MM/YY" type="text" value={getExpiryValue()} />
                                     </div>
                                     <div className="cvv-wrapper">
                                         <label className="payment-input-label" for="cvv">CVV</label>
@@ -363,7 +389,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="pay-button-container" onClick={ disabled ? null : handlePayment }>
+                    <div className="pay-button-container" onClick={disabled ? null : handlePayment}>
                         <div>
                             <svg viewBox="0 0 24 24" id="cart">
                                 <path fill="#ffffff" d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />

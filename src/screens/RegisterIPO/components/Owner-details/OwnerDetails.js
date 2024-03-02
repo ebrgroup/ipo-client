@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import "./ownerdetails.css";
 import Inputs from "./components/Inputs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { toast } from "react-toastify";
 
 const OwnerDetails = (props) => {
     const [ownerDetails, setOwnerDetails] = useState({
-        businessName: "", businessAddress: "",
-        province: "", city: "",
+        businessName: "",
+        businessAddress: "",
+        province: "",
+        city: "",
         companyName: "",
         otherBusinessDescription: ""
     });
@@ -25,6 +27,46 @@ const OwnerDetails = (props) => {
 
     const dispatch = useDispatch();
 
+    // Logic for previous data
+    //When back button is press
+    // The previous data is kept safe
+    // const data = useSelector(state => state.trademarkRegistrationReducer?.ownerdetail);
+
+    // useEffect(() => {
+    //     props.Progress(100);
+    //     if (data) {
+    //         const owners = data.ownerDetails
+    //         const partners = data.partnersData
+
+    //         const {
+    //             businessName,
+    //             businessAddress,
+    //             province,
+    //             city,
+    //             companyName,
+    //             otherBusinessDescription } = owners;
+
+    //         const {
+    //             fullName,
+    //             nationality,
+    //             cnic
+    //         } = partners
+    //         setOwnerDetails({
+    //             businessName: businessName,
+    //             businessAddress: businessAddress,
+    //             province: province,
+    //             city: city,
+    //             companyName: companyName,
+    //             otherBusinessDescription: otherBusinessDescription
+    //         });
+    //     }
+
+    //     // if (partners) {
+    //     //     fullName: fullName
+    //     // }
+    // }, []);
+
+    // console.log(data);
     const handleAddClick = () => {
         setPartnersData([
             ...partnersData,
@@ -41,7 +83,7 @@ const OwnerDetails = (props) => {
     }
 
     const handleDataAndNavigation = () => {
-        if(areRequiredFieldsEmpty()) {
+        if (areRequiredFieldsEmpty()) {
             dispatch(ownerDetail({
                 ownerDetails,
                 partnersData
@@ -79,7 +121,7 @@ const OwnerDetails = (props) => {
 
     const areRequiredFieldsEmpty = () => {
         console.log(ownerDetails.businessName);
-        if((ownerDetails.businessName === "" || ownerDetails.businessAddress === "") 
+        if ((ownerDetails.businessName === "" || ownerDetails.businessAddress === "")
             || (checkUncommonFields() === false)) {
             return false;
         }
@@ -87,17 +129,17 @@ const OwnerDetails = (props) => {
     };
 
     const checkUncommonFields = () => {
-        if(selectedOption === "soleProprieterShip" && 
+        if (selectedOption === "soleProprieterShip" &&
             (ownerDetails.city === "" || ownerDetails.province === "")) {
-                return false;
+            return false;
         } else if (selectedOption === "partnershipFirm" && partnersData.length < 1) {
             return false;
         } else if (["singleMemberCompany", "privateLimitedCompany", "publicLimitedCompany"].includes(selectedOption) &&
             ownerDetails.companyName === "") {
-                return false;
-        } else if(selectedOption === "other" && 
-            (ownerDetails.companyName === "" || ownerDetails.otherBusinessDescription === "" )) {
-                return false;
+            return false;
+        } else if (selectedOption === "other" &&
+            (ownerDetails.companyName === "" || ownerDetails.otherBusinessDescription === "")) {
+            return false;
         }
         return true;
     }
@@ -203,9 +245,12 @@ const OwnerDetails = (props) => {
                         setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails} />
                 </div>
             </div>
-            <div className="button-div">
-                <button id='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
+            <div className="btns">
+                <button className='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
             </div>
+            {/* <div className="button-div">
+            </div> */}
         </div>
     );
 }

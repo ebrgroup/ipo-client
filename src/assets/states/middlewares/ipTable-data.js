@@ -8,7 +8,6 @@ export const searchByName = (name) =>
 
         try {
             const response = await axios.get(`/ipo/searchIp/trademark/${name}`);
-            console.log(response)
             dispatch(loadingBar(70));
             dispatch(searchIp(response.data));
             dispatch(loadingBar(100));

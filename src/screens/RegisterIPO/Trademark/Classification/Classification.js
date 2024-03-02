@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { classification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { toast } from 'react-toastify';
 
@@ -206,19 +206,36 @@ const Classification = () => {
     };
 
     const handleDataAndNavigation = () => {
-        if(!areRequiredFieldsEmpty()) {
+        if (!areRequiredFieldsEmpty()) {
             const classificationData = {
                 classificationClass: searchText,
                 classificationDescription
             };
             dispatch(classification(
-              classificationData  
+                classificationData
             ));
             navigate("/ownerDetails")
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
     }
+
+    // Logic for previous data
+    //When back button is press
+    // The previous data is kept safe
+    const data = useSelector(state => state.trademarkRegistrationReducer?.classification);
+    
+    useEffect(() => {
+        if (data) {
+            const { classificationClass, classificationDescription } = data;
+            setSearchText(classificationClass ? classificationClass.toLowerCase() : '');
+            setDescription(classificationDescription ? classificationDescription.toLowerCase() : '');
+        } else {
+            setSearchText('');
+            setDescription('');
+        }
+    }, []);
+    
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {
@@ -294,7 +311,10 @@ const Classification = () => {
                 <textarea value={classificationDescription} className="classificationInput classificationTextArea"
                     onChange={(e) => setDescription(e.target.value)} rows="7" placeholder="Enter details here..." />
             </div>
-            <button id='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
+            <div className="btns">
+                <button className='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+            </div>
         </div>
     );
 };

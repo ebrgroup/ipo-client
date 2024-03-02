@@ -10,7 +10,7 @@ const IpLookup = (state = initialState, action) => {
         case 'TRACK-IP':
             return { ...state, userIp: action.payload };
         case 'RESET-STATES':
-            return { registeredIp: {}, userIp: {} };
+            return initialState;
 
         default:
             return state;

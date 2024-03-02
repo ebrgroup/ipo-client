@@ -30,15 +30,18 @@ import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-fo
 import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDetails';
 import FeeSubmission from './screens/RegisterIPO/components/FeeSubmission/FeeSubmission';
 import { resetIpStates } from './assets/states/actions/IP-Lookup-actions/Tabledata-action';
+import Successpayment from './screens/global-components/Success payment component/Successpayment';
 
 
 function App() {
 
+  const path = document.location.pathname;
   const navigate = useNavigate();
-  const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
   const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
 
-
+  const authRoutes = ["/signin", "/signup", "/forgotpassword",]
+  const verifiRoutes = ["/verification", "/createnewpassword"]
 
   const [progress, setProgress] = useState(0);
   const [title, setTitle] = useState("");
@@ -48,23 +51,23 @@ function App() {
   }
 
   useEffect(() => {
-    const path = document.location.pathname;
 
     if (path === "/")
       navigate("/signin");
 
-
-    const protectedRoutes = ["/changepassword", "/dashboard", "/profile"];
-    const autthRoutes = ["/sigin", "/signup", "/verification", "/forgotpassword", "/createnewpassword"]
-
-
     if (path === "/*") {
       navigate("*")
     }
-    else if (!isLogin && protectedRoutes.includes(path)) {
+    else if (!isLogin && (!authRoutes.includes(path) || verifiRoutes.includes(path))) {
       navigate("/signin");
-    } else if (isLogin && autthRoutes.includes(path)) {
+    }
+    else if (isLogin && authRoutes.includes(path)) {
       navigate("/dashboard");
+    }
+
+    if (path != '/searchip' && path != '/trackip' ){
+
+      dispatch(resetIpStates())
     }
 
     if (path === "/signin") {
@@ -98,7 +101,7 @@ function App() {
     else if (path == "/ownerDetails")
       document.title = "Owner and Business Details - IPO"
     setTitle(document.title.replace(" - IPO", ""));
-  });
+  }, [path]);
 
   return (
     <div className="App">
@@ -119,7 +122,8 @@ function App() {
         <Route path='/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<LogoDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<OwnerDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<ReviewApplication Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission  Progress={loadingProgress}/>} />} title={title} />} />
+        <Route path='/successpayment/:trackId' element={<Main_Dashboard screen={<Successpayment Progress={loadingProgress} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} title={title} />} />
