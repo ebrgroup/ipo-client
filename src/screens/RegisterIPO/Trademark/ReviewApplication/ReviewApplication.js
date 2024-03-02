@@ -103,7 +103,10 @@ const ReviewApplication = () => {
                     </div>
                 </div>
             </div>
-            <button id='continueBtn' onClick={() => navigate("/feesubmission")}>Continue</button>
+            <div className="btns">
+                <button className='continueBtn' onClick={() => navigate("/feesubmission")}>Continue</button>
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+            </div>
         </div>
         //     </div>
         // </div>

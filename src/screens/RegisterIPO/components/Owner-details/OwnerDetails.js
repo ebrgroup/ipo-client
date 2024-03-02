@@ -152,9 +152,12 @@ const OwnerDetails = (props) => {
                         setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails} />
                 </div>
             </div>
-            <div className="button-div">
-                <button id='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
+            <div className="btns">
+                <button className='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
             </div>
+            {/* <div className="button-div">
+            </div> */}
         </div>
     );
 }

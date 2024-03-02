@@ -140,7 +140,11 @@ const LogoDetails = ({ Progress }) => {
                 </div>
                 {/* </div> */}
             </section>
-            <button id='continueBtn' onClick={handleDataAndNavigation}  >Continue</button>
+
+            <div className="btns">
+                <button className='continueBtn' onClick={handleDataAndNavigation} >Continue</button>
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+            </div>        
         </main>
     )
 }

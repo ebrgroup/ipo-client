@@ -6,9 +6,9 @@ import Modal from '@mui/material/Modal';
 import Combobox from "../../../global-components/Combobox/Combobox";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const PaymentModal = ({ isOpen, closeModal }) => {
-
+    const navigate = useNavigate();
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
         name: "",
@@ -119,6 +119,10 @@ const PaymentModal = ({ isOpen, closeModal }) => {
                 console.log(error);
             })
         })();
+
+        //Navigate to success page
+        navigate('/successpayment')
+
     }
 
     const scrollDiv = () => {

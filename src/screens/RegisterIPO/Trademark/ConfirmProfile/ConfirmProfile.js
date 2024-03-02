@@ -191,20 +191,20 @@ const ConfirmProfile = (props) => {
                         />
                         <div className="profileInfoLine" />
                     </div>
-                    <button
-                        className="continueButton"
-                        onClick={() => navigate("/selfshowcase")}
-                    >
-                        Continue
-                    </button>
+
                 </div>
             </div>
-        </div>
-        //     </div>
-        //     <div className="helpAndSupportDiv">
+            <div className="btns">
+                <button
+                    className="continueBtn"
+                    onClick={() => navigate("/selfshowcase")}>
+                    Continue
+                </button>        
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+            </div>
 
-        //     </div>
-        // </div>
+        </div>
+
     );
 };
 

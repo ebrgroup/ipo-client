@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import "./FeeSubmission.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 import PaymentModal from '../Payment-modal/PaymentModal';
+import { useNavigate } from 'react-router-dom';
 
 const FeeSubmission = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [checkedIndex, setCheckedIndex] = useState(-1);
+    const navigate = useNavigate();
 
     const openModal = (e) => {
         e.stopPropagation();
@@ -49,7 +51,10 @@ const FeeSubmission = () => {
                         ))}
                     </div>
                 </div>
-                <button id="fee-continueBtn" disabled={checkedIndex === -1} onClick={openModal}>Continue</button>
+                <div className="btns">
+                    <button className='continueBtn' disabled={checkedIndex === -1} onClick={openModal}>Continue</button>
+                    <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+                </div>
                 <PaymentModal isOpen={isModalOpen} closeModal={closeModal} />
             </div>
         </>

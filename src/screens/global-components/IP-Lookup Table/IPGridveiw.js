@@ -1,12 +1,33 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 import './IPGridview.css'
 
 const IPGridveiw = ({ rows }) => {
-    const binary_data = rows[0].logoDetails.logoFile.data;
-    const [logo, setLogo] = useState(binary_data);
-    // const binaryData = atob(logo);
-    // setLogo(binaryData)
+    // const binary = rows[0].logoDetails.logoFile.data;
+    // const [logo, setLogo] = useState('');
 
+    // const encodeBase64 = (binary) => {
+    //     let bytes = new Uint8Array(binary);
+    //     let encodedString = '';
+    //     for (let i = 0; i < bytes.byteLength; i++) {
+    //         encodedString += String.fromCharCode(bytes[i]);
+    //     }
+    //     return btoa(encodedString);
+    // };
+
+    // function fetch() {
+    //     // const blob = new Blob([binary]);
+    //     // const img = URL.createObjectURL(blob);
+
+    //     // setLogo(img);
+
+    //     const base64String = encodeBase64(binary);
+    //     console.log(base64String);
+    //     setLogo(base64String);
+    // }
+
+    // useEffect(() => {
+    //     fetch();
+    // }, [])
 
     return (
         <div className='table'>
@@ -40,8 +61,8 @@ const IPGridveiw = ({ rows }) => {
                             <td>{data.classificationClass}</td>
                             <td>{data.status}</td>
                             <td>
-                                {/* <img src={logo} alt="Logo" /> */}
-                                <img src={`data:image/png;base64,${logo}`} /> repeat kro
+                                <img src={'logo'} alt="Logo" />
+                                {/* <img src={`data:image/png;base64,${logo}`} /> */}
                             </td>
                         </tr>
                     )) : (<tr></tr>)

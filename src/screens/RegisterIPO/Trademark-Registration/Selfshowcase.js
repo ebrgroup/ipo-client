@@ -11,6 +11,9 @@ const Selfshowcase = ({ Progress }) => {
   const [representativeData, setRepresentativeData] = useState({
     lincenseNo: "", nameOfLawPractice: "", licenseFile: ""
   });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageSrc, setImageSrc] = useState('');
   const dispatch = useDispatch();
 
   const handleRepresentativeData = (e) => {
@@ -18,7 +21,30 @@ const Selfshowcase = ({ Progress }) => {
       ...prevData,
       [e.target.name]: e.target.value
     }));
+
+    handleFileInputChange(representativeData.licenseFile)
+
   }
+
+  const handleFileInputChange = (file) => {
+    console.log(file);
+    console.log('file');
+    if (file) {
+      try {
+        const reader = new FileReader(); // Create a new FileReader object
+
+        reader.onload = () => {
+          const imageUrl = reader.result; // Get the data URL of the image
+          setImageSrc(imageUrl); // Set the image source
+        };
+
+        reader.readAsDataURL(file); // Read the file as a Data URL
+        setSelectedFile(file); // Set the selected file in state
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const handleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -35,6 +61,7 @@ const Selfshowcase = ({ Progress }) => {
   useEffect(() => {
     Progress(100);
   }, [])
+
 
   return (
     <section className='selfShowcaseContainer'>
@@ -60,29 +87,29 @@ const Selfshowcase = ({ Progress }) => {
 
           <div className="input">
             <label htmlFor="">License No <strong>*</strong></label>
-            <input type="text" name="licenseNo" onChange={ handleRepresentativeData } />
+            <input type="text" name="licenseNo" onChange={handleRepresentativeData} />
           </div>
 
           <div className="input">
             <label htmlFor="">Name of Law Practice <strong>*</strong></label>
-            <input type="text" name="nameOfLawPractice" onChange={ handleRepresentativeData } />
+            <input type="text" name="nameOfLawPractice" onChange={handleRepresentativeData} />
           </div>
 
           <div className="input">
             <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
-            <input type="file"  name="licenseFile" onChange={ handleRepresentativeData } />
+            <input type="file" name="licenseFile" onChange={handleRepresentativeData} />
           </div>
           <div className=" input selected-logo">
-            {/* <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
-            <input type="file" /> */}
-            {/* <img src='' alt="Scanned document here" /> */}
-            Scanned document here
+            {selectedFile && <img src={imageSrc} alt="Selected" />}
           </div>
 
         </div>
       )}
 
-      <button id='continueBtn' onClick={ handleDataAndNavigation } >Continue</button>
+      <div className="btns">
+        <button className='continueBtn' onClick={handleDataAndNavigation} >Continue</button>
+        <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+      </div>
     </section>
   );
 };
