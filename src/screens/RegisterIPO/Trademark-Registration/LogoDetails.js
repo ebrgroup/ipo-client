@@ -48,7 +48,7 @@ const LogoDetails = ({ Progress }) => {
         if(e.target.name === "logoFile") {
             setLogoDetails((prevDetails) => ({
                 ...prevDetails,
-                [e.target.name]: URL.createObjectURL(e.target.files[0])
+                [e.target.name]: e.target.files[0]
             }));
         } else {
             setLogoDetails((prevDetails) => ({

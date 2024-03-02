@@ -14,10 +14,17 @@ const Selfshowcase = ({ Progress }) => {
   const dispatch = useDispatch();
 
   const handleRepresentativeData = (e) => {
-    setRepresentativeData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value
-    }));
+    if(e.target.name === "licenseFile") {
+      setRepresentativeData((prevData) => ({
+        ...prevData,
+        [e.target.name]: e.target.files[0]
+      }));
+    } else {
+      setRepresentativeData((prevData) => ({
+        ...prevData,
+        [e.target.name]: e.target.value
+      }));
+    }
   }
 
   const handleChange = (event) => {
