@@ -13,7 +13,7 @@ const Selfshowcase = ({ Progress }) => {
     nameOfLawPractice: "",
     licenseFile: ""
   });
-
+  const [licenseFileURL, setLicenseFileURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageSrc, setImageSrc] = useState('');
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const Selfshowcase = ({ Progress }) => {
         ...prevData,
         [e.target.name]: e.target.files[0]
       }));
+      setLicenseFileURL(URL.createObjectURL(e.target.files[0]));
     } else {
       setRepresentativeData((prevData) => ({
         ...prevData,
@@ -72,6 +73,7 @@ const Selfshowcase = ({ Progress }) => {
 
   useEffect(() => {
     Progress(100);
+
     if (data && data.ownerType === 'representative') {
       const { ownerType } = data;
       const { lincenseNo, nameOfLawPractice } = data.representativeData;
@@ -81,6 +83,12 @@ const Selfshowcase = ({ Progress }) => {
         nameOfLawPractice: nameOfLawPractice
       });
       setSelectedRole(ownerType)
+    }
+    
+    return () => {
+      if (licenseFileURL) {
+        URL.revokeObjectURL(licenseFileURL);
+      }
     }
   }, []);
 
