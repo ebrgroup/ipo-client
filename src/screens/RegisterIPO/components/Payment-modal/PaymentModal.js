@@ -159,8 +159,6 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
 
             dispatch(resetDetails())
             dispatch(countTrademark(userData.userData._id))
-
-
         }).catch(error => {
             Progress(100);
             if (error.response !== undefined) {

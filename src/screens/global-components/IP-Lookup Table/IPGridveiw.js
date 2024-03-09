@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Buffer } from "buffer";
 import ipologo from '../../../assets/Icons/ipo.png'
 import './IPGridview.css';
 
