@@ -84,7 +84,7 @@ const Copyright_SelfRole = ({ Progress }) => {
   }, []);
 
   return (
-    <section className="Self-Container">
+    <section className="selfShowcaseContainer">
       <div className="animation" style={{ display: role == 'authorized' ? 'none' : 'block' }}>
         <Player src={require('../../../../../assets/Icons/self-showcase.json')} autoplay loop className="self-lottie" />
       </div>

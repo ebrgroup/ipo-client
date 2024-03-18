@@ -37,12 +37,12 @@ const ConfirmationScreen = (props) => {
                     <h6 className="confirmation-questions" onClick={() => navigate('/searchIp')}>
                         1. <span>{state.type === "trademark" ? 
                             `If anyone has already registered a ${state.type} similar to yours.` : 
-                            "Even if your application is successfull it will take years before patent is granted"}</span>
+                            `Even if your application is successfull it will take years before ${state.type} is granted`}</span>
                     </h6>
                     <h6 className="confirmation-questions">
                         2. <span>{state.type === "trademark" ? 
                         `If your ${state.type} is against assessment criteria.` : 
-                        "You will be responsible for taking any legal action to enforce a granted patent, including paying any costs incurred"}</span>
+                        `You will be responsible for taking any legal action to enforce a granted ${state.type}, including paying any costs incurred`}</span>
                     </h6>
                 </div>
 

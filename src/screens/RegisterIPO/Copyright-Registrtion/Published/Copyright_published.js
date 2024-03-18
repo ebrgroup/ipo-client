@@ -72,7 +72,7 @@ const CopyrightPublished = ({ Progress }) => {
   }, []);
 
   return (
-    <section className="Published-Container">
+    <section className="selfShowcaseContainer">
       <div className="animation" style={{ display: publish == 'published' ? 'none' : 'block' }}>
         <Player src={require('../../../../assets/Icons/self-showcase.json')} autoplay loop className="self-lottie" />
       </div>
