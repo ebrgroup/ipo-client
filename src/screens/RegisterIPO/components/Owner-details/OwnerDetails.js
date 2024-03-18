@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./ownerdetails.css";
 import Inputs from "./components/Inputs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { toast } from "react-toastify";
@@ -21,6 +21,7 @@ const OwnerDetails = (props) => {
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
 
     const navigate = useNavigate(null);
+    const { state } = useLocation();
 
     const fullNameRef = useRef(null);
     const nationalityRef = useRef(null);
@@ -38,7 +39,7 @@ const OwnerDetails = (props) => {
         if (data) {
             const owners = data.ownerDetails;
 
-            if(owners) {
+            if (owners) {
                 const {
                     businessName,
                     businessAddress,
@@ -58,7 +59,7 @@ const OwnerDetails = (props) => {
                     businessOwnerType: businessOwnerType
                 });
                 setSelectedOption(businessOwnerType);
-                if(data.partnersData) {
+                if (data.partnersData) {
                     setPartnersData(data.partnersData);
                 }
             }
@@ -75,7 +76,7 @@ const OwnerDetails = (props) => {
             }
         ]);
     };
-    
+
 
     const handleChange = (e) => {
         setSelectedOption(e.target.name);
@@ -91,7 +92,10 @@ const OwnerDetails = (props) => {
                 ownerDetails,
                 partnersData
             }));
-            navigate("/logodetails");
+            if(state && state.type === "design")
+                navigate("/designdetails", { state: { type: "design" } });
+            else
+                navigate("/logodetails");
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
@@ -148,7 +152,6 @@ const OwnerDetails = (props) => {
 
     return (
         <div className="owner-screen-background">
-            <h4 className="owner-main-heading">Application for registration of trademark</h4>
             <div className="owner-screen-parent">
                 <div className="owner-heading">
                     <img src={require("../../../../assets/Icons/owner-icon.png")} className="owner-icon" />

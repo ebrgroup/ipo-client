@@ -35,8 +35,6 @@ const ReviewApplication = (props) => {
     } = logodetail.logoDetails
 
 
-
-
     return (
         // <div className="reviewAppPage">
         //     <div className="reviewAppDiv">
@@ -82,13 +80,13 @@ const ReviewApplication = (props) => {
                         <div className="optional-data-column">
                             <span className="reviewAppLabel">Company Name</span>
                             <br />
-                            <span className="reviewAppData">{ companyName }</span>
+                            <span className="reviewAppData">{companyName}</span>
                             <br />
                             {otherBusinessDescription !== "" ? (
                                 <>
                                     <span className="reviewAppLabel">Other Business Description</span>
                                     <br />
-                                    <span className="reviewAppData">{ otherBusinessDescription }</span>
+                                    <span className="reviewAppData">{otherBusinessDescription}</span>
                                 </>
                             ) : null}
                         </div>
@@ -120,7 +118,7 @@ const ReviewApplication = (props) => {
                         </tbody>
                     </table>
                 </div>
-            ): null}
+            ) : null}
             <div className="reviewAppBoxFooter">
                 <img src={imageURL} alt="Trademark Logo" width="220px" />
                 <div style={{ display: "flex", flexDirection: "row", gap: "1.5rem" }}>

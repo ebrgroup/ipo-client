@@ -1,0 +1,12 @@
+.Extent-Container{
+    padding: 2rem;
+    box-sizing: border-box;
+    border-radius: 22px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 1px rgba(185, 185, 185, 0.384);
+    width: 95%;
+    min-height: 38rem;
+    height: fit-content;
+    position: relative;
+    margin: auto;
+}

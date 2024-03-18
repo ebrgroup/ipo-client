@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './selfShowcase.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { Player } from '@lottiefiles/react-lottie-player';
 import { representative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Selfshowcase = ({ Progress }) => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [selectedRole, setSelectedRole] = useState('self');
   const [representativeData, setRepresentativeData] = useState({
     lincenseNo: "",
@@ -47,15 +48,15 @@ const Selfshowcase = ({ Progress }) => {
 
   const handleDataAndNavigation = () => {
     let shouldDispatch = true;
-    if(selectedRole === "representative") {
+    if (selectedRole === "representative") {
       shouldDispatch = isAnyAttributeEmpty(representativeData) && licenseFileURL !== null;
     }
-    if(shouldDispatch) {
+    if (shouldDispatch) {
       dispatch(representative({
         ownerType: selectedRole,
         representativeData
       }));
-      navigate("/classification");
+      navigate(`${state.type === "trademark" ? "/classification" : `/${state.type}Classification`}`, { state: { type: state.type } });
     } else {
       handleToastDisplay("Required fields (*) are empty!", "error");
     }
@@ -63,28 +64,28 @@ const Selfshowcase = ({ Progress }) => {
 
   const handleToastDisplay = (message, type) => {
     const toastConfig = {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     };
 
     switch (type) {
-        case "success":
-            toast.success(message, toastConfig);
-            break;
-        case "error":
-            toast.error(message, toastConfig);
-            break;
-        default:
-            toast(message, toastConfig);
-            break;
+      case "success":
+        toast.success(message, toastConfig);
+        break;
+      case "error":
+        toast.error(message, toastConfig);
+        break;
+      default:
+        toast(message, toastConfig);
+        break;
     }
-};
+  };
 
   const data = useSelector(state => state.trademarkRegistrationReducer?.representative);
 
@@ -102,7 +103,7 @@ const Selfshowcase = ({ Progress }) => {
       setSelectedRole(ownerType)
       setLicenseFileURL(licenseFile ? URL.createObjectURL(licenseFile) : null);
     }
-    
+
     return () => {
       if (licenseFileURL) {
         URL.revokeObjectURL(licenseFileURL);
@@ -120,7 +121,7 @@ const Selfshowcase = ({ Progress }) => {
 
         <div className="input">
           <input type="radio" name="role" id="self" value="self" onChange={handleChange} checked={selectedRole === 'self'} />
-          <label htmlFor="self">Trademark owner or authorized person</label>
+          <label htmlFor="self">{state.type.replace(/^\w/, (c) => c.toUpperCase())} owner or authorized person</label>
         </div>
 
         <div className="input">

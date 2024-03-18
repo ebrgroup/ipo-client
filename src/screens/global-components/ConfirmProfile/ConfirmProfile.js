@@ -23,12 +23,14 @@ const ConfirmProfile = (props) => {
 
     const handleNavigation = () => {
         if(state.type === "trademark") {
-            navigate("/selfshowcase");
+            navigate("/selfshowcase",  { state: { type: state.type } })
+        } else if(state.type === "copyright") {
+            navigate('/copyright/published', { state: { type: state.type } })
         } else {
             navigate("/patentflow");
         }
     }
-
+    
     return (
 
         <div className="profileBox">
@@ -210,7 +212,7 @@ const ConfirmProfile = (props) => {
                     className="continueBtn"
                     onClick={handleNavigation}>
                     Continue
-                </button>        
+                </button>
             </div>
 
         </div>

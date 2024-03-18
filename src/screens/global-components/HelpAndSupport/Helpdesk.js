@@ -21,7 +21,8 @@ const Helpdesk = () => {
                 (<div className="helpDesk-container ">
                     <div className="helpDesk-header">
                         <span >
-                            <i class="fa-solid fa-xmark" onClick={() => setHide(true)}></i>
+                            {/* <i class="fa-solid fa-xmark" onClick={() => setHide(true)}></i> */}
+                            <i class="fa-solid fa-circle-info"></i>
                         </span>
                         <h3 id="heading">Help and Support</h3>
 

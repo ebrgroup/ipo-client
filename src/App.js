@@ -17,7 +17,7 @@ import NotFoundPage from './screens/Notfound-Page/NotFoundPage';
 import LoadingBar from 'react-top-loading-bar'
 import { ToastContainer } from "react-toastify";
 import RegisterIPO from './screens/RegisterIPO/RegisterIPO';
-import ConfirmProfile from './screens/RegisterIPO/Trademark/ConfirmProfile/ConfirmProfile';
+import ConfirmProfile from './screens/global-components/ConfirmProfile/ConfirmProfile';
 import ReviewApplication from './screens/RegisterIPO/Trademark/ReviewApplication/ReviewApplication';
 import Classification from './screens/RegisterIPO/Trademark/Classification/Classification';
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
@@ -27,7 +27,7 @@ import PatentFlow from './screens/PatentFlow/PatentFlow';
 import LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
 import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
-import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
+// import ConfirmationScreen from './screens/RegisterIPO/components/Confirmation-for-continuation/ConfirmationScreen';
 import OwnerDetails from './screens/RegisterIPO/components/Owner-details/OwnerDetails';
 import FeeSubmission from './screens/RegisterIPO/components/FeeSubmission/FeeSubmission';
 import { resetIpStates } from './assets/states/actions/IP-Lookup-actions/Tabledata-action';
@@ -41,6 +41,23 @@ import Form1 from './screens/PatentFlow/components/Form1/Form1';
 import PriorityClaims from './screens/PatentFlow/components/PriorityClaims/PriorityClaims';
 import Documents from './screens/PatentFlow/components/Documentation/Documents';
 import PatentReviewApplication from './screens/PatentFlow/components/ReviewApplication/PatentReviewApplication';
+import DesignClassification from './screens/RegisterIPO/Design/Classification/DesignClassification';
+import DesignDetails from './screens/RegisterIPO/Design/Classification/DesignDetails';
+import DesignReview from './screens/RegisterIPO/Design/Classification/DesignReview';
+import ConfirmationScreen from './screens/global-components/Confirmation-for-continuation/ConfirmationScreen';
+import Copyright_published from './screens/RegisterIPO/Copyright-Registrtion/Published/Copyright_published';
+import Copyright_SelfRole from './screens/RegisterIPO/Copyright-Registrtion/Selfshowcase/Step-1/Copyright_SelfRole';
+import Owner_Assignment from './screens/RegisterIPO/Copyright-Registrtion/Selfshowcase/Step-2/Owner_Assignment';
+import Owner_Extent from './screens/RegisterIPO/Copyright-Registrtion/Selfshowcase/Step-3/Owner_Extent';
+import SelectWork from './screens/RegisterIPO/Copyright-Registrtion/Select Work/SelectWork';
+import Copyright_Classification from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Copyright_Classification';
+import Applicant_Details from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Applicant_Details';
+import Work_Details from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Work Details/Step-1/Work_Details';
+import ArtisticGoodsServices from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Work Details/Step-2/ArtisticGoodsServices';
+import AdvertisedWork from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Work Details/Step-3/AdvertisedWork';
+import Review from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Reveiw Details/Review';
+import Affidevit from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Affidevit';
+import Advertised from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Advertised';
 
 
 function App() {
@@ -92,7 +109,7 @@ function App() {
       dispatch(logout());
       dispatch(resetDetails())
       dispatch(resetcount())
-      dispatch(resetSidebar())
+      // dispatch(resetSidebar())
 
     }
     else if (path === "/signup")
@@ -170,7 +187,61 @@ function App() {
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
+
+        {/* Copyright flow routes defines here */}
+        <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />
+        <Route path='/copyright/profile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile />} />} title={title} />} />
+        <Route path='/copyright/published' element={<Main_Dashboard screen={<RegisterIPO screen={<Copyright_published Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/self' element={<Main_Dashboard screen={<RegisterIPO screen={<Copyright_SelfRole Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/owner/assignment' element={<Main_Dashboard screen={<RegisterIPO screen={<Owner_Assignment Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/owner/extent' element={<Main_Dashboard screen={<RegisterIPO screen={<Owner_Extent Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/work' element={<Main_Dashboard screen={<RegisterIPO screen={<SelectWork Progress={loadingProgress} />} />} title={title} />} />
+
+        {/* Artistic Work flow */}
+        <Route path='/copyright/artistic/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/logodetails/advertised' element={<Main_Dashboard screen={<Registraionflow screen={<AdvertisedWork Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/logodetails/services' element={<Main_Dashboard screen={<Registraionflow screen={<ArtisticGoodsServices Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/artistic/affidevit' element={<Affidevit />} />
+        <Route path='/copyright/artistic/advertised' element={<Advertised />} />
+        <Route path='/copyright/feesubmission' element={<Main_Dashboard screen={<Registraionflow screen={<FeeSubmission Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/successpayment/:trackId' element={<Main_Dashboard screen={<Successpayment Progress={loadingProgress} />} title={title} />} />
+
+        {/* Literally Work flow */}
+        <Route path='/copyright/literary/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/literary/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/literary/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/literary/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/literary/affidevit' element={<Affidevit />} />
+
+
+
+        {/* Cinematographic work flow */}
+        <Route path='/copyright/cinema/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/cinema/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/cinema/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/cinema/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/cinema/affidevit' element={<Affidevit />} />
+
+
+        {/* Record work flow */}
+        <Route path='/copyright/record/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/record/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/record/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/record/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/copyright/record/affidevit' element={<Affidevit />} />
+
+
+        {/* Copyright flows routes end here */}
+
+
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
+        
+        <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/designreview' element={<Main_Dashboard screen={<Registraionflow screen={<DesignReview Progress={loadingProgress} />} />} title={title} />} />
       </Routes>
       <ToastContainer
         position="top-center"
