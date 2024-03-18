@@ -47,10 +47,10 @@ const Selfshowcase = ({ Progress }) => {
 
   const handleDataAndNavigation = () => {
     let shouldDispatch = true;
-    if(selectedRole === "representative") {
+    if (selectedRole === "representative") {
       shouldDispatch = isAnyAttributeEmpty(representativeData) && licenseFileURL !== null;
     }
-    if(shouldDispatch) {
+    if (shouldDispatch) {
       dispatch(representative({
         ownerType: selectedRole,
         representativeData
@@ -63,28 +63,28 @@ const Selfshowcase = ({ Progress }) => {
 
   const handleToastDisplay = (message, type) => {
     const toastConfig = {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     };
 
     switch (type) {
-        case "success":
-            toast.success(message, toastConfig);
-            break;
-        case "error":
-            toast.error(message, toastConfig);
-            break;
-        default:
-            toast(message, toastConfig);
-            break;
+      case "success":
+        toast.success(message, toastConfig);
+        break;
+      case "error":
+        toast.error(message, toastConfig);
+        break;
+      default:
+        toast(message, toastConfig);
+        break;
     }
-};
+  };
 
   const data = useSelector(state => state.trademarkRegistrationReducer?.representative);
 
@@ -102,7 +102,7 @@ const Selfshowcase = ({ Progress }) => {
       setSelectedRole(ownerType)
       setLicenseFileURL(licenseFile ? URL.createObjectURL(licenseFile) : null);
     }
-    
+
     return () => {
       if (licenseFileURL) {
         URL.revokeObjectURL(licenseFileURL);

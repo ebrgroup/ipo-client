@@ -38,7 +38,7 @@ const OwnerDetails = (props) => {
         if (data) {
             const owners = data.ownerDetails;
 
-            if(owners) {
+            if (owners) {
                 const {
                     businessName,
                     businessAddress,
@@ -58,7 +58,7 @@ const OwnerDetails = (props) => {
                     businessOwnerType: businessOwnerType
                 });
                 setSelectedOption(businessOwnerType);
-                if(data.partnersData) {
+                if (data.partnersData) {
                     setPartnersData(data.partnersData);
                 }
             }
@@ -75,7 +75,7 @@ const OwnerDetails = (props) => {
             }
         ]);
     };
-    
+
 
     const handleChange = (e) => {
         setSelectedOption(e.target.name);

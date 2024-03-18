@@ -1,0 +1,11 @@
+.full ~ div > *{
+    width: 60%;
+}
+.full > div:nth-child(3){
+    width: 70%;
+    /* background: #000; */
+}
+.full > div:nth-child(3) > *{
+    width: 85%;
+    /* background: #000; */
+}

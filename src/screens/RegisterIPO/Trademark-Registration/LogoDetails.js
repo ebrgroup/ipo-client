@@ -201,11 +201,8 @@ const LogoDetails = ({ Progress }) => {
             </section>
 
             <section id="logoDetail-section">
-                {/* <div className="representativeFields"> */}
-
-                {/* <div className='input-container'> */}
                 <div className="input">
-                    <label htmlFor="">Mark Description<strong>*</strong> (e.g: coca-cola)</label>
+                    <label htmlFor="">Mark title<strong>*</strong> (e.g: coca-cola)</label>
                     <input type="text"
                         onChange={handleChange}
                         value={logoDetails.markDesc}
@@ -232,7 +229,7 @@ const LogoDetails = ({ Progress }) => {
 
                 </div>
                 <div className="input">
-                    <label htmlFor="">Marks in series (Write in numbers) <strong>*</strong></label>
+                    <label htmlFor="">Marks in series (How many marks in series) <strong>*</strong></label>
                     <input type="number" onChange={handleChange} name="markSeries"
                         value={logoDetails.markSeries}
                     />

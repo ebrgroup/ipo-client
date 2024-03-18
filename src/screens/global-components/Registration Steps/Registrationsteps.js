@@ -13,25 +13,25 @@ const Registrationsteps = () => {
                 <h5>Application Status</h5>
             </div>
             <div className="Steps-section">
-                <div className={`step-btn ${location.pathname === "/classification" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.includes("/classification") ? "active" : ""}`}>
                     <span>1.</span>
                     <span>Classification</span>
                 </div>
-                <div className={`step-btn ${location.pathname === "/ownerDetails" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.includes("/ownerDetails") ? "active" : ""}`}>
                     <span>2.</span>
                     <span>Owner Details</span>
                 </div>
-                <div className={`step-btn ${location.pathname === "/logodetails" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.includes("/logodetails") ? "active" : ""}`}>
                     <span>3.</span>
                     <span>Logo Details</span>
                 </div>
-                <div className={`step-btn ${location.pathname === "/reviewApplication" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.includes("/reviewapplication") ? "active" : ""}`}>
                     <span>4.</span>
                     <span>Review</span>
                 </div>
-                <div className={`step-btn ${location.pathname === "/feesubmission" ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.includes("/feesubmission") ? "active" : ""}`}>
                     <span>5.</span>
-                    <span>Fee submission</span>
+                    <span>Payment</span>
                 </div>
             </div>
         </div>

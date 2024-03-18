@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./ConfirmProfile.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ConfirmProfile = (props) => {
@@ -19,6 +19,14 @@ const ConfirmProfile = (props) => {
         city,
         address
     } = user
+
+    const location = useLocation()
+
+    const handleNavigation = () => {
+        (location.pathname == '/Confirmprofile') ?
+            navigate("/selfshowcase") :
+            navigate('/copyright/published')
+    }
     return (
 
         <div className="profileBox">
@@ -198,9 +206,9 @@ const ConfirmProfile = (props) => {
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button
                     className="continueBtn"
-                    onClick={() => navigate("/selfshowcase")}>
+                    onClick={handleNavigation}>
                     Continue
-                </button>        
+                </button>
             </div>
 
         </div>
