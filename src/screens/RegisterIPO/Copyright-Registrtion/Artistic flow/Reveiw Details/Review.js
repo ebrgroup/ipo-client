@@ -129,7 +129,7 @@ const Review = ({ Progress }) => {
 
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
-                <button className='continueBtn' onClick={() => navigate('/copyright/feesubmission')}>Continue</button>
+                <button className='continueBtn' onClick={() => navigate('/copyright/feesubmission', {state: { type: "copyright" }})}>Continue</button>
             </div>
         </div>
 

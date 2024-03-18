@@ -22,7 +22,7 @@ const ConfirmProfile = (props) => {
     } = user
 
     const handleNavigation = () => {
-        if(state.type === "trademark") {
+        if(state.type === "trademark" || state.type === "design") {
             navigate("/selfshowcase",  { state: { type: state.type } })
         } else if(state.type === "copyright") {
             navigate('/copyright/published', { state: { type: state.type } })
