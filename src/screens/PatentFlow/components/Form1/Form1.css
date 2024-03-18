@@ -1,0 +1,214 @@
+.form1-screen-background {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px 0px 4px 1px rgba(185, 185, 185, 0.384);    
+    padding: 1rem 2rem 2rem;
+    border-radius: 10px;
+    width: 100%;
+    height: 88vh;
+    box-sizing: border-box;
+}
+
+.form1-main-heading {
+    font-family: Poppins;
+}
+
+.form1-screen-parent {
+    height: 80%;
+    border: 1px solid rgba(185, 185, 185, 0.384);
+    border-radius: 5px;
+    padding: 2vh 0 0 1vw;
+    overflow: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.form1-heading {
+    display: flex;
+    align-items: center;
+}
+
+.form1-heading h4 {
+    font-weight: 500;
+}
+
+.heading-hr {
+    margin-right: 1vw;
+    width: 98.5%;
+}
+
+.form-icon {
+    height: 35px;
+    margin-right: 0.5vw;
+}
+
+.form1-screen-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 3.5vh;
+}
+
+.form1-screen-content hr {
+    margin-right: 1vw;
+    width: 98.5%;
+}
+
+.reference-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.reference-input input {
+    width: 80%;
+    border: 2px solid #f6f7f8;
+    padding: 0.5rem;
+    background-color: #f6f7f8;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.reference-input label {
+    margin-bottom: 0.5vh;
+    font-size: 0.8rem;
+}
+
+.pdas-input {
+    font-size: 0.8rem;
+    margin-left: 0.5vw;
+}
+
+.pdas-selection {
+    margin-left: -0.6vw;
+}
+
+.pdas-selection input {
+    margin-right: 0.5vw;
+}
+
+.pdas-selection label {
+    margin-top: -0.5vh;
+    margin-right: 0.4vw;
+}
+
+.form1-dataGrid {
+    margin-top: 3vh;
+    padding-right: 1.5vw;   
+}
+  
+.form1-dataTable {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 0px 4px 2.5px rgba(185, 185, 185, 0.5); 
+    table-layout: auto;
+}
+  
+.form1-dataTable th {
+    font-weight: normal;
+    background-color: #036666;
+    color: white;
+    font-size: 0.8rem;
+    height: 4vh;
+}
+  
+.form1-dataTable tr {
+    padding-left: 50vw;
+}
+  
+.form1-dataTable td {
+    text-align: center;
+    color: black;
+    height: 4vh;
+    font-weight: 300;
+}
+  
+.form1-dataTable tbody tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+  
+.form1-firstHeader {
+    border-top-left-radius: 8px;
+}
+  
+.form1-lastHeader {
+    border-top-right-radius: 8px;
+}
+
+.form1-add-button {
+    width: 8vw;
+    height: 5vh;
+    margin-top: 3vh;
+    border: none;
+    background-color: #036666;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.form1-add-button:hover {
+    cursor: pointer;
+    background-color: #036666c9;
+}
+
+.person-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    height: 6vh;
+    font-family: Poppins;
+}
+
+.person-heading img {
+    height: 30px;
+}
+
+.person-heading h5 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #393939;
+}
+
+.person-inputs-parent {
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.person-inputs-parent input{
+    width: 23vw;
+    border: 2px solid #f6f7f8;
+    padding: 0.5rem;
+    background-color: #f6f7f8;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.person-inputs-parent label {
+    margin-bottom: 0.5vh;
+    font-size: 0.8rem;
+}
+
+.person-input {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2vw;
+    margin-bottom: 1.5vh;
+}
+
+.inventor-container {
+    margin-right: 10vw;
+    margin-bottom: 1vh;
+}
+
+.extra-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.last-info {
+    margin-bottom: 3vh;
+}

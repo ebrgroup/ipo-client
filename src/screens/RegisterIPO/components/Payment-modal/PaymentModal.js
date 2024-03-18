@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { resetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { countTrademark } from "../../../../assets/states/middlewares/count-ip";
 
-const PaymentModal = ({ isOpen, closeModal, Progress }) => {
+const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [cardDetails, setCardDetails] = useState({
@@ -102,6 +102,10 @@ const PaymentModal = ({ isOpen, closeModal, Progress }) => {
     }
 
     const handlePayment = async () => {
+        if(type !== "trademark") {
+            navigate(`/successpayment/12FBB12`)
+            return;
+        }
         setDisabled(true);
         Progress(10);
 

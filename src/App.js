@@ -23,6 +23,7 @@ import Classification from './screens/RegisterIPO/Trademark/Classification/Class
 import IPMenus from './screens/RegisterIPO/Trademark-Registration/IPMenus';
 import Selfshowcase from './screens/RegisterIPO/Trademark-Registration/Selfshowcase';
 import Registraionflow from './screens/RegisterIPO/Registraionflow';
+import PatentFlow from './screens/PatentFlow/PatentFlow';
 import LogoDetails from './screens/RegisterIPO/Trademark-Registration/LogoDetails';
 import SearchIP from './screens/Search-IP/SearchIP';
 import TrackIIP from './screens/Track-IP/TrackIIP';
@@ -36,6 +37,10 @@ import { logout } from './assets/states/actions/user-action';
 import { resetDetails } from './assets/states/actions/Trademark registration/Trademark-action';
 import { resetcount } from './assets/states/actions/Count IP actions/countTrademark_action';
 import { resetSidebar } from './assets/states/actions/Toggle-Sidebar';
+import Form1 from './screens/PatentFlow/components/Form1/Form1';
+import PriorityClaims from './screens/PatentFlow/components/PriorityClaims/PriorityClaims';
+import Documents from './screens/PatentFlow/components/Documentation/Documents';
+import PatentReviewApplication from './screens/PatentFlow/components/ReviewApplication/PatentReviewApplication';
 
 
 function App() {
@@ -144,6 +149,10 @@ function App() {
         <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/patentflow' element={<Main_Dashboard screen={<PatentFlow screen={<Form1 Progress={loadingProgress} />} />} />} />
+        <Route path='/patentflow/priorityClaims' element={<Main_Dashboard screen={<PatentFlow screen={<PriorityClaims Progress={loadingProgress} />} />} />} />
+        <Route path='/patentflow/documents' element={<Main_Dashboard screen={<PatentFlow screen={<Documents Progress={loadingProgress} />} />} />} />
+        <Route path='/patentflow/reviewApplication' element={<Main_Dashboard screen={<PatentFlow screen={<PatentReviewApplication Progress={loadingProgress} />} />} />} />
         <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />

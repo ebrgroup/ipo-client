@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./ConfirmProfile.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ConfirmProfile = (props) => {
 
     const [isAnimation, setIsAnimation] = useState(false);
     const navigate = useNavigate();
+    const { state }= useLocation();
     let user = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
 
     const {
@@ -19,6 +20,15 @@ const ConfirmProfile = (props) => {
         city,
         address
     } = user
+
+    const handleNavigation = () => {
+        if(state.type === "trademark") {
+            navigate("/selfshowcase");
+        } else {
+            navigate("/patentflow");
+        }
+    }
+
     return (
 
         <div className="profileBox">
@@ -198,7 +208,7 @@ const ConfirmProfile = (props) => {
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button
                     className="continueBtn"
-                    onClick={() => navigate("/selfshowcase")}>
+                    onClick={handleNavigation}>
                     Continue
                 </button>        
             </div>

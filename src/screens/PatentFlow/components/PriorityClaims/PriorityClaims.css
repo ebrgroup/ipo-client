@@ -1,0 +1,180 @@
+.priority-screen-background {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px 0px 4px 1px rgba(185, 185, 185, 0.384);    
+    padding: 1rem 2rem 2rem;
+    border-radius: 10px;
+    width: 100%;
+    height: 88vh;
+    box-sizing: border-box;
+}
+
+.priority-main-heading {
+    font-family: Poppins;
+}
+
+.priority-screen-parent {
+    height: 80%;
+    border: 1px solid rgba(185, 185, 185, 0.384);
+    border-radius: 5px;
+    padding: 2vh 0 0 1vw;
+    overflow: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.priority-heading {
+    display: flex;
+    align-items: center;
+}
+
+.priority-heading h4 {
+    font-weight: 500;
+}
+
+.priority-screen-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 3.5vh;
+}
+
+.priority-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.priority-input {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2vw;
+    margin-bottom: 1.5vh;
+}
+
+.priority-input input {
+    width: 23vw;
+    border: 2px solid #f6f7f8;
+    padding: 0.5rem;
+    background-color: #f6f7f8;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.priority-input label {
+    margin-bottom: 0.5vh;
+    font-size: 0.8rem;
+}
+
+.priority-add-button {
+    width: 8vw;
+    height: 5vh;
+    margin-top: 3.2vh;
+    border: none;
+    background-color: #036666;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.priority-add-button:hover {
+    cursor: pointer;
+    background-color: #036666c9;
+}
+
+.selection-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -1.5vh;
+}
+
+.priority-radio-input {
+    font-size: 0.8rem;
+    margin-left: 0.5vw;
+}
+
+.priority-selection {
+    margin-left: -0.6vw;
+}
+
+.priority-selection input {
+    margin-right: 0.5vw;
+}
+
+.priority-selection label {
+    margin-top: -0.5vh;
+    margin-right: 0.4vw;
+}
+
+.first-selection-priority {
+    margin-right: 6vw;
+}
+
+.last-selection-priority {
+    margin-top: 1.5vh;
+}
+
+.priority-dataGrid {
+    margin-top: 3vh;
+    padding-right: 1.5vw;   
+}
+  
+.priority-dataTable {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 0px 4px 2.5px rgba(185, 185, 185, 0.5); 
+    table-layout: auto;
+}
+  
+.priority-dataTable th {
+    font-weight: normal;
+    background-color: #036666;
+    color: white;
+    font-size: 0.8rem;
+    height: 4vh;
+}
+  
+.priority-dataTable tr {
+    padding-left: 50vw;
+}
+  
+.priority-dataTable td {
+    text-align: center;
+    color: black;
+    height: 4vh;
+    font-weight: 300;
+}
+  
+.priority-dataTable tbody tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+  
+.priority-firstHeader {
+    border-top-left-radius: 8px;
+}
+  
+.priority-lastHeader {
+    border-top-right-radius: 8px;
+}
+
+.copies-nd-certificates {
+    margin-top: -3vh;
+    margin-left: 0.1vw;
+}
+
+.copies-nd-certificates h5 {
+    font-weight: 600;
+}
+
+.copies-nd-certificates h5 span {
+    font-weight: 300;
+    font-family: Poppins;
+}
+
+.countries-input {
+    width: 25vw;
+    margin-top: 0.8vh;
+}

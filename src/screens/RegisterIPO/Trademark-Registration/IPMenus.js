@@ -20,19 +20,19 @@ const IPMenus = ({Progress}) => {
 
     const trademarkBtnClick = () => {
         dispatch(registerTrademarkHelp())
-        navigate('/confirmationScreen')
+        navigate('/confirmationScreen', { state: { type: "trademark" } });
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())
-        navigate('/confirmationScreen')
+        navigate('/confirmationScreen', { state: { type: "copyright" } });
     }
     const patentBtnClick = () => {
         dispatch(registerPatentHelp())
-        navigate('/confirmationScreen')
+        navigate('/confirmationScreen', { state: { type: "patent" } });
     }
     const designBtnClick = () => {
         dispatch(registerDesignHelp())
-        navigate('/confirmationScreen')
+        navigate('/confirmationScreen', { state: { type: "design" } });
     }
     return (
         <div className="IP-Menus">

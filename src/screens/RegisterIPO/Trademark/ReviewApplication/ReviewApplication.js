@@ -140,11 +140,9 @@ const ReviewApplication = (props) => {
             </div>
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
-                <button className='continueBtn' onClick={() => navigate("/feesubmission")}>Continue</button>
+                <button className='continueBtn' onClick={() => navigate("/feesubmission", {state: { type: "trademark" }})}>Continue</button>
             </div>
         </div>
-        //     </div>
-        // </div>
     );
 };
 
