@@ -9,7 +9,7 @@ const Owner_Assignment = ({ Progress }) => {
     const [assignment, setAssignments] = useState('no')
     const [asignmentDetails, setAssignmentDetails] = useState({
         Assignor: '',
-        assignee: '',
+        Assignee: '',
         Assignment_Date: '',
         Rights: ''
 
@@ -20,39 +20,35 @@ const Owner_Assignment = ({ Progress }) => {
     };
 
 
-    // const [licenseFileURL, setLicenseFileURL] = useState(null);
-
     const handleAssignmentData = (e) => {
-        // if (e.target.name === "licenseFile") {
-        //     setAssignmentDetails((prevData) => ({
-        //         ...prevData,
-        //         [e.target.name]: e.target.files[0]
-        //     }));
-        //     setLicenseFileURL(URL.createObjectURL(e.target.files[0]));
-        // } else {
         setAssignmentDetails((prevData) => ({
             ...prevData,
             [e.target.name]: e.target.value
         }));
 
-
     }
 
-    const handleDataAndNavigation = () => {
-        if (assignment == 'yes') {
-            // Validate published data
-            if (!asignmentDetails.Assignor || !asignmentDetails.assignee || !asignmentDetails.Assignment_Date || !asignmentDetails.Rights) {
-                handleToastDisplay('Please fill in all required fields', 'error');
-                return;
+    const areRequiredFieldsEmpty = () => {
+        for (const key in asignmentDetails) {
+            if (asignmentDetails.hasOwnProperty(key) && asignmentDetails[key] === '') {
+
+                return true;
             }
-            // Process published data
-            console.log('Assignment Data:', asignmentDetails);
-        } else {
-            console.log('Not any assignment made yet');
         }
-        // Navigate to the next step
-        navigate('/copyright/owner/extent');
-    };
+        return false;
+    }
+
+
+    const handleDataAndNavigation = () => {
+        if (areRequiredFieldsEmpty() && (assignment == 'yes')) {
+            
+            handleToastDisplay("Required fields are empty!", "error");
+        } else {
+            navigate("/copyright/owner/extent")
+        }
+
+        console.log(asignmentDetails);
+    }
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {
@@ -105,7 +101,7 @@ const Owner_Assignment = ({ Progress }) => {
                     <input type="radio"
                         // name="assignment"
                         id="Yes"
-                        value="yes"
+                        value='yes'
                         onChange={handleChange}
                         checked={assignment == 'yes'} />
                     <label htmlFor="Yes">I made some assignment for this copyright</label>
@@ -131,7 +127,7 @@ const Owner_Assignment = ({ Progress }) => {
                         <label htmlFor="assignee">Who is assignee <strong>*</strong></label>
                         <input
                             type="text"
-                            name="assignee"
+                            name="Assignee"
                             id="assignee"
                             // value={address}
                             onChange={handleAssignmentData}
@@ -144,6 +140,7 @@ const Owner_Assignment = ({ Progress }) => {
                             type="date"
                             name="Assignment_Date"
                             id="date"
+                            onChange={handleAssignmentData}
                         // value='Pakistani'
                         />
                     </div>
@@ -154,14 +151,7 @@ const Owner_Assignment = ({ Progress }) => {
                         <textarea className="classificationInput classificationTextArea"
                             onChange={handleAssignmentData} style={{ 'width': '98%' }} rows="7" placeholder="Enter details here..." name='Rights' />
                     </div>
-                    {/* <div className="input">
-                        <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
-                        <input type="file" name="licenseFile" onChange={handleAssignmentData} />
-                    </div>
-                    <div className=" input selected-logo">
-                        <img src={licenseFileURL} alt="No License file selected yet!" width="210px" />
-                    </div> */}
-
+                
                 </div>
             )}
 

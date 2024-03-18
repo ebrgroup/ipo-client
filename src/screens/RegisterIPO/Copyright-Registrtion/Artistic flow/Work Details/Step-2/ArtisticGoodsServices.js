@@ -78,7 +78,7 @@ const ArtisticGoodsServices = ({ Progress }) => {
     }, []);
 
     return (
-        <section className="Assignment-Container">
+        <section className="selfShowcaseContainer">
             <div className="animation" style={{ display: isAssociated == 'yes' ? 'none' : 'block' }}>
                 <Player src={require('../../../../../../assets/Icons/self-showcase.json')} autoplay loop className="self-lottie" />
             </div>

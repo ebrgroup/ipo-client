@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './self.css'
 const Copyright_SelfRole = ({ Progress }) => {
   const navigate = useNavigate();
@@ -35,23 +35,27 @@ const Copyright_SelfRole = ({ Progress }) => {
       }));
     }
   }
+  const areRequiredFieldsEmpty = () => {
+    for (const key in authorizedData) {
+      if (authorizedData.hasOwnProperty(key) && authorizedData[key] === '') {
+        return true;
+      }
+    }
+    return false;
+  }
 
   const handleDataAndNavigation = () => {
-    if (role == 'authorized') {
-      // Validate published data
-      if (!authorizedData.desc || !authorizedData.licenseFile) {
-        handleToastDisplay('Please fill in all required fields', 'error');
-        return;
-      }
-      // Process published data
-      console.log('Published Data:', authorizedData);
-    } else {
-      console.log('Not published yet');
+    if (role == 'owner') {
+      navigate('/copyright/owner/assignment')
     }
-    // Navigate to the next step
-    role == 'owner' ?
-      navigate('/copyright/owner/assignment') :
-      navigate('/copyright/role');
+
+    else {
+      (areRequiredFieldsEmpty() && (role == 'authorized')) ?
+        handleToastDisplay("Required fields (*) are empty!", "error") :
+        navigate('/copyright/work');
+
+    }
+
   };
 
   const handleToastDisplay = (message, type) => {
@@ -116,17 +120,17 @@ const Copyright_SelfRole = ({ Progress }) => {
         <div className="representativeFields">
 
           <div className="input">
-            <label htmlFor="year">Rights of authorized on a copyright </label>
+            <label htmlFor="year">Rights of authorized on a copyright <strong>*</strong> </label>
 
             <textarea className="classificationInput classificationTextArea"
-              onChange={handleAuthorizedData} style={{ 'width': '98%' }} rows="7" placeholder="Enter details here..." />
+              onChange={handleAuthorizedData} name='desc' style={{ 'width': '98%' }} rows="7" placeholder="Enter details here..." />
           </div>
           <div className="input">
             <label htmlFor="">Upload License Scanned File <strong>*</strong></label>
             <input type="file" name="licenseFile" onChange={handleAuthorizedData} />
           </div>
           <div className=" input selected-logo">
-            <img src={licenseFileURL} alt="No License file selected yet!" width="210px" />
+            <img src={licenseFileURL} alt="No License file selected yet!" style={{ width: "210px" }} />
           </div>
 
         </div>
