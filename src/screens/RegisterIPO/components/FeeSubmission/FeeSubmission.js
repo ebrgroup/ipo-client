@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./FeeSubmission.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 import PaymentModal from '../Payment-modal/PaymentModal';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const FeeSubmission = (props) => {
@@ -10,6 +10,7 @@ const FeeSubmission = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [checkedIndex, setCheckedIndex] = useState(-1);
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     const openModal = (e) => {
         e.stopPropagation();
@@ -52,7 +53,6 @@ const FeeSubmission = (props) => {
     return (
         <>
             <div className="fee-screen-main">
-                <h4 className="fee-main-heading">Payment Method</h4>
                 <div className="fee-content-parent">
                     <div className="fee-content-heading">
                         <Player src={require("../../../../assets/Icons/fee-lottie.json")} autoplay loop
@@ -83,7 +83,7 @@ const FeeSubmission = (props) => {
                         () => handleToastDisplay("Please select any one payment option!", "error")}>Continue</button>
                 </div>
 
-                <PaymentModal isOpen={isModalOpen} closeModal={closeModal} Progress={props.Progress} />
+                <PaymentModal isOpen={isModalOpen} closeModal={closeModal} Progress={props.Progress} type={state.type} />
             </div>
         </>
     );

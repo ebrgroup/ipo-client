@@ -36,6 +36,9 @@ import { logout } from './assets/states/actions/user-action';
 import { resetDetails } from './assets/states/actions/Trademark registration/Trademark-action';
 import { resetcount } from './assets/states/actions/Count IP actions/countTrademark_action';
 import { resetSidebar } from './assets/states/actions/Toggle-Sidebar';
+import DesignClassification from './screens/RegisterIPO/Design/Classification/DesignClassification';
+import DesignDetails from './screens/RegisterIPO/Design/Classification/DesignDetails';
+import DesignReview from './screens/RegisterIPO/Design/Classification/DesignReview';
 
 
 function App() {
@@ -144,7 +147,7 @@ function App() {
         <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus Progress={loadingProgress} />} />} title={title} />} />
-        <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
+        <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={"trademark"} />} Progress={loadingProgress} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Classification Progress={loadingProgress} />} />} title={title} />} />
@@ -162,6 +165,10 @@ function App() {
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
+        
+        <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />
+        <Route path='/designreview' element={<Main_Dashboard screen={<Registraionflow screen={<DesignReview Progress={loadingProgress} />} />} title={title} />} />
       </Routes>
       <ToastContainer
         position="top-center"

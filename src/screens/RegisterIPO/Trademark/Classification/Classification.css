@@ -6,7 +6,7 @@
 
 .classificationDiv {
     height: 100%;
-    width: 60%;
+    width: 100%;
     box-sizing: border-box;
     padding: 1vh 0.5vw;
 }
@@ -21,7 +21,6 @@
     flex-direction: column;
     padding: 0rem 2rem;
     gap: 2rem;
-
     position: relative;
 }
 

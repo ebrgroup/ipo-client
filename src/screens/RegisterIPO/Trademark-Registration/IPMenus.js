@@ -20,7 +20,7 @@ const IPMenus = ({Progress}) => {
 
     const trademarkBtnClick = () => {
         dispatch(registerTrademarkHelp())
-        navigate('/confirmationScreen')
+        navigate("/confirmationScreen", { state: { type: "trademark" } });
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())
@@ -32,7 +32,7 @@ const IPMenus = ({Progress}) => {
     }
     const designBtnClick = () => {
         dispatch(registerDesignHelp())
-        navigate('/confirmationScreen')
+        navigate("/confirmationScreen", { state: { type: "design" } });
     }
     return (
         <div className="IP-Menus">

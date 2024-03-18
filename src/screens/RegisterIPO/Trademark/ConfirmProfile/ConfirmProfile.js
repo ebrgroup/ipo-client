@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./ConfirmProfile.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ConfirmProfile = (props) => {
 
     const [isAnimation, setIsAnimation] = useState(false);
     const navigate = useNavigate();
+    const { state } = useLocation();
     let user = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
 
     const {
@@ -198,7 +199,7 @@ const ConfirmProfile = (props) => {
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button
                     className="continueBtn"
-                    onClick={() => navigate("/selfshowcase")}>
+                    onClick={() => navigate("/selfshowcase", { state: { type: state.type } })}>
                     Continue
                 </button>        
             </div>
