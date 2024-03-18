@@ -20,6 +20,14 @@ const ConfirmProfile = (props) => {
         city,
         address
     } = user
+
+    const location = useLocation()
+
+    const handleNavigation = () => {
+        (state.type !== "copyright") ?
+            navigate("/selfshowcase",  { state: { type: state.type } }) :
+            navigate('/copyright/published', { state: { type: state.type } })
+    }
     return (
 
         <div className="profileBox">
@@ -199,9 +207,9 @@ const ConfirmProfile = (props) => {
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button
                     className="continueBtn"
-                    onClick={() => navigate("/selfshowcase", { state: { type: state.type } })}>
+                    onClick={handleNavigation}>
                     Continue
-                </button>        
+                </button>
             </div>
 
         </div>

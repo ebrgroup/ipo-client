@@ -1,17 +1,26 @@
 import "./confirmationScreen.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { useState } from "react";
 
-const ConfirmationScreen = () => {
-
+const ConfirmationScreen = (props) => {
     const navigate = useNavigate(null);
     const { state } = useLocation();
 
+    const location = useLocation()
+    const handleNavigation = () =>{
+        if(location.pathname != '/copyright/confirmation'){
+            navigate("/confirmProfile", { state: { type: state.type } })
+        }
+        else{
+            navigate('/copyright/profile', { state: { type: state.type } })
+        }
+    }
     return (
         <div className="confirmation-parent-container">
             <div className="confirmation-child-container">
                 <div className="heading-content">
-                    <Player src={require("../../../../assets/Icons/confirmation-lottie.json")}
+                    <Player src={require("../../../assets/Icons/confirmation-lottie.json")}
                         autoplay loop className="confirmation-lottie" />
                     <p className="sure-text">
                         Are you sure you are ready to apply?
@@ -35,7 +44,7 @@ const ConfirmationScreen = () => {
             </div>
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
-                <button className="continueBtn" onClick={() => navigate("/confirmProfile", { state: { type: state.type } })}>Continue</button>
+                <button className="continueBtn" onClick={handleNavigation}>Continue</button>
             </div>
         </div>
     );

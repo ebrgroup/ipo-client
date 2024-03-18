@@ -223,11 +223,11 @@ const Classification = () => {
     }
 
     const handleKeyDown = (e) => {
-        if(isSearchOnFocus && filteredClassifications.length > 0) {
-            if(e.key === "ArrowUp") {
+        if (isSearchOnFocus && filteredClassifications.length > 0) {
+            if (e.key === "ArrowUp") {
                 e.preventDefault();
                 setActiveOptionIndex((activeOptionIndex - 1 + filteredClassifications.length) % filteredClassifications.length)
-            } else if(e.key === "ArrowDown") {
+            } else if (e.key === "ArrowDown") {
                 e.preventDefault();
                 setActiveOptionIndex((activeOptionIndex + 1) % filteredClassifications.length);
             } else if (e.key === "Enter") {
@@ -235,13 +235,13 @@ const Classification = () => {
             }
         }
     };
-    
+
 
     // Logic for previous data
     //When back button is press
     // The previous data is kept safe
     const data = useSelector(state => state.trademarkRegistrationReducer?.classification);
-    
+
     useEffect(() => {
         if (data) {
             const { classificationClass, classificationDescription } = data;
@@ -252,7 +252,7 @@ const Classification = () => {
             setDescription('');
         }
     }, []);
-    
+
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {

@@ -24,7 +24,7 @@ const IPMenus = ({Progress}) => {
     }
     const copyrightBtnClick = () => {
         dispatch(registerCopyrightHelp())
-        navigate('/confirmationScreen')
+        navigate('/copyright/confirmation', { state: { type: "copyright" } } )
     }
     const patentBtnClick = () => {
         dispatch(registerPatentHelp())

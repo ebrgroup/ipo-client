@@ -7,12 +7,13 @@ import Combobox from "../../../global-components/Combobox/Combobox";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { countTrademark } from "../../../../assets/states/middlewares/count-ip";
 
 const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const navigate = useNavigate();
+    const location = useLocation()
     const dispatch = useDispatch();
     const [cardDetails, setCardDetails] = useState({
         cardNumber: "",
@@ -112,9 +113,15 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
         setDisabled(true);
         Progress(10);
 
+        let trackId = generateAlphanumericId();
+
+        // handle navigation for copyright
+        if (location.pathname == '/copyright/feesubmission') {
+            navigate(`/copyright/successpayment/${trackId.replace('#', '')}`)
+            return;
+        }
         // Create a FormData object to send multipart/form-data
         const formData = new FormData();
-        let trackId = generateAlphanumericId();
 
         // Append text data to FormData
         formData.append('userId', userData.userData._id);
@@ -147,7 +154,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
             markSeries: trademarkData.logodetail.logoDetails.markSeries,
             markType: trademarkData.logodetail.logoDetails.markType
         }));
-    
+
         formData.append('licenseFile', trademarkData.representative.representativeData.licenseFile);
         formData.append('logoFile', trademarkData.logodetail.logoDetails.logoFile);
 
@@ -162,7 +169,9 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
             setDisabled(false);
             closeModal();
 
-            navigate(`/successpayment/${trackId.replace('#','')}`)
+
+
+            navigate(`/successpayment/${trackId.replace('#', '')}`)
 
             dispatch(resetDetails())
             dispatch(countTrademark(userData.userData._id))
@@ -184,7 +193,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const getExpiryValue = () => {
         const monthIndex = monthMenuOptions.indexOf(cardDetails.month) + 1;
         const month = monthIndex < 10 ? `0${monthIndex}` : monthIndex;
-        
+
         if (cardDetails.month !== "Choose Month" && cardDetails.year === "Choose Year") {
             return `${month}/YY`;
         } else if (cardDetails.month === "Choose Month" && cardDetails.year !== "Choose Year") {
@@ -192,7 +201,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
         } else {
             return `${month}/${cardDetails.year.toString().slice(-2)}`;
         }
-    };    
+    };
 
     const scrollDiv = () => {
         divRef.current.className = "payment-lower-parent-active";

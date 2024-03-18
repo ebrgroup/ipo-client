@@ -115,7 +115,7 @@
     border-radius: 5px;
 }
 
-#logoDetail-section .input {
+#logoDetail-section .input, #logoDetail-section .input textarea {
     display: flex;
     flex-direction: column;
     width: 100%;
