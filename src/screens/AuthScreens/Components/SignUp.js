@@ -40,8 +40,6 @@ const SignUp = (props) => {
                 processedValue = getNumericValue(value).slice(0, 13);
                 break;
             case 'phone':
-            case 'landlineNum':
-            case 'faxNum':
                 processedValue = getNumericValue(value).slice(0, 11);
                 break;
             default:
