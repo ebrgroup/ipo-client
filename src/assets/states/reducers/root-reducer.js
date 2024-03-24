@@ -3,6 +3,7 @@ import loadingReducer from "./loading-reducer";
 import toggleReducer from "./toogle-reducer";
 import helpdeskContentReducer from "./helpdesk-reducer";
 import trademarkRegistrationReducer from "./Trademark registration/trademark-reducer";
+import designRegistrationReducer from "./Design Registration/design-reducer";
 import IpLookup from "./Ip-Lookup reducer/tableData-reducer";
 import countTrademark from "./Count IP reducer/countTrademark-reducer";
 
@@ -15,8 +16,8 @@ const rootReducer = combineReducers({
     helpdeskContentReducer,
     trademarkRegistrationReducer,
     IpLookup,
-    countTrademark
-    
+    countTrademark,
+    designRegistrationReducer
 })
 
 export default rootReducer;

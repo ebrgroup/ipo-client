@@ -125,6 +125,7 @@ function CitySearchComboBox(props) {
             searchText={searchText}
             setSearchText={setSearchText}
             handleSearch={handleSearch}
+            width={props.width}
         />
     );
 }

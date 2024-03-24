@@ -3,7 +3,8 @@ import "./ownerdetails.css";
 import Inputs from "./components/Inputs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ownerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { trademarkOwnerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { designOwnerDetail } from "../../../../assets/states/actions/Design/design-action";
 import { toast } from "react-toastify";
 
 const OwnerDetails = (props) => {
@@ -17,6 +18,7 @@ const OwnerDetails = (props) => {
         otherBusinessDescription: "",
         businessOwnerType: "soleProprieterShip"
     });
+    const [isOwnerDetailsChanged, setIsOwnerDetailsChanged] = useState(false);
     const [partnersData, setPartnersData] = useState([]);
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
 
@@ -32,11 +34,20 @@ const OwnerDetails = (props) => {
     // Logic for previous data
     //When back button is press
     // The previous data is kept safe
-    const data = useSelector(state => state.trademarkRegistrationReducer.ownerdetail);
+    const trademarkData = useSelector(state => state.trademarkRegistrationReducer.ownerdetail);
+    const designData = useSelector(state => state.designRegistrationReducer.ownerdetail);
 
     useEffect(() => {
         props.Progress(100);
-        if (data) {
+        let data = null;
+        if (state && state.type === "trademark") {
+            data = trademarkData;
+        } 
+        else if (state && state.type === "design") {
+            data = designData;
+        }
+
+        if (data !== null) {
             const owners = data.ownerDetails;
 
             if (owners) {
@@ -58,13 +69,16 @@ const OwnerDetails = (props) => {
                     otherBusinessDescription: otherBusinessDescription,
                     businessOwnerType: businessOwnerType
                 });
-                setSelectedOption(businessOwnerType);
-                if (data.partnersData) {
+                console.log(ownerDetails.businessOwnerType);
+                if(!isOwnerDetailsChanged) {
+                    setSelectedOption(businessOwnerType);
+                }
+                if (data.partnersData && partnersData.length === 0) {
                     setPartnersData(data.partnersData);
                 }
             }
         }
-    }, [data, partnersData]);
+    }, [trademarkData, designData, partnersData]);
 
     const handleAddClick = () => {
         setPartnersData(prevData => [
@@ -78,8 +92,9 @@ const OwnerDetails = (props) => {
     };
 
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         setSelectedOption(e.target.name);
+        setIsOwnerDetailsChanged(true);
         setOwnerDetails((prevData) => ({
             ...prevData,
             businessOwnerType: e.target.name
@@ -88,14 +103,21 @@ const OwnerDetails = (props) => {
 
     const handleDataAndNavigation = () => {
         if (areRequiredFieldsEmpty()) {
-            dispatch(ownerDetail({
-                ownerDetails,
-                partnersData
-            }));
-            if(state && state.type === "design")
+            setIsOwnerDetailsChanged(false);
+            if(state && state.type === "design") {
+                dispatch(designOwnerDetail({
+                    ownerDetails,
+                    partnersData
+                }));
                 navigate("/designdetails", { state: { type: "design" } });
-            else
+            }
+            else if (state && state.type === "trademark") {
+                dispatch(trademarkOwnerDetail({
+                    ownerDetails,
+                    partnersData
+                }));
                 navigate("/logodetails");
+            }
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
@@ -166,7 +188,7 @@ const OwnerDetails = (props) => {
                     <label class="radio">
                         <input type="radio" name="partnershipFirm"
                             checked={selectedOption === "partnershipFirm"} onChange={handleChange} />
-                        <span class="name">Parntership Firm</span>
+                        <span class="name">Partnership Firm</span>
                     </label>
                     <label class="radio">
                         <input type="radio" name="singleMemberCompany"

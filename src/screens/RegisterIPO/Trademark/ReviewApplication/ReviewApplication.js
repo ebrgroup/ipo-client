@@ -34,7 +34,6 @@ const ReviewApplication = (props) => {
         imageURL
     } = logodetail.logoDetails
 
-
     return (
         // <div className="reviewAppPage">
         //     <div className="reviewAppDiv">

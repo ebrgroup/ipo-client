@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { resetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { trademarkResetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { designResetDetails } from "../../../../assets/states/actions/Design/design-action";
 import { countTrademark } from "../../../../assets/states/middlewares/count-ip";
 
 const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
@@ -29,6 +30,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const [disabled, setDisabled] = useState(false);
     const trademarkData = useSelector(state => state.trademarkRegistrationReducer);
     const userData = useSelector(state => state.userReducer);
+    const designData = useSelector(state => state.designRegistrationReducer);
 
     const divRef = useRef(null);
     const modalRef = useRef(null);
@@ -103,8 +105,8 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     }
 
     const handlePayment = async () => {
-        if(type !== "trademark") {
-            navigate(`/successpayment/12FBB12`)
+        if(type === "design") {
+            submitDesign();
             return;
         }
         setDisabled(true);
@@ -168,9 +170,9 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
 
 
 
-            navigate(`/successpayment/${trackId.replace('#', '')}`)
+            navigate(`/successpayment/${trackId.replace('#', '')}`, { state: { type: "design" } })
 
-            dispatch(resetDetails())
+            dispatch(trademarkResetDetails())
             dispatch(countTrademark(userData.userData._id))
         }).catch(error => {
             Progress(100);
@@ -207,6 +209,76 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     for (let year = startYear; year <= endYear; year++) {
         years.push(year);
     }
+
+    const submitDesign = async () => {
+        setDisabled(true);
+        Progress(10);
+
+        let trackId = generateAlphanumericId();
+
+        // Create a FormData object to send multipart/form-data
+        const formData = new FormData();
+
+        // Append text data to FormData
+        formData.append('userId', userData.userData._id);
+        formData.append('designId', trackId);
+        formData.append('fileDate', getCurrentDate());
+        formData.append('applicationOwner', JSON.stringify({
+            ownerType: designData.representative.ownerType,
+            ...designData.representative.representativeData
+        }));
+        formData.append('productName', designData.classification.productName);
+        formData.append('detailsOfProduct', designData.classification.detailsOfProduct);
+        formData.append('ownerDetails', JSON.stringify({
+            businessName: designData.ownerdetail.ownerDetails.businessName,
+            businessAddress: designData.ownerdetail.ownerDetails.businessAddress,
+            soleProprieterShip: {
+                province: designData.ownerdetail.ownerDetails.province,
+                city: designData.ownerdetail.ownerDetails.city
+            },
+            partnerShipFirm: designData.ownerdetail.partnersData,
+            companies: {
+                companyType: "",
+                companyName: designData.ownerdetail.ownerDetails.companyName,
+                otherBusinessDescription: designData.ownerdetail.ownerDetails.otherBusinessDescription
+            }
+        }));
+        formData.append('attachmentDetails', JSON.stringify({
+            isRepeated: designData.attachmentdetail.designDetails.isRepeated,
+            attachmentFile: designData.attachmentdetail.designDetails.attachmentFile,
+        }));
+
+        formData.append('licenseFile', designData.representative.representativeData.licenseFile);
+        formData.append('attachmentFile', designData.attachmentdetail.designDetails.attachmentFile);
+
+        Progress(50);
+        await axios.post("/ipo/design", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            Progress(100);
+            handleToastDisplay(response.data.message, "success");
+            setDisabled(false);
+            closeModal();
+            navigate(`/successpayment/${trackId.replace('#', '')}`, { state: { type: "design" } })
+            dispatch(designResetDetails())
+            dispatch(countTrademark(userData.userData._id))
+        }).catch(error => {
+            console.log("aaa", error)
+            Progress(100);
+            if (error.response !== undefined) {
+                if (error.response.data) {
+                    handleToastDisplay(`${error.response.data.error}`, "error");
+                } else {
+                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                }
+            } else {
+                handleToastDisplay("Error inserting data", "error");
+            }
+            setDisabled(false);
+        });
+    };
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {
@@ -335,7 +407,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
                             <div className="payment-lower-header">
                                 <img src={paymentHeader} className="payment-header-svg" />
                                 <div>
-                                    <p>Haider Ali</p>
+                                    <p>{userData.userData.firstName + " " + userData.userData.lastName}</p>
                                     <h6>Order Id: 125689753556</h6>
                                 </div>
                             </div>
@@ -374,7 +446,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
                                     toggleMenu={toggleMenu}
                                     options={monthMenuOptions}
                                     handleOptionClick={handleOptionClick}
-                                    width="1vw"
+                                    width="12vw"
                                 />
                                 <Combobox
                                     selectedItem={cardDetails.year}
@@ -383,7 +455,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
                                     toggleMenu={toggleMenu}
                                     options={years}
                                     handleOptionClick={handleOptionClick}
-                                    width="2vw"
+                                    width="12vw"
                                 />
                             </div>
                         </div>

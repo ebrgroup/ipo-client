@@ -2,7 +2,7 @@ import "./Combobox.css";
 
 function Combobox(props) {
     return (
-        <div  className={`select-menu ${props.isMenuActive ? 'active' : ''}`}>
+        <div  className={`select-menu ${props.isMenuActive ? 'active' : ''}`} style={{width: props.width}}>
             <div className="select-btn" onClick={() => props.toggleMenu(props.menuType)}>
                 <span className="sBtn-text">{props.selectedItem}</span>
                 <box-icon name={props.isMenuActive ? "chevron-up" : "chevron-down"} color="black" size="sm" />

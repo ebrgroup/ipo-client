@@ -6,7 +6,7 @@ import BhiveImgtxt from '../../../assets/Icons/BhiveimgText.png'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { logoDetail } from '../../../assets/states/actions/Trademark registration/Trademark-action'
+import { trademarkLogoDetail } from '../../../assets/states/actions/Trademark registration/Trademark-action'
 
 const LogoDetails = ({ Progress }) => {
 
@@ -64,7 +64,7 @@ const LogoDetails = ({ Progress }) => {
 
     const handleDataAndNavigation = () => {
         if (areRequiredFieldsEmpty()) {
-            dispatch(logoDetail({
+            dispatch(trademarkLogoDetail({
                 logoDetails
             }));
             navigate("/reviewApplication")

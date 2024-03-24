@@ -5,27 +5,27 @@ const Inputs = (props) => {
 
     const soleProprieterShip = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" },
+        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
         { label: "Province", placeholder: "Province", name: "province" },
         { label: "City", placeholder: "City", name: "city" },
     ]
 
     const partnershipFirm = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" }
+        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" }
     ]
 
     const singleMemberCompany = [
         { label: "Company Name", placeholder: "Company Name", name: "companyName" },
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" },
+        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
     ]
 
     const other = [
         { label: "Other (Business Type Description)", placeholder: "Description", name: "otherBusinessDescription" },
         { label: "Company Name", placeholder: "Company Name", name: "companyName" },
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Adress", placeholder: "Business Adress", name: "businessAddress" },
+        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
     ]
 
     const [selectedArray, setSelectedArray] = useState(soleProprieterShip);

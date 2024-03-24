@@ -13,23 +13,24 @@ const Registrationsteps = () => {
                 <h5>Application Status</h5>
             </div>
             <div className="Steps-section">
-                <div className={`step-btn ${location.pathname.includes("/classification") ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.toLowerCase().includes("classification") ? "active" : ""}`}>
                     <span>1.</span>
                     <span>Classification</span>
                 </div>
-                <div className={`step-btn ${location.pathname.includes("/ownerDetails") ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.toLowerCase().includes("ownerdetails") ? "active" : ""}`}>
                     <span>2.</span>
                     <span>Owner Details</span>
                 </div>
-                <div className={`step-btn ${location.pathname.includes("/logodetails") ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.toLowerCase().includes("logodetails") ||
+                    location.pathname.toLowerCase().includes("/designdetails") ? "active" : ""}`}>
                     <span>3.</span>
-                    <span>Logo Details</span>
+                    <span>Attachment Details</span>
                 </div>
-                <div className={`step-btn ${location.pathname.includes("/reviewapplication") ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.toLowerCase().includes("review") ? "active" : ""}`}>
                     <span>4.</span>
                     <span>Review</span>
                 </div>
-                <div className={`step-btn ${location.pathname.includes("/feesubmission") ? "active" : ""}`}>
+                <div className={`step-btn ${location.pathname.toLowerCase().includes("feesubmission") ? "active" : ""}`}>
                     <span>5.</span>
                     <span>Payment</span>
                 </div>
