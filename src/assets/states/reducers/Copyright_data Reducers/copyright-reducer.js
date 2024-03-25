@@ -29,9 +29,9 @@ const copyrightReducer = (state = initialState, action) => {
             return { ...state, ownerdetail: action.payload };
         case 'LOGO_DETAILS-DATA':
             return { ...state, logodetail: action.payload };
-        case 'APPLICANT-DATA':
+        case 'WORK_ADVERTISED-DATA':
             return { ...state, advertised: action.payload };
-        case 'LOGO_DETAILS-DATA':
+        case 'GOODS_ASSOCIATION-DATA':
             return { ...state, goodsServices: action.payload };
 
         case 'RESET_DETAILS':

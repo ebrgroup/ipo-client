@@ -2,46 +2,160 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import './style.css'
+import { useDispatch, useSelector } from "react-redux";
+import { applicantDetail } from "../../../../assets/states/actions/Copyright_Data handle/copyrightData-action";
 
 const Applicant_Details = (props) => {
     const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
-    const [ownerDetails, setOwnerDetails] = useState({
+
+    const type = useSelector(state => state.copyrightReducer?.workType) //Artistic/Cinematographic/Record/Literary
+    const dispatch = useDispatch()
+
+    const [commonFields, setCommonFields] = useState({
         Name: "",
         Address: "",
         Nationality: "",
+    })
+
+    // Uncommon Fields
+    const [bussinessDetails, setBussinessDetails] = useState({
         bussinessName: "",
-        bussinessAddress: "",
+        bussinessAddress: ""
+    })
+
+    const [attorney, setAttorney] = useState({
         lawOfPractice: "",
         licenceFile: "",
+        URL: ""
+    })
+    const [cnic, setCnic] = useState({
         cnic: ""
-        // businessOwnerType: "soleProprieterShip"
-    });
+    })
+
     const navigate = useNavigate(null);
 
-    const [isTrademark, setIsTrademark] = useState(false)
     const location = useLocation()
 
-
+    const applicantData = useSelector(state => state.copyrightReducer?.ownerdetail)
     useEffect(() => {
         props.Progress(100);
-        (location.pathname.includes('/artistic')) ? setIsTrademark(true)
-            : setIsTrademark(false)
+
+        if (applicantData.data) {
+            const {
+                Name,
+                Address,
+                Nationality
+            } = applicantData.data
+
+            setCommonFields({
+                Name: Name,
+                Address: Address,
+                Nationality: Nationality
+            })
+
+            if (type == 'Artistic') {
+
+                if (applicantData.type == 'attorney') {
+                    const {
+                        lawOfPractice,
+                        // licenceFile,
+                    } = applicantData.data
+
+                    setAttorney({
+                        lawOfPractice: lawOfPractice,
+                        // licenceFile,
+                    })
+
+                    setSelectedOption('attorney')
+                } else {
+                    const {
+                        bussinessName,
+                        bussinessAddress,
+                    } = applicantData.data
+
+                    setBussinessDetails({
+                        bussinessName: bussinessName,
+                        bussinessAddress: bussinessAddress
+                    })
+
+                    setSelectedOption('soleProprieterShip')
+                }
+            }
+            else {
+                const {
+                    cnic
+                } = applicantData.data
+                setCnic({
+                    cnic: cnic
+                })
+            }
+
+        }
+
     }, []);
 
-
-
+    //For active radio button
     const handleChange = (e) => {
         setSelectedOption(e.target.name);
-
     }
 
     const handleOwnerDetails = (e) => {
-        const { name, value } = e.target;
-        setOwnerDetails({ ...ownerDetails, [name]: value });
-    }
+        const { name, value, files } = e.target;
+        switch (name) {
+            case "Name":
+            case "Address":
+            case "Nationality":
+                setCommonFields(prevState => ({ ...prevState, [name]: value }));
+                break;
+            case "bussinessName":
+            case "bussinessAddress":
+                setBussinessDetails(prevState => ({ ...prevState, [name]: value }));
+                break;
+            case "lawOfPractice":
+                setAttorney(prevState => ({ ...prevState, [name]: value }));
+                break;
+            case "licenceFile":
+                setAttorney((prevDetails) => ({
+                    ...prevDetails,
+                    [name]: files[0],
+                    URL: URL.createObjectURL(files[0])
+                }));
+            case "cnic":
+                setCnic(prevState => ({ ...prevState, [name]: value }));
+                break;
+            default:
+                break;
+        }
+    };
+
 
     const handleDataAndNavigation = () => {
-        if (areRequiredFieldsEmpty()) {
+
+        if (areCommonFieldsEmpty() || areUncommonFieldsEmpty()) {
+            handleToastDisplay("Required fields (*) are empty!", "error");
+        } else {
+
+            let additionalFields = {};
+
+            if (type == 'Artistic') {
+                if (selectedOption == 'attorney') {
+                    additionalFields = { ...attorney };
+                } else {
+                    // console.log('I am hit');
+                    additionalFields = { ...bussinessDetails };
+                }
+            } else {
+                additionalFields = { ...cnic };
+            }
+            dispatch(applicantDetail({
+                type: selectedOption,
+                data: {
+                    ...commonFields,
+                    ...additionalFields
+                }
+
+            }));
+
 
             if (location.pathname.includes('artistic')) {
                 navigate("/copyright/artistic/logodetails")
@@ -55,11 +169,8 @@ const Applicant_Details = (props) => {
             else if (location.pathname.includes('record')) {
                 navigate("/copyright/record/logodetails")
             }
-            // console.log(ownerDetails);
-        } else {
-            handleToastDisplay("Required fields (*) are empty!", "error");
-        }
 
+        }
     }
 
     const handleToastDisplay = (message, type) => {
@@ -87,111 +198,110 @@ const Applicant_Details = (props) => {
         }
     };
 
-    const checkUncommonFields = () => {
-        if (location.pathname.includes('artistic')) {
-            if (selectedOption === "soleProprieterShip" &&
-                (ownerDetails.bussinessName === "" || ownerDetails.bussinessAddress === "")) {
-                return false;
-            } else if (selectedOption === "attorney" && ownerDetails.lawOfPractice === " ") {
-                return false;
+    const checkFields = (fields) => {
+        for (const key in fields) {
+            if (fields.hasOwnProperty(key) && fields[key] == '') {
+                return true;
             }
         }
-        else {
-            if (ownerDetails.cnic == "") {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-
-
-const areRequiredFieldsEmpty = () => {
-
-    if ((ownerDetails.Name === "" || ownerDetails.Address === "" || ownerDetails.Nationality === "")
-        || (checkUncommonFields() === false)) {
         return false;
     }
-    return true;
-}
 
-return (
-    <div className="owner-screen-background">
-        <h4 className="owner-main-heading">Application for registration of copyright</h4>
-        <div className="owner-screen-parent">
-            <div className="owner-heading">
-                <img src={require("../../../../assets/Icons/owner-icon.png")} className="owner-icon" />
-                <h4>Owner and Business Details</h4>
-            </div>
-            {(isTrademark) ? (<div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="soleProprieterShip"
-                        checked={selectedOption === "soleProprieterShip"} onChange={handleChange} />
-                    <span class="name">Sole Proprietorship</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="attorney"
-                        checked={selectedOption === "attorney"} onChange={handleChange} />
-                    <span class="name">Attorney</span>
-                </label>
+    const areUncommonFieldsEmpty = () => {
+        if (type === 'Artistic') {
+            return selectedOption == 'soleProprieterShip' ? checkFields(bussinessDetails) : checkFields(attorney);
+        } else {
+            return cnic == "";
+        }
+    };
 
-            </div>) : null}
-            <div className="partnership-parent-container full ">
-                <div className="partnership-input-container">
-                    <label>Name <strong>*</strong></label>
-                    <input placeholder="Name" type="text" name="Name" onChange={handleOwnerDetails} />
+    const areCommonFieldsEmpty = () => {
+        return checkFields(commonFields)
+    }
+
+    return (
+        <div className="owner-screen-background">
+            <h4 className="owner-main-heading">Application for registration of copyright</h4>
+            <div className="owner-screen-parent">
+                <div className="owner-heading">
+                    <img src={require("../../../../assets/Icons/owner-icon.png")} className="owner-icon" />
+                    <h4>Owner and Business Details</h4>
                 </div>
-                <div className="partnership-input-container">
-                    <label>Adress <strong>*</strong></label>
-                    <input placeholder="Address" name="Address" type="text" onChange={handleOwnerDetails} />
-                </div>
+                {(type == 'Artistic') ? (<div class="radio-inputs">
+                    <label class="radio">
+                        <input type="radio" name="soleProprieterShip"
+                            checked={selectedOption === "soleProprieterShip"} onChange={handleChange} />
+                        <span class="name">Sole Proprietorship</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="attorney"
+                            checked={selectedOption === "attorney"} onChange={handleChange} />
+                        <span class="name">Attorney</span>
+                    </label>
 
-                <div className="partnership-input-container">
-                    <label>Nationality <strong>*</strong></label>
-                    <input placeholder='Nationality' name='Nationality' type="text" onChange={handleOwnerDetails} />
-                </div>
-            </div>
-            {isTrademark ? ((selectedOption == 'attorney') ? (
-                <>
-
+                </div>) : null}
+                <div className="partnership-parent-container full ">
                     <div className="partnership-input-container">
-                        <label>Law of practice <strong>*</strong></label>
-                        <input placeholder="Law of practice" type="text" name="lawOfPractice" onChange={handleOwnerDetails} />
+                        <label>Name <strong>*</strong></label>
+                        <input placeholder="Name" type="text" name="Name" onChange={handleOwnerDetails}
+                            value={commonFields.Name} />
                     </div>
                     <div className="partnership-input-container">
-                        <label>Licence file (Vakaltnama) <strong>*</strong></label>
-                        <input placeholder="Choose license file" name="licenceFile" type="file" onChange={handleOwnerDetails} />
+                        <label>Adress <strong>*</strong></label>
+                        <input placeholder="Address" name="Address" type="text" onChange={handleOwnerDetails}
+                            value={commonFields.Address} />
                     </div>
-                </>
-            ) :
-                (
+
+                    <div className="partnership-input-container">
+                        <label>Nationality <strong>*</strong></label>
+                        <input placeholder='Nationality' name='Nationality' type="text" onChange={handleOwnerDetails}
+                            value={commonFields.Nationality} />
+                    </div>
+                </div>
+                {(type == 'Artistic') ? ((selectedOption == 'attorney') ? (
                     <>
+
                         <div className="partnership-input-container">
-                            <label>Bussiness Name <strong>*</strong></label>
-                            <input placeholder="Bussiness Name" name="bussinessName" type="text" onChange={handleOwnerDetails} />
+                            <label>Law of practice <strong>*</strong></label>
+                            <input placeholder="Law of practice" type="text" name="lawOfPractice" onChange={handleOwnerDetails}
+                                value={attorney.lawOfPractice} />
                         </div>
                         <div className="partnership-input-container">
-                            <label>Bussiness Adress <strong>*</strong></label>
-                            <input placeholder="Bussiness Address" name="bussinessAddress" type="text" onChange={handleOwnerDetails} />
+                            <label>Licence file (Vakaltnama) <strong>*</strong></label>
+                            <input placeholder="Choose license file" name="licenceFile" type="file" onChange={handleOwnerDetails} />
                         </div>
                     </>
-                )) : (
-                <div className="partnership-input-container">
-                    <label>Cnic <strong>*</strong></label>
-                    <input placeholder="Cnic" name="cnic" type="text" onChange={handleOwnerDetails} />
-                </div>
-            )}
-        </div>
+                ) :
+                    (
+                        <>
+                            <div className="partnership-input-container">
+                                <label>Bussiness Name <strong>*</strong></label>
+                                <input placeholder="Bussiness Name" name="bussinessName" type="text" onChange={handleOwnerDetails}
+                                    value={bussinessDetails.bussinessName} />
+                            </div>
+                            <div className="partnership-input-container">
+                                <label>Bussiness Adress <strong>*</strong></label>
+                                <input placeholder="Bussiness Address" name="bussinessAddress" type="text" onChange={handleOwnerDetails}
+                                    value={bussinessDetails.bussinessAddress} />
+                            </div>
+                        </>
+                    )) : (
+                    <div className="partnership-input-container">
+                        <label>Cnic <strong>*</strong></label>
+                        <input placeholder="Cnic" name="cnic" type="text" onChange={handleOwnerDetails}
+                            value={cnic.cnic} />
+                    </div>
+                )}
+            </div>
 
-        <div className="btns">
-            <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
-            <button className='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
-        </div>
-        {/* <div className="button-div">
+            <div className="btns">
+                <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
+                <button className='continueBtn' onClick={handleDataAndNavigation}>Continue</button>
+            </div>
+            {/* <div className="button-div">
             </div> */}
-    </div>
-);
+        </div>
+    );
 }
 
 export default Applicant_Details;

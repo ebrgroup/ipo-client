@@ -44,7 +44,7 @@ const Review = ({ Progress }) => {
                 <h3>Review your application</h3>
             </div>
             <div className="reviewAppColumnsDiv">
-                <div>
+                <div className="left-column">
                     <div className="data-column">
                         <span className="reviewAppLabel">Copyright Class</span>
                         <br />
@@ -69,7 +69,7 @@ const Review = ({ Progress }) => {
 
 
                 </div>
-                <div>
+                <div className="right-column">
                     <div className="data-column">
                         <span className="reviewAppLabel">Address</span>
                         <br />
@@ -129,7 +129,7 @@ const Review = ({ Progress }) => {
 
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
-                <button className='continueBtn' onClick={() => navigate('/copyright/feesubmission', {state: { type: "copyright" }})}>Continue</button>
+                <button className='continueBtn' onClick={() => navigate('/copyright/feesubmission', { state: { type: "copyright" } })}>Continue</button>
             </div>
         </div>
 

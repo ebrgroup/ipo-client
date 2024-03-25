@@ -1,27 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { workType } from '../../../../assets/states/actions/Copyright_Data handle/copyrightData-action'
 const SelectWork = () => {
     const [activeCard, setActiveCard] = useState('')
     const [cardsBorder, setCardsBorder] = useState('rgba(0, 0, 0, 0.1)')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [type, setType] = useState('')
     const selectRadioCard = (cardIdx) => {
+
         if (cardIdx == 1) {
             setActiveCard('card-1')
+            setType('Artistic')
         }
         else if (cardIdx == 2) {
             setActiveCard('card-2')
+            setType('Literary')
         }
         else if (cardIdx == 3) {
             setActiveCard('card-3')
+            setType('Cinema')
         }
         else if (cardIdx == 4) {
             setActiveCard('card-4')
+            setType('Record')
         }
         setCardsBorder('rgba(0, 0, 0, 0.1)')
     }
 
     const handleNavigation = () => {
+        dispatch(workType(type))
+        console.log(type);
         if (activeCard == 'card-1') {
             navigate('/copyright/artistic/classification')
         }
@@ -34,7 +45,28 @@ const SelectWork = () => {
         else if (activeCard == 'card-4') {
             navigate('/copyright/record/classification')
         }
+
     }
+    const selectedWork = useSelector(state => state.copyrightReducer?.workType)
+    useEffect(() => {
+        switch (selectedWork) {
+            case 'Artistic':
+                setActiveCard('card-1')
+                break;
+            case 'Literary':
+                setActiveCard('card-2')
+                break;
+            case 'Cinema':
+                setActiveCard('card-3')
+                break;
+            case 'Record':
+                setActiveCard('card-4')
+                break;
+
+            default:
+                break;
+        }
+    }, [])
     return (
         <div className='Role-container'>
             {/* Role */}

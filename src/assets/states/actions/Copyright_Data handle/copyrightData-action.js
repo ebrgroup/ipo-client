@@ -1,4 +1,4 @@
-export const publishedData = (data) => ({
+export const published = (data) => ({
     type: "PUBLISHED-DATA",
     payload: data
 })
@@ -37,7 +37,7 @@ export const workType = (type) => ({
     payload: type
 })
 export const logoDetail = (data) => ({
-    type: "LOGO_DETAIL-DATA",
+    type: "LOGO_DETAILS-DATA",
     payload: data
 })
 
