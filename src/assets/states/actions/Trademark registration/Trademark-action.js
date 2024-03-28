@@ -1,20 +1,20 @@
-export const representative = (data) => ({
+export const trademarkRepresentative = (data) => ({
     type: "REPRESENTATIVE-DATA",
     payload: data
 })
-export const classification = (data) => ({
+export const trademarkClassification = (data) => ({
     type: "CLASSIFICATION-DATA",
     payload: data
 })
-export const ownerDetail = (data) => ({
+export const trademarkOwnerDetail = (data) => ({
     type: "OWNER_DETAILS-DATA",
     payload: data
 })
-export const logoDetail = (data) => ({
+export const trademarkLogoDetail = (data) => ({
     type: "LOGO_DETAILS-DATA",
     payload: data
 })
-export const resetDetails = () => ({
+export const trademarkResetDetails = () => ({
     type: "RESET_DETAILS"
 })
 

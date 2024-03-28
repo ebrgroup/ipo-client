@@ -3,7 +3,8 @@ import './selfShowcase.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { Player } from '@lottiefiles/react-lottie-player';
-import { representative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
+import { trademarkRepresentative } from '../../../assets/states/actions/Trademark registration/Trademark-action';
+import { designRepresentative } from '../../../assets/states/actions/Design/design-action';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Selfshowcase = ({ Progress }) => {
@@ -52,10 +53,18 @@ const Selfshowcase = ({ Progress }) => {
       shouldDispatch = isAnyAttributeEmpty(representativeData) && licenseFileURL !== null;
     }
     if (shouldDispatch) {
-      dispatch(representative({
-        ownerType: selectedRole,
-        representativeData
-      }));
+      if(state.type === "trademark") {
+        dispatch(trademarkRepresentative({
+          ownerType: selectedRole,
+          representativeData
+        }));
+      }
+      else if (state.type === "design") {
+        dispatch(designRepresentative({
+          ownerType: selectedRole,
+          representativeData
+        }));
+      }
       navigate(`${state.type === "trademark" ? "/classification" : `/${state.type}Classification`}`, { state: { type: state.type } });
     } else {
       handleToastDisplay("Required fields (*) are empty!", "error");

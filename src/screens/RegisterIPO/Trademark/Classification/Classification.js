@@ -3,7 +3,7 @@ import "./Classification.css";
 import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { classification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
+import { trademarkClassification } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { toast } from 'react-toastify';
 
 const Classification = () => {
@@ -213,10 +213,10 @@ const Classification = () => {
                 classificationClass: searchText,
                 classificationDescription
             };
-            dispatch(classification(
+            dispatch(trademarkClassification(
                 classificationData
             ));
-            navigate("/ownerDetails")
+            navigate("/ownerDetails", { state: { type: "trademark" }})
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }

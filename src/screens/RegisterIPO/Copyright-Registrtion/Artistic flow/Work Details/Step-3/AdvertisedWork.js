@@ -76,7 +76,7 @@ const AdvertisedWork = ({ Progress }) => {
     }, []);
 
     return (
-        <section className="Assignment-Container">
+        <section className="selfShowcaseContainer">
             <div className="animation" style={{ display: isAdvertised == 'yes' ? 'none' : 'block' }}>
                 <Player src={require('../../../../../../assets/Icons/self-showcase.json')} autoplay loop className="self-lottie" />
             </div>

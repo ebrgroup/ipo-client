@@ -1,6 +1,10 @@
 .table {
     margin-top: 1.5rem;
     width: 100%;
+    background-image: url("../../../assets/Icons/ipoLowOpacity.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 70vh;
 }
 
 .table table {

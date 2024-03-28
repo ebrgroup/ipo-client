@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../../Trademark/Classification/Classification.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
+import { designClassification } from "../../../../assets/states/actions/Design/design-action";
 
 const DesignClassification = () => {
 
@@ -9,12 +11,23 @@ const DesignClassification = () => {
     const { state } = useLocation();
     const [productName, setProductName] = useState("");
     const [productDescription, setDescription] = useState("");
+    
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.designRegistrationReducer?.classification);
+
     const areRequiredFieldsEmpty = () => {
         return (productName === "");
     };
 
     const handleDataAndNavigation = () => {
         if (!areRequiredFieldsEmpty()) {
+            const classificationData = {
+                productName: productName,
+                detailsOfProduct: productDescription
+            };
+            dispatch(designClassification(
+                classificationData
+            ));
             navigate("/ownerDetails", { state : { type: state.type } });
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
@@ -46,6 +59,17 @@ const DesignClassification = () => {
                 break;
         }
     };
+
+    useEffect(() => {
+        if (data) {
+            const { productName, detailsOfProduct } = data;
+            setProductName(productName ? productName.toLowerCase() : '');
+            setDescription(detailsOfProduct ? detailsOfProduct.toLowerCase() : '');
+        } else {
+            setProductName('');
+            setDescription('');
+        }
+    }, []);
 
     return (
         <div className="classificationBox">

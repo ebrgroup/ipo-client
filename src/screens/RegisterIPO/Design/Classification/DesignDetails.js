@@ -3,15 +3,17 @@ import './../../Trademark-Registration/logoDetails.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import './../../components/Owner-details/ownerdetails.css'
+import { designAttachmentDetail, designLogoDetail } from '../../../../assets/states/actions/Design/design-action'
+import { useDispatch, useSelector } from "react-redux";
 
 const DesignDetails = ({ Progress }) => {
 
     const [designDetails, setDesignDetails] = useState({
         isRepeated: false,
-        designFile: "",
+        logoFile: "",
         imageURL: null
     });
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { state } = useLocation();
 
@@ -19,7 +21,7 @@ const DesignDetails = ({ Progress }) => {
         if (e.target.name === "designFile") {
             setDesignDetails((prevDetails) => ({
                 ...prevDetails,
-                designFile: e.target.files[0],
+                attachmentFile: e.target.files[0],
                 imageURL: URL.createObjectURL(e.target.files[0]),
             }));
         } else {
@@ -32,10 +34,10 @@ const DesignDetails = ({ Progress }) => {
 
     const handleDataAndNavigation = () => {
         if (areRequiredFieldsEmpty()) {
-            // dispatch(logoDetail({
-            //     designDetails
-            // }));
-            navigate("/designreview")
+            dispatch(designAttachmentDetail({
+                designDetails
+            }));
+            navigate("/designreview");
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
@@ -66,8 +68,17 @@ const DesignDetails = ({ Progress }) => {
         }
     };
     const areRequiredFieldsEmpty = () => {
-        return designDetails.designFile && designDetails.imageURL;
+        return designDetails.attachmentFile && designDetails.imageURL;
     }
+
+    const data = useSelector(state => state.designRegistrationReducer?.attachmentdetail.designDetails)
+    useEffect(() => {
+        Progress(30)
+        if (data) {
+            setDesignDetails(data)
+        }
+        Progress(100)
+    }, [])
 
     return (
         <main className="designDetailContainer">
@@ -85,6 +96,7 @@ const DesignDetails = ({ Progress }) => {
                 <div className="isRepeatedDiv">
                     <input type="checkbox"
                         value={designDetails.isRepeated}
+                        checked={designDetails.isRepeated}
                         style={{ cursor: "pointer" }}
                         onChange={handleChange}
                         name="isRepeated" 

@@ -7,13 +7,17 @@ const Successpayment = () => {
     const [id, setId] = useState('')
     const [btnText, setBtnText] =useState('Trademark')
     const location = useLocation()
-
+    const { state } = useLocation();
     const { trackId } = useParams();
 
     useEffect(() => {
 
         if (location.pathname.includes('/copyright'))
         setBtnText('Copyright')
+        
+        if(state.type !== "copyright")
+            setBtnText(state.type);
+
         setId(trackId)
     }, [trackId])
     return (
