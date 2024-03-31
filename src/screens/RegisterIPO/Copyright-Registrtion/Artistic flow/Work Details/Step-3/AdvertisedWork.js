@@ -8,9 +8,11 @@ import { advertisedWork } from '../../../../../../assets/states/actions/Copyrigh
 const AdvertisedWork = ({ Progress }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
+
+    const {title} = useSelector(state=>state.copyrightReducer?.logodetail)
     const [isAdvertised, setIsAdvertised] = useState('no')
     const [advertisedDetails, setAdvertisedDetails] = useState({
-        title: '',
+        title: title,
         nameOfAdver: '',
         dateOfAdver: '',
         logoFile: '',

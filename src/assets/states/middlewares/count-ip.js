@@ -5,7 +5,7 @@ import { loadingBar } from '../actions/Loading-Action';
 export const countTrademark = (id) =>
     async (dispatch) => {
         dispatch(loadingBar(40))
-        const response = await axios.get(`http://localhost:5000/ipo/dashboard/user/countIp/${id}`);
+        const response = await axios.get(`http://localhost:5000/ipo/dashboard/user/trademark/${id}`);
         console.log(response);
         dispatch(loadingBar(80))
         const { registerd, applied } = response.data;

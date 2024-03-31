@@ -238,7 +238,7 @@ function App() {
 
 
         <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
-        
+
         <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designreview' element={<Main_Dashboard screen={<Registraionflow screen={<DesignReview Progress={loadingProgress} />} />} title={title} />} />

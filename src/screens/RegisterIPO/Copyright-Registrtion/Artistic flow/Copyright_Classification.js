@@ -169,7 +169,7 @@ const Copyright_Classification = ({ Progress }) => {
             </div>
             <div>
                 <span className="classificationLabel">
-                    Details of classification <strong>*</strong>
+                    Details of classification
                 </span>
                 <br />
                 <textarea value={classificationDescription} className="classificationInput classificationTextArea"

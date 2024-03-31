@@ -47,7 +47,8 @@ const Work_Details = ({ Progress }) => {
         setLogoDetails(
             {
                 ...commonFields,
-                ...((work == "Artistic" && classification == 2) ? { completedYear } : { language })
+                ...(work === "Artistic" && Number(classification) === 2 ? { completedYear } : null),
+                ...(work !== "Artistic" ? { completedYear, language } : null)
             }
         )
     }
@@ -58,19 +59,19 @@ const Work_Details = ({ Progress }) => {
             handleToastDisplay("Required fields (*) are empty!", "error");
         } else {
 
-            dispatch(logoDetail(
-                {
-                    ...commonFields,
-                    ...((work == "Artistic" && classification == 2) ? { completedYear } : { language })
-                }
-            ))
+            dispatch(logoDetail({
+                ...commonFields,
+                ...(work === "Artistic" && Number(classification) === 2 ? { completedYear } : {}),
+                ...(work !== "Artistic" ? { completedYear, language } : {})
+            }));
+
 
             if (location.pathname.includes('artistic')) {
 
                 navigate("/copyright/artistic/logodetails/services")
             }
             else {
-                navigate(`/copyright/${work.toLowerCase()}/reviewApplication`)
+                navigate(`/copyright/${work.toLowerCase()}/reviewapplication`)
 
             }
 
@@ -131,13 +132,16 @@ const Work_Details = ({ Progress }) => {
                 logoFile: logoFile,
                 imageURL: imageURL,
             })
-            if (work == 'Artistic' && classification == 2) {
+            if ((work == 'Artistic' && Number(classification) === 2)) {
 
                 setCompletedYear(workDetails.completedYear)
 
-            } else {
+            } else if (work != 'Artistic') {
+
                 setLanguage(workDetails.language)
+                setCompletedYear(workDetails.completedYear)
             }
+
         }
     }, [])
 
@@ -168,23 +172,20 @@ const Work_Details = ({ Progress }) => {
                         name="country" />
                 </div>
                 {/* </div> */}
-                {
-                    work == 'Artistic' ? (
-                        <div className="input">
-                            <label htmlFor="">Completed year (When your work is complete) <strong>*</strong></label>
-                            <input type="date" onChange={(e) => setCompletedYear(e.target.value)} name="completedYear"
-                                value={completedYear}
-                            />
-                        </div>
-                    ) : (<div className="input"
-                    >
-                        <label htmlFor="">Language (Specify Language e.g: Arabic) <strong>*</strong></label>
-                        <input type="text" onChange={(e) => setLanguage(e.target.value)} placeholder='Language'
-                            value={language}
-                            name="completedYear" />
+                {(work == 'Artistic' && Number(classification) === 2) || (work != 'Artistic') ? (
+                    <div className="input">
+                        <label htmlFor="">Completed year (When your work is complete) <strong>*</strong></label>
+                        <input type="date" onChange={(e) => setCompletedYear(e.target.value)} name="completedYear" value={completedYear} />
+                    </div>
+                ) : ""}
 
-                    </div>)
-                }
+                {work != 'Artistic' ? <div className="input">
+                    <label htmlFor="">Language (Specify Language e.g: Arabic) <strong>*</strong></label>
+                    <input type="text" onChange={(e) => setLanguage(e.target.value)} placeholder='Language'
+                        value={language}
+                        name="completedYear" />
+
+                </div> : ""}
 
                 <div className="input">
                     <label htmlFor="logo">Upload copy of your work <strong>*</strong></label>
