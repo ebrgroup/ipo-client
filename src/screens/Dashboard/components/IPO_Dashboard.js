@@ -9,8 +9,12 @@ import { useSelector } from 'react-redux';
 
 function IPO_Dashboard(props) {
     const {
-        register,
-        applied
+        registeredTrademarks,
+        appliedTrademarks,
+        registeredDesigns,
+        appliedDesigns,
+        registeredCopyrights,
+        appliedCopyright
     } = useSelector(state => state.countTrademark)
     useEffect(() => {
         props.Progress(100);
@@ -25,13 +29,13 @@ function IPO_Dashboard(props) {
                     </div>
                     <div className="IPMenus">
                         <div className='Trademark menu'>
-                            <p>{register}</p>
+                            <p>{registeredTrademarks}</p>
                             <p className="IP-title">TRADEMARK</p>
                             <img src={trademarkIcon} alt="" />
                         </div>
 
                         <div className='Copyright menu'>
-                            <p>0</p>
+                            <p>{registeredCopyrights}</p>
                             <p className="IP-title">COPYRIGHT</p>
                             <img src={copyrightIcon} alt="" />
                         </div>
@@ -43,7 +47,7 @@ function IPO_Dashboard(props) {
                         </div>
 
                         <div className='Design menu'>
-                            <p>0</p>
+                            <p>{registeredDesigns}</p>
                             <p className="IP-title">DESIGN</p>
                             <img src={designIcon} alt="" />
                         </div>
@@ -58,13 +62,13 @@ function IPO_Dashboard(props) {
                     </div>
                     <div className="IPMenus">
                         <div className='Trademark menu'>
-                            <p>{applied}</p>
+                            <p>{appliedTrademarks}</p>
                             <p className="IP-title">TRADEMARK</p>
                             <img src={trademarkIcon} alt="" />
                         </div>
 
                         <div className='Copyright menu'>
-                            <p>0</p>
+                            <p>{appliedCopyright}</p>
                             <p className="IP-title">COPYRIGHT</p>
                             <img src={copyrightIcon} alt="" />
                         </div>
@@ -76,7 +80,7 @@ function IPO_Dashboard(props) {
                         </div>
 
                         <div className='Design menu'>
-                            <p>0</p>
+                            <p>{appliedDesigns}</p>
                             <p className="IP-title">DESIGN</p>
                             <img src={designIcon} alt="" />
                         </div>

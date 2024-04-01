@@ -3,6 +3,7 @@ import loadingReducer from "./loading-reducer";
 import toggleReducer from "./toogle-reducer";
 import helpdeskContentReducer from "./helpdesk-reducer";
 import trademarkRegistrationReducer from "./Trademark registration/trademark-reducer";
+import designRegistrationReducer from "./Design Registration/design-reducer";
 import IpLookup from "./Ip-Lookup reducer/tableData-reducer";
 import countTrademark from "./Count IP reducer/countTrademark-reducer";
 import copyrightReducer from "./Copyright_data Reducers/copyright-reducer";
@@ -17,8 +18,8 @@ const rootReducer = combineReducers({
     trademarkRegistrationReducer,
     IpLookup,
     countTrademark,
-    copyrightReducer
-
+    copyrightReducer,
+    designRegistrationReducer
 })
 
 

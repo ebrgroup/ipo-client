@@ -13,6 +13,7 @@ const Review = ({ Progress }) => {
     const navigate = useNavigate(null);
 
     const workType = useSelector(state => state.copyrightReducer?.workType)
+    const isAdvertised = useSelector(state => state.copyrightReducer?.advertised?.advertised)
     const {
         classification,
         ownerdetail,
@@ -190,7 +191,7 @@ const Review = ({ Progress }) => {
             </div>
 
             {
-                isArtistic ? (
+                (isArtistic && isAdvertised) ? (
                     <div className="Advertisement links">
                         <i class="fa-duotone fa-file-pdf"></i>
                         <Link to="/copyright/artistic/advertised" target="_blank"> Check Work Advertisement </Link>

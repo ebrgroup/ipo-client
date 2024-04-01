@@ -9,12 +9,14 @@ const Applicant_Details = (props) => {
     const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
 
     const type = useSelector(state => state.copyrightReducer?.workType) //Artistic/Cinematographic/Record/Literary
+    const user = useSelector(state => state.userReducer?.userData)
+    const userName = user.firstName + ' ' + user.lastName
     const dispatch = useDispatch()
 
     const [commonFields, setCommonFields] = useState({
-        Name: "",
-        Address: "",
-        Nationality: "",
+        Name: userName,
+        Address: user.address,
+        Nationality: "Pakistani",
     })
 
     // Uncommon Fields
@@ -29,7 +31,7 @@ const Applicant_Details = (props) => {
         URL: ""
     })
     const [cnic, setCnic] = useState({
-        cnic: ""
+        cnic: user.cnic
     })
 
     const navigate = useNavigate(null);

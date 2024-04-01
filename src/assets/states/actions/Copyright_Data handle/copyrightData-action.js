@@ -53,7 +53,7 @@ export const goodsAssociate = (data) => ({
     payload: data
 })
 
-export const resetDetails = () => ({
+export const copyrightResetDetails = () => ({
     type: "RESET_DETAILS"
 })
 

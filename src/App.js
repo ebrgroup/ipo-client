@@ -34,7 +34,8 @@ import { resetIpStates } from './assets/states/actions/IP-Lookup-actions/Tableda
 import Successpayment from './screens/global-components/Success payment component/Successpayment';
 import { registerIPHelp } from './assets/states/actions/Helpdesk-Content';
 import { logout } from './assets/states/actions/user-action';
-import { resetDetails } from './assets/states/actions/Trademark registration/Trademark-action';
+import { trademarkResetDetails } from './assets/states/actions/Trademark registration/Trademark-action';
+import { designResetDetails } from './assets/states/actions/Design/design-action';
 import { resetcount } from './assets/states/actions/Count IP actions/countTrademark_action';
 import { resetSidebar } from './assets/states/actions/Toggle-Sidebar';
 import Form1 from './screens/PatentFlow/components/Form1/Form1';
@@ -107,7 +108,8 @@ function App() {
       //Reset all redux states
       dispatch(resetIpStates())
       dispatch(logout());
-      dispatch(resetDetails())
+      dispatch(trademarkResetDetails())
+      dispatch(designResetDetails())
       dispatch(resetcount())
       // dispatch(resetSidebar())
 
@@ -216,8 +218,6 @@ function App() {
         <Route path='/copyright/literary/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/literary/affidevit' element={<Affidevit />} />
 
-
-
         {/* Cinematographic work flow */}
         <Route path='/copyright/cinema/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/cinema/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
@@ -237,7 +237,7 @@ function App() {
         {/* Copyright flows routes end here */}
 
 
-        <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
+        {/* <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} /> */}
 
         <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />

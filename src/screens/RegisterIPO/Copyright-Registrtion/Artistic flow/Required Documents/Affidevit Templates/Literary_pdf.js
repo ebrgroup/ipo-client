@@ -1,19 +1,31 @@
 import React from 'react'
+import { useSelector } from "react-redux";
+// import AffidevitDetails from './AffidevitDetails'
+
 
 const Literary_pdf = () => {
+
+    const user = useSelector(state => state.copyrightReducer?.ownerdetail?.data)
+    const work = useSelector(state => state.copyrightReducer?.logodetail)
+    const date = new Date(work.completedYear)
+    const year = date.getFullYear()
+    const day = date.getDay()
+    const month = date.toLocaleString('default', { month: 'long' });
+
+
     return (
         <div>
             <>
                 <h1>UNDERTAKING FOR LITERARY WORK</h1>
                 <h1>AFFIDAVIT/UNDERTAKING</h1>
                 <p>
-                    I, <b>Alex</b> S/o <b>John</b>Muslim, adult, Pakistani National resident of <b>Australia</b> holding CNIC # <b>1444-2011101-9</b> state on Oath and declare as under:-
+                    I, <b>{user.Name}</b> S/o <b>John</b>Muslim, adult, Pakistani National resident of <b>{user.Nationality}</b> holding CNIC # <b>{user.cnic}</b> state on Oath and declare as under:-
                 </p>
                 <p>
-                    1.	That I am author and to confirm that I have written/compiled/ arranged the literary work/book the year <b>2023</b> under the title of <b>New Art</b>
+                    1.	That I am author and to confirm that I have written/compiled/ arranged the literary work/book the year <b>{year}</b> under the title of <b>{work.title}</b>
                 </p>
                 <p>
-                    2.	That I am writer of the literary work/ book entitled above in Urdu/English/Arabic Language.       </p>
+                    2.	That I am writer of the literary work/ book entitled above in <b>{work.language}</b> Language.       </p>
                 <p>
                     3.	That to the best of my knowledge there is no other person who is interested in the Copyright of the above said literary work/ book entitled above.        </p>
                 <p>
@@ -26,7 +38,7 @@ const Literary_pdf = () => {
                 <p>
                     6. That the contents in para No.1 to 6 above are true and correct to the best of my knowledge, information and belief.
                 </p>
-                <p>Dated this <b>Mar 2023</b> day of <b>29</b>
+                <p>Dated this <b>{month} {year}</b> day of <b>{day}</b>
                 </p>
             </>
         </div>
