@@ -220,8 +220,6 @@ function App() {
         <Route path='/copyright/literary/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/literary/affidevit' element={<Affidevit />} />
 
-
-
         {/* Cinematographic work flow */}
         <Route path='/copyright/cinema/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/cinema/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
@@ -241,8 +239,8 @@ function App() {
         {/* Copyright flows routes end here */}
 
 
-        <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
-        
+        {/* <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} /> */}
+
         <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designreview' element={<Main_Dashboard screen={<Registraionflow screen={<DesignReview Progress={loadingProgress} />} />} title={title} />} />

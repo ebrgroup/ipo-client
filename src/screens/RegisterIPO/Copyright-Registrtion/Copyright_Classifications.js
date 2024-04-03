@@ -5,7 +5,7 @@ const artistic = () => {
             description: "Visual creations including paintings, drawings, sculptures, photographs, graphic designs and architectural work "
         },
         {
-            id: 1,
+            id: 2,
             description: "Architectural work "
         }
     ]

@@ -13,6 +13,8 @@ function IPO_Dashboard(props) {
         appliedTrademarks,
         registeredDesigns,
         appliedDesigns,
+        registeredCopyrights,
+        appliedCopyright
     } = useSelector(state => state.countTrademark)
     useEffect(() => {
         props.Progress(100);
@@ -33,7 +35,7 @@ function IPO_Dashboard(props) {
                         </div>
 
                         <div className='Copyright menu'>
-                            <p>0</p>
+                            <p>{registeredCopyrights}</p>
                             <p className="IP-title">COPYRIGHT</p>
                             <img src={copyrightIcon} alt="" />
                         </div>
@@ -66,7 +68,7 @@ function IPO_Dashboard(props) {
                         </div>
 
                         <div className='Copyright menu'>
-                            <p>0</p>
+                            <p>{appliedCopyright}</p>
                             <p className="IP-title">COPYRIGHT</p>
                             <img src={copyrightIcon} alt="" />
                         </div>

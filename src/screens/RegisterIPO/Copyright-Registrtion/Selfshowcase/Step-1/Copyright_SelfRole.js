@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './self.css'
+import { authorizedPerson } from '../../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 const Copyright_SelfRole = ({ Progress }) => {
   const navigate = useNavigate();
   const [role, setRole] = useState('owner');
@@ -12,7 +13,6 @@ const Copyright_SelfRole = ({ Progress }) => {
     licenseFile: ''
   });
   const dispatch = useDispatch();
-  // const {firstName,address} = useSelector(state=>state.userReducer?.userData)
   const handleChange = (event) => {
 
     setRole(event.target.value)
@@ -45,15 +45,27 @@ const Copyright_SelfRole = ({ Progress }) => {
   }
 
   const handleDataAndNavigation = () => {
+
+
     if (role == 'owner') {
+
+      dispatch(authorizedPerson({
+        type: role,
+        data: {}
+      }))
+
       navigate('/copyright/owner/assignment')
     }
-
     else {
       (areRequiredFieldsEmpty() && (role == 'authorized')) ?
         handleToastDisplay("Required fields (*) are empty!", "error") :
-        navigate('/copyright/work');
 
+        dispatch(authorizedPerson({
+          type: role,
+          data: authorizedData
+        }))
+
+      navigate('/copyright/work');
     }
 
   };
@@ -83,8 +95,28 @@ const Copyright_SelfRole = ({ Progress }) => {
     }
   };
 
+  const authorizedDetails = useSelector(state => state.copyrightReducer?.self)
   useEffect(() => {
+    Progress(50);
+    if (authorizedDetails && authorizedDetails.type == 'authorized') {
+      const { desc, licenseFile } = authorizedDetails.data;
+      setRole('authorized')
+      setAuthorizedData({
+        desc: desc
+      })
+      setLicenseFileURL(URL.createObjectURL(licenseFile));
+    }
+    else {
+      setRole('owner')
+    }
     Progress(100);
+
+
+    // return () => {
+    //   if (licenseFileURL) {
+    //     URL.revokeObjectURL(licenseFileURL);
+    //   }
+    // }
   }, []);
 
   return (
@@ -123,7 +155,10 @@ const Copyright_SelfRole = ({ Progress }) => {
             <label htmlFor="year">Rights of authorized on a copyright <strong>*</strong> </label>
 
             <textarea className="classificationInput classificationTextArea"
-              onChange={handleAuthorizedData} name='desc' style={{ 'width': '98%' }} rows="7" placeholder="Enter details here..." />
+              onChange={handleAuthorizedData} name='desc'
+              style={{ 'width': '98%' }} rows="7"
+              value={authorizedData.desc}
+              placeholder="Enter details here..." />
           </div>
           <div className="input">
             <label htmlFor="">Upload License Scanned File <strong>*</strong></label>

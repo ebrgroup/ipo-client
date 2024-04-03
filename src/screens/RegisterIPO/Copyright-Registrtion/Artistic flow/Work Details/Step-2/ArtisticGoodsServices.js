@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { useDispatch, useSelector } from 'react-redux';
+import { goodsAssociate } from '../../../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 
 const ArtisticGoodsServices = ({ Progress }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [isAssociated, setIsAssociated] = useState('no')
     const [goodsDetails, setGoodsDetails] = useState({
         tradId: '',
         Name: '',
         desc: '',
-        logoFile: ''
+        logoFile: '',
+        URL: ''
 
     });
     // const dispatch = useDispatch();
@@ -21,19 +25,41 @@ const ArtisticGoodsServices = ({ Progress }) => {
 
     const handleGoodDetails = (e) => {
         //
-        setGoodsDetails((prevData) => ({
-            ...prevData,
-            [e.target.name]: e.target.value
-        }));
+        const { name, value, files } = e.target
+        if (name == "logoFile") {
+            setGoodsDetails((prevDetails) => ({
+                ...prevDetails,
+                [name]: files[0],
+                URL: URL.createObjectURL(files[0])
+            }));
+        } else {
+            setGoodsDetails((prevDetails) => ({
+                ...prevDetails,
+                [name]: value
+            }));
+        }
 
     }
 
     const handleDataAndNavigation = () => {
-        if (areRequiredFieldsEmpty() && (isAssociated == 'yes')) {
-            handleToastDisplay("Required fields (*) are empty!", "error");
-        } else {
-            navigate("/copyright/artistic/logodetails/advertised")
+        if (isAssociated == 'yes') {
+            if (areRequiredFieldsEmpty()) {
+                handleToastDisplay("Required fields (*) are empty!", "error");
+                return;
+            }
+            dispatch(goodsAssociate({
+                associated: true,
+                data: goodsDetails
+            }))
         }
+        else {
+            dispatch(goodsAssociate({
+                associated: false,
+                data: {}
+            }))
+        }
+        navigate("/copyright/artistic/logodetails/advertised")
+
     }
 
     const areRequiredFieldsEmpty = () => {
@@ -73,7 +99,29 @@ const ArtisticGoodsServices = ({ Progress }) => {
         }
     };
 
+    const goods = useSelector(state => state.copyrightReducer?.goodsServices)
     useEffect(() => {
+        console.log(goods);
+        Progress(50);
+        if (goods.associated) {
+            const {
+                tradId,
+                Name,
+                desc,
+                logoFile
+            } = goods.data
+
+            setGoodsDetails({
+                tradId: tradId,
+                Name: Name,
+                desc: desc,
+                logoFile: logoFile
+            })
+            setIsAssociated('yes')
+        }
+        else {
+            setIsAssociated('no')
+        }
         Progress(100);
     }, []);
 
@@ -122,6 +170,7 @@ const ArtisticGoodsServices = ({ Progress }) => {
                             type="text"
                             name="tradId"
                             id="tradId"
+                            value={goodsDetails.tradId}
                             placeholder='Trademark Id'
                             onChange={handleGoodDetails}
                         />
@@ -132,6 +181,7 @@ const ArtisticGoodsServices = ({ Progress }) => {
                             type="text"
                             name="Name"
                             id="Name"
+                            value={goodsDetails.Name}
                             placeholder='Domain Name'
                             onChange={handleGoodDetails}
                         />
@@ -139,7 +189,8 @@ const ArtisticGoodsServices = ({ Progress }) => {
                     <div className="input">
                         <label htmlFor="desc">Details of Goods/Services <strong>*</strong></label>
                         <textarea style={{ width: '97%' }} className="classificationInput classificationTextArea"
-                            onChange={handleGoodDetails} rows="4" name='desc' id='desc' placeholder="Enter details here..." />
+                            onChange={handleGoodDetails} rows="4" name='desc' id='desc' placeholder="Enter details here..."
+                            value={goodsDetails.desc} />
                     </div>
                     <div className="input">
                         <label htmlFor="file">Upload copy of your Goods/Services <strong>*</strong></label>

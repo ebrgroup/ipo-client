@@ -37,15 +37,37 @@
 
     display: flex;
     align-items: center;
-    gap:5px;
+    gap: 5px;
 
 }
-.links:hover Link
- {
+
+.links:hover Link {
     cursor: pointer;
 }
 
 .reviewAppBoxFooter img {
     width: 60px;
     height: 60px;
+
+    
+}
+
+.reviewAppBoxFooter>div {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+
+.logoDetails {
+    display: grid;
+    grid-template-areas: 'logoDetail goodsDetail';
+}
+
+.logoDetails>div:nth-child(1) {
+    grid-area: "logoDetail";
+}
+
+.logoDetails>div:nth-child(2) {
+    grid-area: "goodsDetail";
 }

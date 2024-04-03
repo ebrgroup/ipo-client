@@ -7,7 +7,8 @@ export const searchByName = (name, type) =>
         dispatch(loadingBar(40));
 
         try {
-            const response = await axios.get(`/ipo/searchIp/${type.toLowerCase()}/${name}`);
+            console.log(type.toLowerCase());
+            const response = await axios.get(`ipo/searchIp/${type.toLowerCase()}/${name}`);
             dispatch(loadingBar(70));
             dispatch(searchIp(response.data));
             dispatch(loadingBar(100));

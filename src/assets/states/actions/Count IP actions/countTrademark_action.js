@@ -17,6 +17,15 @@ export const appliedDesign = (count) => ({
     type: "APPLIED_DESIGN",
     payload: count
 });
+export const registeredCopyright = (count) => ({
+    type: "REGISTERED_COPYRIGHT",
+    payload: count
+});
+
+export const appliedCopyright = (count) => ({
+    type: "APPLIED_COPYRIGHT",
+    payload: count
+});
 
 export const resetcount = () => ({
     type: "RESET_COUNT"

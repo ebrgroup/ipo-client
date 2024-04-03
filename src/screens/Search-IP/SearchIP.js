@@ -23,9 +23,9 @@ const SearchIP = ({ Progress }) => {
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-}, []);
+  }, []);
 
   return (
     <>

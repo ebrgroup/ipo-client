@@ -4,10 +4,13 @@ import "../../../global-components/SearchComboBox/SearchComboBox.css";
 import { artistic, literary, cinematographic, record } from '../Copyright_Classifications'
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { classification } from '../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 
 const Copyright_Classification = ({ Progress }) => {
     const navigate = useNavigate(null);
     const searchInputRef = useRef(null);
+    const dispatch = useDispatch()
 
     let classifications = null;
     const location = useLocation()
@@ -34,17 +37,22 @@ const Copyright_Classification = ({ Progress }) => {
     );
 
     const areRequiredFieldsEmpty = () => {
-        return (searchText === "" && classificationDescription === "");
+        if (searchText == "" && classificationDescription == ""){
+            return true
+        }
+        else{
+            return false
+        }
     };
-
     const handleDataAndNavigation = () => {
         if (!areRequiredFieldsEmpty()) {
             const classificationData = {
                 classificationClass: searchText,
                 classificationDescription
             };
-
-
+            dispatch(classification(
+                classificationData
+            ));
             if (location.pathname.includes('artistic')) {
                 navigate("/copyright/artistic/ownerDetails")
             }
@@ -57,10 +65,10 @@ const Copyright_Classification = ({ Progress }) => {
             else if (location.pathname.includes('record')) {
                 navigate("/copyright/record/ownerDetails")
             }
-            
         } else {
             handleToastDisplay("Required fields (*) are empty!", "error");
         }
+
     }
 
     const handleKeyDown = (e) => {
@@ -78,10 +86,19 @@ const Copyright_Classification = ({ Progress }) => {
     };
 
 
+    const data = useSelector(state => state.copyrightReducer?.classification);
+
     useEffect(() => {
-
+        Progress(50)
+        if (data) {
+            const { classificationClass, classificationDescription } = data;
+            setSearchText(classificationClass ? classificationClass.toLowerCase() : '');
+            setDescription(classificationDescription ? classificationDescription.toLowerCase() : '');
+        } else {
+            setSearchText('');
+            setDescription('');
+        }
         Progress(100)
-
     }, []);
 
 

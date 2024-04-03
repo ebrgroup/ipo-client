@@ -11,8 +11,8 @@ const IPGridView = ({ rows, type }) => {
         (() => {
             setHeader(null);
             setBody(null);
-            if(rows && rows.length > 0) {
-                if(type === "Trademark") {
+            if (rows && rows.length > 0) {
+                if (type === "Trademark") {
                     setHeader(
                         <tr>
                             <td>TRADEMARK ID</td>
@@ -59,7 +59,56 @@ const IPGridView = ({ rows, type }) => {
                         ))
                     );
                 }
-                else if(type === "Design") {
+
+                if (type === "Copyright") {
+                    setHeader(
+                        <tr>
+                            <td>COPYRIGHT ID</td>
+                            <td>COPYRIGHT NAME
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>FILE DATE
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>COPYRIGHT CLASS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td> STATUS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>COPYRIGHT LOGO
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                        </tr>
+                    );
+                    setBody(
+                        rows.map((data, index) => (
+                            <tr key={index}>
+                                <td>{data.copyrightId}</td>
+                                <td>{data.logoDetails.logodetail.title}</td>
+                                <td>{data.fileDate}</td>
+                                <td>{data.classificationClass}</td>
+                                <td className={
+                                    data.status === 'Pending'
+                                        ? 'pending'
+                                        : data.status === 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>
+                                    {/* {attachments.length > 0 && attachments[index] ? (
+                                        <img src={require(`../../../assets/uploads/${attachments[index]}`)} alt={`Logo ${index}`} />
+                                    ) : ( */}
+                                    Loading...
+                                    {/* )} */}
+                                </td>
+                            </tr>
+                        ))
+                    );
+                }
+
+                else if (type === "Design") {
                     setHeader(
                         <tr>
                             <td>DESIGN ID</td>
@@ -143,7 +192,7 @@ const IPGridView = ({ rows, type }) => {
             const logoData = [];
             for (let i = 0; i < rows.length; i++) {
                 let imageName;
-                if(type === "Design")
+                if (type === "Design")
                     imageName = rows[i].attachmentDetails.attachmentFile;
                 else if (type === "Trademark")
                     imageName = rows[i].logoDetails.logoFile;
@@ -168,11 +217,11 @@ const IPGridView = ({ rows, type }) => {
                         {body}
                     </tbody >
                 </table >)
-            // ) : (
-            //     <div className="ipo_img">
-            //         <img src={ipologo} />
-            //     </div>
-            // )
+                // ) : (
+                //     <div className="ipo_img">
+                //         <img src={ipologo} />
+                //     </div>
+                // )
             }
         </div >
     );

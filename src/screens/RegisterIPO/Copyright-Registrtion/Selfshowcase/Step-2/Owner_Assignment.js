@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useDispatch, useSelector } from 'react-redux';
 import './assignment.css'
+import { ownerAssignment } from '../../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 const Owner_Assignment = ({ Progress }) => {
     const navigate = useNavigate();
     const [assignment, setAssignments] = useState('no')
@@ -40,14 +41,24 @@ const Owner_Assignment = ({ Progress }) => {
 
 
     const handleDataAndNavigation = () => {
-        if (areRequiredFieldsEmpty() && (assignment == 'yes')) {
-            
-            handleToastDisplay("Required fields are empty!", "error");
+        if (assignment == 'yes') {
+            if (areRequiredFieldsEmpty()) {
+                handleToastDisplay('Please fill in all required fields', 'error');
+                return;
+            }
+            dispatch(ownerAssignment({
+                any: true,
+                data: asignmentDetails
+            }))
         } else {
-            navigate("/copyright/owner/extent")
+
+            dispatch(ownerAssignment({
+                any: false,
+                data: {}
+            }))
         }
 
-        console.log(asignmentDetails);
+        navigate("/copyright/owner/extent")
     }
 
     const handleToastDisplay = (message, type) => {
@@ -75,7 +86,28 @@ const Owner_Assignment = ({ Progress }) => {
         }
     };
 
+    const assignmentData = useSelector(state => state.copyrightReducer?.assignment)
     useEffect(() => {
+        Progress(50);
+        if (assignmentData && assignmentData.any) {
+            const {
+                Assignor,
+                Assignee,
+                Assignment_Date,
+                Rights
+            } = assignmentData.data
+
+            setAssignmentDetails({
+                Assignor: Assignor,
+                Assignee: Assignee,
+                Assignment_Date: Assignment_Date,
+                Rights: Rights
+            })
+
+            setAssignments('yes')
+        } else {
+            setAssignments('no')
+        }
         Progress(100);
     }, []);
 
@@ -119,6 +151,7 @@ const Owner_Assignment = ({ Progress }) => {
                             name="Assignor"
                             id="Assignor"
                             // value={firstName}
+                            value={asignmentDetails.Assignor}
                             onChange={handleAssignmentData}
                         // value={publishedData.name}
                         />
@@ -129,6 +162,7 @@ const Owner_Assignment = ({ Progress }) => {
                             type="text"
                             name="Assignee"
                             id="assignee"
+                            value={asignmentDetails.Assignee}
                             // value={address}
                             onChange={handleAssignmentData}
                         // value={publishedData.country}
@@ -139,6 +173,7 @@ const Owner_Assignment = ({ Progress }) => {
                         <input
                             type="date"
                             name="Assignment_Date"
+                            value={asignmentDetails.Assignment_Date}
                             id="date"
                             onChange={handleAssignmentData}
                         // value='Pakistani'
@@ -149,9 +184,13 @@ const Owner_Assignment = ({ Progress }) => {
                         <label htmlFor="Rights">Assignment description </label>
 
                         <textarea className="classificationInput classificationTextArea"
-                            onChange={handleAssignmentData} style={{ 'width': '98%' }} rows="7" placeholder="Enter details here..." name='Rights' />
+                            onChange={handleAssignmentData} style={{ 'width': '98%' }} rows="7"
+                            placeholder="Enter details here..."
+                            value={asignmentDetails.Rights}
+                            name='Rights' />
+
                     </div>
-                
+
                 </div>
             )}
 
