@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./PriorityClaims.css"
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { patentCopiesData, patentPirorityClaimDetails } from "../../../../assets/states/actions/Patent Registration/patent-action";
 
 // Must read the comments for this file
 
 const PriorityClaims = () => {
 
+    const data = useSelector(state => state.patentRegistrationReducer);
     const [priorityClaimDetails, setPriorityClaimDetails] = useState([]);
     const [isPurchasingCopies, setIsPurchasingCopies] = useState(false);
     const [formData, setFormData] = useState({
@@ -22,6 +26,9 @@ const PriorityClaims = () => {
         amountOfCopies: "",
         countries: ""
     });
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleFormChanges = (e) => {
         let value = "";
@@ -53,7 +60,50 @@ const PriorityClaims = () => {
         ]);
     }
 
-    const navigate = useNavigate();
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+
+    const handleDataAndNavigation = () => {
+        if(priorityClaimDetails.length === 0) {
+            handleToastDisplay("Please fill out all details and try again!", "error");
+        } else if (isPurchasingCopies) {
+            if(copiesData.amountOfCopies === "" || copiesData.countries === "") {
+                handleToastDisplay("Please fill out all details and try again!", "error");
+            }
+        } else {
+            dispatch(patentPirorityClaimDetails(priorityClaimDetails));
+            dispatch(patentCopiesData(copiesData));
+            navigate("/patentflow/documents");
+        }
+    }
+
+    useEffect(() => {
+        if(data.priorityClaimDetails.length > 0) {
+            setPriorityClaimDetails([...data.priorityClaimDetails])
+        }
+    }, []);
 
     return(
         <div className="priority-screen-background">
@@ -207,7 +257,7 @@ const PriorityClaims = () => {
             </div>
             <div className="btns">
                 <button className='backBtn' onClick={ () => navigate(-1) }>Back</button>
-                <button className='continueBtn' onClick={ () => navigate("/patentflow/documents") }>Continue</button>
+                <button className='continueBtn' onClick={ handleDataAndNavigation }>Continue</button>
             </div>
         </div>
     )

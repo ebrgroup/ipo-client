@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { trademarkResetDetails } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { designResetDetails } from "../../../../assets/states/actions/Design/design-action";
 import { countTrademark } from "../../../../assets/states/middlewares/count-ip";
+import { patentResetDetails } from "../../../../assets/states/actions/Patent Registration/patent-action";
 
 const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     const trademarkData = useSelector(state => state.trademarkRegistrationReducer);
     const userData = useSelector(state => state.userReducer);
     const designData = useSelector(state => state.designRegistrationReducer);
+    const patentData = useSelector(state => state.patentRegistrationReducer);
 
     const divRef = useRef(null);
     const modalRef = useRef(null);
@@ -105,12 +107,16 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
     }
 
     const handlePayment = async () => {
+        setDisabled(true);
+        Progress(10);
+
         if(type === "design") {
             submitDesign();
             return;
+        } else if (type === "patent") {
+            submitPatent();
+            return;
         }
-        setDisabled(true);
-        Progress(10);
 
         let trackId = generateAlphanumericId();
 
@@ -167,8 +173,6 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
             handleToastDisplay(response.data.message, "success");
             setDisabled(false);
             closeModal();
-
-
 
             navigate(`/successpayment/${trackId.replace('#', '')}`, { state: { type: "design" } })
 
@@ -279,6 +283,96 @@ const PaymentModal = ({ isOpen, closeModal, Progress, type }) => {
             setDisabled(false);
         });
     };
+
+    const getDocumentsData = () => {
+        if (patentData.documentsData.singleDocumentsData !== null) {
+            const keysToFilter = ["singleSpecificationDocument", "drawingDocument"];
+            
+            const filteredData = Object.fromEntries(
+                Object.entries(patentData.documentsData.singleDocumentsData)
+                    .filter(([key]) => !keysToFilter.includes(key))
+            );
+            return filteredData;
+        } else {
+            const keysToFilter = ["descriptionDocument", "claimsDocument", "abstractDocument", "drawingDocument"];
+            
+            const filteredData = Object.fromEntries(
+                Object.entries(patentData.documentsData.multipleDocumentsData)
+                    .filter(([key]) => !keysToFilter.includes(key))
+            );
+            return filteredData;
+        }
+    }    
+
+    const submitPatent = async () => {
+        setDisabled(true);
+        Progress(10);
+
+        let trackId = generateAlphanumericId();
+
+        const formData = new FormData();
+
+        formData.append("userId", userData.userData._id);
+        formData.append("patentTrackId", trackId);
+        formData.append("referenceData", JSON.stringify({...patentData.referenceData}));
+        formData.append("personDetails", JSON.stringify({...patentData.personDetails}));
+        formData.append("companyDetails", JSON.stringify({...patentData.companyDetails}));
+
+        formData.append("priorityClaimDetails", JSON.stringify(patentData.priorityClaimDetails, (key, value) => {
+            if (key === 'evidenceAttachment') {
+                return undefined;
+            }
+            return value;
+        }));
+        
+        formData.append("copiesData", JSON.stringify({...patentData.copiesData}));
+
+        formData.append("documentsData", JSON.stringify({...getDocumentsData()}));
+        formData.append("title", patentData.documentsData.title);
+        
+        patentData.priorityClaimDetails.forEach((claimDetail, index) => {
+            formData.append(`evidenceAttachment`, claimDetail.evidenceAttachment);
+        });
+
+        if(patentData.documentsData.singleDocumentsData !== null) {
+            formData.append("singleSpecificationDocument", patentData.documentsData.singleDocumentsData.singleSpecificationDocument);
+            formData.append("drawingDocument", patentData.documentsData.singleDocumentsData.drawingDocument);
+        } else {
+            formData.append("descriptionDocument", patentData.documentsData.multipleDocumentsData.descriptionDocument);
+            formData.append("claimsDocument", patentData.documentsData.multipleDocumentsData.claimsDocument);
+            formData.append("abstractDocument", patentData.documentsData.multipleDocumentsData.abstractDocument);
+            formData.append("drawingDocument", patentData.documentsData.multipleDocumentsData.drawingDocument);
+        }
+
+        Progress(50);
+        await axios.post("/ipo/patent", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            Progress(100);
+            handleToastDisplay(response.data.message, "success");
+            setDisabled(false);
+            closeModal();
+
+            navigate(`/successpayment/${trackId.replace('#', '')}`, { state: { type: "patent" } })
+
+            dispatch(patentResetDetails())
+            dispatch(countTrademark(userData.userData._id))
+        }).catch(error => {
+            Progress(100);
+            if (error.response !== undefined) {
+                if (error.response.data) {
+                    handleToastDisplay(`${error.response.data.error}`, "error");
+                } else {
+                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                }
+            } else {
+                handleToastDisplay("Error inserting data", "error");
+            }
+            setDisabled(false);
+        });
+    }
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {

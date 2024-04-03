@@ -59,6 +59,7 @@ import AdvertisedWork from './screens/RegisterIPO/Copyright-Registrtion/Artistic
 import Review from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Reveiw Details/Review';
 import Affidevit from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Affidevit';
 import Advertised from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Advertised';
+import ContentScreen from './screens/Content Screen/ContentScreen';
 
 
 function App() {
@@ -189,6 +190,7 @@ function App() {
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
+        <Route path='/contentScreen' element={<Main_Dashboard screen={<ContentScreen />} />} />
 
         {/* Copyright flow routes defines here */}
         <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />

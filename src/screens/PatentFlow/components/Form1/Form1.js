@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import  { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./Form1.css";
+import { patentCompanyDetails, patentPersonDetails, patentReferenceData } 
+    from "../../../../assets/states/actions/Patent Registration/patent-action";
+import { toast } from "react-toastify";
 
 const Form1 = (props) => {
+
+    const data = useSelector(state => state.patentRegistrationReducer);
 
     const [referenceData, setReferenceData] = useState({
         reference: "",
@@ -24,7 +30,7 @@ const Form1 = (props) => {
         isUseAbleForPDAS: null
     });
 
-    const [personCumulativeDetalis, setPersonCumulativeDetails] = useState([]);
+    const [personCumulativeDetails, setPersonCumulativeDetails] = useState([]);
 
     const [companyDetails, setCompanyDetails] = useState({
         organizationName: "",
@@ -42,6 +48,7 @@ const Form1 = (props) => {
     const [companyCumulativeDetalis, setCompanyCumulativeDetails] = useState([]);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleReferenceChange = (e) => {
         const value = e.target.name === "availabilityForPDAS" ? e.target.value === "true" : e.target.value;
@@ -79,7 +86,7 @@ const Form1 = (props) => {
 
     const addPersonDetails = (e) => {
         setPersonCumulativeDetails((prevData) => [
-            ...personCumulativeDetalis,
+            ...personCumulativeDetails,
             personDetails
         ]);
     }
@@ -91,8 +98,53 @@ const Form1 = (props) => {
         ]);
     }
 
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+
+    const handleDataAndNavigation = () => {
+        if(personCumulativeDetails.length === 0 || companyCumulativeDetalis === 0 
+            || referenceData.reference === "" || referenceData.availabilityForPDAS === null) {
+            handleToastDisplay("Please fill out all details and try again!", "error");
+        } else {
+            dispatch(patentReferenceData(referenceData));
+            dispatch(patentPersonDetails(personCumulativeDetails));
+            dispatch(patentCompanyDetails(companyCumulativeDetalis));
+            navigate("/patentflow/priorityClaims");
+        }
+    }
+
     useEffect(() => {
-        props.Progress(100);
+        if(Object.keys(data.referenceData).length > 0) {
+            setReferenceData({...data.referenceData});
+        }
+        if(data.personDetails.length > 0) {
+            setPersonCumulativeDetails([...data.personDetails]);
+        }
+        if(data.companyDetails.length > 0) {
+            setCompanyCumulativeDetails([...data.companyDetails]);
+        }
     }, []);
 
     return(
@@ -216,7 +268,7 @@ const Form1 = (props) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {personCumulativeDetalis.length === 0 ? (
+                                    {personCumulativeDetails.length === 0 ? (
                                         <>
                                             <tr>
                                                 <td>-</td>
@@ -233,7 +285,7 @@ const Form1 = (props) => {
                                         </>
                                     ) :
                                     <>
-                                        {personCumulativeDetalis.map((data) => {
+                                        {personCumulativeDetails.map((data) => {
                                             return(
                                                 <tr>
                                                     <td>{data.title}</td>
@@ -378,7 +430,7 @@ const Form1 = (props) => {
             </div>
             <div className="btns">
                 <button className='backBtn'  onClick={ () => navigate(-1) }>Back</button>
-                <button className='continueBtn' onClick={ () => navigate("/patentflow/priorityClaims") }>Continue</button>
+                <button className='continueBtn' onClick={ handleDataAndNavigation }>Continue</button>
             </div>
         </div>
     )

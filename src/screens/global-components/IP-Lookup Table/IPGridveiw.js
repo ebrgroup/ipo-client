@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ipologo from '../../../assets/Icons/ipo.png'
 import './IPGridview.css';
 
 const IPGridView = ({ rows, type }) => {
@@ -81,7 +80,6 @@ const IPGridView = ({ rows, type }) => {
                             </td>
                         </tr>
                     );
-                    console.log(rows);
                     setBody(
                         rows.map((data, index) => (
                             <tr key={index}>
@@ -107,6 +105,36 @@ const IPGridView = ({ rows, type }) => {
                             </tr>
                         ))
                     );
+                } else if (type === "Patent") {
+                    setHeader(
+                        <tr>
+                            <td>PATENT ID</td>
+                            <td>REFERENCE</td>
+                            <td>AVAILABILITY FOR PDAS</td>
+                            <td>PERSONS COUNT</td>
+                            <td>STATUS</td>
+                            <td>COMPANIES COUNT</td>
+                        </tr>
+                    );
+                    setBody(
+                        rows.map((data, index) => (
+                            <tr key={data._id}>
+                                <td>{data.patentTrackId}</td>
+                                <td>{data.referenceData.reference}</td>
+                                <td>{data.referenceData.availabilityForPDAS ? "Yes" : "No"}</td>
+                                <td>{data.personDetails.length}</td>
+                                <td className={
+                                    data.status === 'Pending'
+                                        ? 'pending'
+                                        : data.status === 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>{data.companyDetails.length}</td>
+                            </tr>
+                        ))
+                    );
                 }
             }
         })();
@@ -117,7 +145,7 @@ const IPGridView = ({ rows, type }) => {
                 let imageName;
                 if(type === "Design")
                     imageName = rows[i].attachmentDetails.attachmentFile;
-                else
+                else if (type === "Trademark")
                     imageName = rows[i].logoDetails.logoFile;
                 logoData.push(imageName);
             }
