@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const Inputs = (props) => {
 
-    const self = [
+    const soleProprieterShip = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
         { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
         { label: "Province", placeholder: "Province", name: "province" },
@@ -27,7 +27,7 @@ const Inputs = (props) => {
         { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
     ]
 
-    const [selectedArray, setSelectedArray] = useState(self);
+    const [selectedArray, setSelectedArray] = useState(soleProprieterShip);
 
     useEffect(() => {
         let selectedItem = null;
@@ -44,24 +44,17 @@ const Inputs = (props) => {
             props.setPartnershipFirm(false);
         }
         setSelectedArray(selectedItem);
-    }, []);
+    }, [props.inputData]);
 
     return (
         <>
             <div className="owner-input-container">
                 {selectedArray.map((data) => (
                     <>
-                        <label>{data.label}</label>
-                        { props.inputData === "self" && (data.label === "Province" || data.label === "City") ? 
-                            <input placeholder={data.placeholder} type="text" 
-                                name={data.name}
-                                value={props.ownerDetails.soleProprieterShip[`${data.name}`]} 
-                                disabled={true} /> : 
-                            <input placeholder={data.placeholder} type="text" 
-                                name={data.name}
-                                value={props.ownerDetails[`${data.name}`]}
-                                disabled={true} />
-                        }
+                        <label>{data.label} <strong>*</strong></label>
+                        <input placeholder={data.placeholder} type="text" 
+                            name={data.name}
+                            value="" />
                     </>
                 ))}
             </div>

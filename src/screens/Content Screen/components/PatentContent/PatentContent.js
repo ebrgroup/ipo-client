@@ -1,11 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import "./patentcontent.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-const PatentContent = () => {
+const PatentContent = ({ viewData }) => {
 
-    const [personCumulativeDetails, setPersonCumulativeDetails] = useState([]);
-    const [companyCumulativeDetalis, setCompanyCumulativeDetails] = useState([]);
-    const [priorityClaimDetails, setPriorityClaimDetails] = useState([]);
+    const navigate = useNavigate();
+
+    const updateStatus = async (status) => {
+        await axios.put(`http://localhost:5000/ipo/patent?id=${viewData._id}&status=${status}`).then(response => {
+            handleToastDisplay(response.data.message, "success");
+            navigate("/examiner");
+        }).catch(error => {
+            if (error.response !== undefined) {
+                if (error.response.data) {
+                    handleToastDisplay(`${error.response.data.error}`, "error");
+                } else {
+                    handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
+                }
+            } else {
+                handleToastDisplay("Error inserting data", "error");
+            }
+        });
+    }
+
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+        }
+    };
 
     return(
         <div className="patent-content-parent">
@@ -19,16 +61,18 @@ const PatentContent = () => {
                 <div className="patentContent-screen-content">
                     <div className="patentContent-reference-input">
                         <label>Reference</label>
-                        <input placeholder="Enter Reference" value="" 
+                        <input placeholder="Enter Reference" value={viewData.referenceData.reference} 
                             name="reference" />
                     </div>
                     <div className="patent-content-pdas-input">  
                         <p>Do you want a copy of this application to be made available for PDAS? <strong>*</strong></p>
                         <div className="pdas-selection">
                             <input id="yesReferenceAvailability" type="radio" 
+                                checked={viewData.referenceData.availabilityForPDAS === true} 
                                 value="true" name="availabilityForPDAS" />
                             <label htmlFor="yesReferenceAvailability">Yes</label>
                             <input id="noReferenceAvailability" type="radio" 
+                                checked={viewData.referenceData.availabilityForPDAS === false} 
                                 value="false" name="availabilityForPDAS" />
                             <label htmlFor="noReferenceAvailability">No</label>
                         </div>
@@ -51,14 +95,12 @@ const PatentContent = () => {
                                         <th>Post Code</th>
                                         <th>ADP #</th>
                                         <th>Email</th>
-                                        <th className="patent-content-lastHeader">Operations</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {personCumulativeDetails.length === 0 ? (
+                                    {viewData.personDetails.length === 0 ? (
                                         <>
                                             <tr>
-                                                <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>
@@ -72,7 +114,7 @@ const PatentContent = () => {
                                         </>
                                     ) :
                                     <>
-                                        {personCumulativeDetails.map((data) => {
+                                        {viewData.personDetails.map((data) => {
                                             return(
                                                 <tr>
                                                     <td>{data.title}</td>
@@ -84,7 +126,6 @@ const PatentContent = () => {
                                                     <td>{data.postCode}</td>
                                                     <td>{data.adpNumber}</td>
                                                     <td>{data.emailAddress}</td>
-                                                    <td>-</td>
                                                 </tr>
                                             );
                                         })}
@@ -109,14 +150,12 @@ const PatentContent = () => {
                                         <th>Country</th>
                                         <th>Post Code</th>
                                         <th>ADP #</th>
-                                        <th className="patent-content-lastHeader">Operations</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {companyCumulativeDetalis.length === 0 ? (
+                                    {viewData.companyDetails.length === 0 ? (
                                         <>
                                             <tr>
-                                                <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>
@@ -128,21 +167,25 @@ const PatentContent = () => {
                                         </>
                                     ) :
                                     <>
-                                        {companyCumulativeDetalis.map((data) => {
-                                            return(
-                                                <tr>
-                                                    <td>{data.organizationName}</td>
-                                                    <td>{data.companyAddress}</td>
-                                                    <td>{data.companyProvince}</td>
-                                                    <td>{data.companyCity}</td>
-                                                    <td>{data.companyCountry}</td>
-                                                    <td>{data.companyPostCode}</td>
-                                                    <td>{data.companyADPNumber}</td>
-                                                    <td>-</td>
-                                                </tr>
+                                        {viewData.companyDetails.map((companyDetails, index) => {
+                                            return (
+                                                Object.keys(companyDetails).map((nestedKey) => {
+                                                    const data = companyDetails[nestedKey];
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{data.organizationName}</td>
+                                                            <td>{data.companyAddress}</td>
+                                                            <td>{data.companyProvince}</td>
+                                                            <td>{data.companyCity}</td>
+                                                            <td>{data.companyCountry}</td>
+                                                            <td>{data.companyPostCode}</td>
+                                                            <td>{data.companyADPNumber}</td>
+                                                        </tr>
+                                                    );
+                                                })
                                             );
                                         })}
-                                    </> 
+                                    </>
                                     }
                                 </tbody>
                             </table>
@@ -161,14 +204,12 @@ const PatentContent = () => {
                                 <th>Application #</th>
                                 <th>Date of filing</th>
                                 <th>Acess Code</th>
-                                <th className="priority-lastHeader">Operations</th>
                             </tr>
                         </thead>
                         <tbody>
-                                {priorityClaimDetails.length === 0 ? (
+                                {viewData.priorityClaimDetails.length === 0 ? (
                                     <>
                                         <tr>
-                                            <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
@@ -176,28 +217,31 @@ const PatentContent = () => {
                                         </tr>
                                     </>
                                 ) :
-                                <>
-                                    {priorityClaimDetails.map((data) => {
-                                        return(
-                                            <tr>
-                                                <td>{data.country}</td>
-                                                <td>{data.applicationNumber}</td>
-                                                <td>{data.filingDate}</td>
-                                                <td>{data.pdasAccessCode}</td>
-                                                <td>-</td>
-                                            </tr>
-                                        );
-                                    })}
-                                </> 
+                                    <>
+                                        {viewData.priorityClaimDetails.map((priorityClaim, index) => {
+                                            return (
+                                                Object.keys(priorityClaim).map((nestedKey) => {
+                                                    const data = priorityClaim[nestedKey];
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{data.country}</td>
+                                                            <td>{data.applicationNumber}</td>
+                                                            <td>{data.filingDate}</td>
+                                                            <td>{data.pdasAccessCode}</td>
+                                                        </tr>
+                                                    );
+                                                })
+                                            );
+                                        })}
+                                    </>
                                 }
                             </tbody>
                     </table>
                 </div>
             </div>
             <div className="patentContent-btns">
-                <button className='approveButton'>Approve</button>
-                <button className='resubmitButton'>Resubmit</button>
-                <button className='declineButton'>Decline</button>
+                <button className='approveButton' onClick={() => updateStatus("Register")}>Approve</button>
+                <button className='declineButton' onClick={() => updateStatus("Decline")}>Decline</button>
             </div>
         </div>
         </div>

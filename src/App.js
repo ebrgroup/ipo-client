@@ -154,6 +154,8 @@ function App() {
       document.title = "Search IP - IPO"
     else if (path == "/trackip")
       document.title = "Track My IP - IPO"
+    else if (path == "/contentScreen")
+      document.title = "Content Screen - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   }, [path]);
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './IPGridview.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userName } from '../../../assets/states/middlewares/update-user';
 import { getIp } from '../../../assets/states/middlewares/ipTable-data';
@@ -12,6 +12,7 @@ const IPGridView = (props) => {
     const [body, setBody] = useState(null);
     const location = useLocation()
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -285,14 +286,7 @@ const IPGridView = (props) => {
 
 
     const handleView = ( data) => {
-        // alert(filteredRows[idx])
-        const type = props.type
-        const viewData = data;
-        // alert ('Click',type)
-
-        // console.log("I am click");
-        console.log(viewData,type);
-
+        navigate("/contentScreen",  { state: { viewData: data, type: props.type } });
     }
 
     return (

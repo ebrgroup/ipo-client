@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./designcontent.css";
-import Inputs from "../TrademarkContent/components/Inputs";
+import Inputs from "./components/Inputs";
 
-const DesignContent = () => {
+const DesignContent = ({ viewData }) => {
 
     const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
     const [partnersData, setPartnersData] = useState([]);
+
+    useEffect(() => {
+        console.log(viewData)
+    }, [])
 
     return(
         <div className="trademarkContent-parent">
@@ -24,7 +28,7 @@ const DesignContent = () => {
                         <input
                             className="trademark-content-classificationInput"
                             placeholder="Search here..."
-                            value=""
+                            value={viewData.classificationClass}
                             type="text"
                         />
                     </div>
@@ -33,7 +37,7 @@ const DesignContent = () => {
                             Details of Goods/Services
                         </span>
                         <br />
-                        <textarea value="" className="trademark-content-classificationInput classificationTextArea"
+                        <textarea value={viewData.detailsOfGoods} className="trademark-content-classificationInput classificationTextArea"
                             rows="7" placeholder="Enter details here..." />
                     </div>
                     <hr className="heading-hr" style={{ marginTop: "4vh", marginBottom: "4vh" }} />
@@ -135,7 +139,6 @@ const DesignContent = () => {
                 </div>
                 <div className="patentContent-btns">
                     <button className='approveButton'>Approve</button>
-                    <button className='resubmitButton'>Resubmit</button>
                     <button className='declineButton'>Decline</button>
                 </div>
             </div>
