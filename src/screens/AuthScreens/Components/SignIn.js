@@ -43,7 +43,8 @@ const SignIn = (props) => {
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission behavior
+        
         if (isFormValid()) {
             props.Progress(10);
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,14 +54,19 @@ const SignIn = (props) => {
             }
             try {
                 props.Progress(40);
-                const response = await axios.post(`/ipo/login`, formData)
-                props.Progress(70);
-                dispatch(loginSuccess(response.data.user));  //Store user data into redux store
-                props.Progress(100);
-                // console.log(response.data.user._id);
-                dispatch(countTrademark(response.data.user._id))
-                navigate("/dashboard");
-                handleToastDisplay("You have successfully logged in!", "success");
+                const response = await axios.post(`/ipo/login`, formData);
+                if (response.data.user.role === "examiner") {
+                    dispatch(loginSuccess(response.data.user));  //Store user data into redux store
+                    props.Progress(100);
+                    navigate("/examiner");
+                    handleToastDisplay("You have successfully logged in!", "success");
+                } else {
+                    dispatch(loginSuccess(response.data.user));  //Store user data into redux store
+                    props.Progress(100);
+                    dispatch(countTrademark(response.data.user._id))
+                    navigate("/dashboard");
+                    handleToastDisplay("You have successfully logged in!", "success");
+                }
             } catch (error) {
                 props.Progress(100);
                 clearFields();
@@ -73,8 +79,7 @@ const SignIn = (props) => {
                     console.error(error);
                 }
             }
-        }
-        else {
+        } else {
             handleToastDisplay("Required fields must not be left empty.", "error");
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -82,7 +87,7 @@ const SignIn = (props) => {
                 showPasswordError: true
             }));
         }
-    };
+    };    
 
     const handleToastDisplay = (message, type) => {
         const toastConfig = {

@@ -1,18 +1,89 @@
 import React, { useEffect, useState } from 'react';
 import './IPGridview.css';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userName } from '../../../assets/states/middlewares/update-user';
+import { getIp } from '../../../assets/states/middlewares/ipTable-data';
 
-const IPGridView = ({ rows, type }) => {
+const IPGridView = (props) => {
     const [attachments, setAttachments] = useState([]);
     const [header, setHeader] = useState(null);
+    // const [filteredRows,setFilterRows] = useState([])
     const [body, setBody] = useState(null);
+    const location = useLocation()
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
         (() => {
             setHeader(null);
             setBody(null);
-            if (rows && rows.length > 0) {
-                if (type === "Trademark") {
+            if (props.rows && props.rows.length > 0) {
+                if (location.pathname.includes("examiner")) {
+
+                    const userIds = props.rows.map(data => data.userId);
+                    dispatch(userName(userIds))
+
+                    // dispatch(getIp(props.type))
+
+                    let filteredRows;
+                    if (props.status == '' || props.status == 'All') {
+
+                        // filteredRows = props.rows;
+                        filteredRows = props.rows
+                    } else {
+                        // If status is not provided, return all data
+                        filteredRows = props.rows.filter(data => {
+                            return data.status === props.status;
+                        })
+                    }
+
+
+                    setHeader(
+                        <tr className='examiner-header'>
+                            <th>{props.type.toUpperCase()} ID</th>
+                            <th>{props.type.toUpperCase()} TITLE</th>
+                            <th>STATUS</th>
+                            <th>FILE DATE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    )
+
+                    setBody(
+
+                        filteredRows.map((data, index) => (
+                            <tr className='examiner-body' key={data.trademarkId}>
+                                {
+                                    props.type == 'Trademark' ? <td>{data.trademarkId}</td> :
+                                        props.type == 'Design' ? <td>{data.designId}</td> :
+                                            props.type == 'Copyright' ? <td>{data.copyrightId}</td> :
+                                                <td>{data.patentTrackId}</td>
+
+                                }
+
+                                {
+                                    props.type == 'Trademark' ? <td>{data.logoDetails.markDesc}</td> :
+                                        props.type == 'Design' ? <td>{data.productName}</td> :
+                                            props.type == 'Copyright' ? <td>{data.logoDetails.logodetail.title}</td> :
+                                                <td>{data.title}</td>
+
+                                }
+                                <td className={
+                                    data.status == 'Pending'
+                                        ? 'pending'
+                                        : data.status == 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>{data.fileDate}</td>
+                                {/* <td><a onClick={() => console.log(props.rows[index])}>View</a></td> */}
+                                <button id='viewbtn' onClick={() => handleView(filteredRows[index])}>View</button>
+                            </tr>
+                        ))
+                    )
+                }
+                else if (props.type === "Trademark") {
                     setHeader(
                         <tr>
                             <td>TRADEMARK ID</td>
@@ -34,7 +105,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.trademarkId}</td>
                                 <td>{data.logoDetails.markDesc}</td>
@@ -60,7 +131,7 @@ const IPGridView = ({ rows, type }) => {
                     );
                 }
 
-                if (type === "Copyright") {
+                else if (props.type === "Copyright") {
                     setHeader(
                         <tr>
                             <td>COPYRIGHT ID</td>
@@ -82,7 +153,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.copyrightId}</td>
                                 <td>{data.logoDetails.logodetail.title}</td>
@@ -108,7 +179,7 @@ const IPGridView = ({ rows, type }) => {
                     );
                 }
 
-                else if (type === "Design") {
+                else if (props.type === "Design") {
                     setHeader(
                         <tr>
                             <td>DESIGN ID</td>
@@ -130,7 +201,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.designId}</td>
                                 <td>{data.productName}</td>
@@ -154,7 +225,9 @@ const IPGridView = ({ rows, type }) => {
                             </tr>
                         ))
                     );
-                } else if (type === "Patent") {
+                }
+
+                else if (props.type === "Patent") {
                     setHeader(
                         <tr>
                             <td>PATENT ID</td>
@@ -166,7 +239,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={data._id}>
                                 <td>{data.patentTrackId}</td>
                                 <td>{data.referenceData.reference}</td>
@@ -190,25 +263,41 @@ const IPGridView = ({ rows, type }) => {
 
         const fetchLogos = async () => {
             const logoData = [];
-            for (let i = 0; i < rows.length; i++) {
+            for (let i = 0; i < props.rows.length; i++) {
                 let imageName;
-                if (type === "Design")
-                    imageName = rows[i].attachmentDetails.attachmentFile;
-                else if (type === "Trademark")
-                    imageName = rows[i].logoDetails.logoFile;
+                if (props.type === "Design")
+                    imageName = props.rows[i].attachmentDetails.attachmentFile;
+                else if (props.type === "Trademark")
+                    imageName = props.rows[i].logoDetails.logoFile;
                 logoData.push(imageName);
             }
             setAttachments(logoData);
         };
 
-        if (rows && rows.length > 0) {
-            fetchLogos();
+        if (!location.pathname.includes("examiner")) {
+            if (props.rows && props.rows.length > 0) {
+                fetchLogos();
+            }
         }
-    }, [rows, type]);
+
+    }, [props.rows, props.status]);
+
+
+
+    const handleView = ( data) => {
+        // alert(filteredRows[idx])
+        const type = props.type
+        const viewData = data;
+        // alert ('Click',type)
+
+        // console.log("I am click");
+        console.log(viewData,type);
+
+    }
 
     return (
         <div className='table'>
-            {rows && (
+            {props.rows && (
                 <table>
                     <thead id='table-header'>
                         {header}
