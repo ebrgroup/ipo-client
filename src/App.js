@@ -60,6 +60,7 @@ import Review from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Re
 import Affidevit from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Affidevit';
 import Advertised from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Advertised';
 import ContentScreen from './screens/Content Screen/ContentScreen';
+import Examinertbl from './screens/Examiner Screens/Examinertbl';
 
 
 function App() {
@@ -227,16 +228,16 @@ function App() {
         <Route path='/copyright/cinema/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/cinema/affidevit' element={<Affidevit />} />
 
-
         {/* Record work flow */}
         <Route path='/copyright/record/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/affidevit' element={<Affidevit />} />
-
-
         {/* Copyright flows routes end here */}
+
+        {/* Examiner Routes  */}
+        <Route path='/examiner' element={<Examinertbl />} />
 
 
         {/* <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} /> */}
