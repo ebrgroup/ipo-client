@@ -23,8 +23,8 @@ const Work_Details = ({ Progress }) => {
 
     const location = useLocation('')
 
-    const classification = useSelector(state => state.copyrightReducer?.classification?.classificationClass)
-    const work = useSelector(state => state.copyrightReducer?.workType)
+    const classification = useSelector(state => state.copyrightReducer?.classification?.classificationClass);
+    const work = useSelector(state => state.copyrightReducer?.workType);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

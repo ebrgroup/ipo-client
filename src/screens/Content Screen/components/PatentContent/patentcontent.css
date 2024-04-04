@@ -1,0 +1,189 @@
+.patent-content-parent {
+    width: 100%;
+}
+
+.patentContent-screen-background {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px 0px 4px 1px rgba(185, 185, 185, 0.384);    
+    padding: 1rem 2rem 2rem;
+    border-radius: 10px;
+    width: 100%;
+    height: 91vh;
+    box-sizing: border-box;
+}
+
+.patentContent-screen-parent {
+    height: 80%;
+    border: 1px solid rgba(185, 185, 185, 0.384);
+    border-radius: 5px;
+    padding: 2vh 0 0 1vw;
+    overflow: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.patentContent-heading {
+    display: flex;
+    align-items: center;
+}
+
+.patentContent-heading h4 {
+    font-weight: 500;
+}
+
+.patentContent-icon {
+    height: 35px;
+    margin-right: 0.5vw;
+}
+
+.patentContent-screen-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 3.5vh;
+}
+
+.patentContent-screen-background hr {
+    margin-right: 1vw;
+    width: 98.5%;
+}
+
+.patentContent-reference-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.patentContent-reference-input input {
+    width: 38%;
+    border: 2px solid #f6f7f8;
+    padding: 0.5rem;
+    background-color: #f6f7f8;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+}
+
+.patentContent-reference-input label {
+    margin-bottom: 0.5vh;
+    font-size: 0.8rem;
+}
+
+.patent-content-pdas-input {
+    font-size: 0.8rem;
+    margin-left: 0.5vw;
+}
+
+.patent-content-pdas-selection {
+    margin-left: -0.6vw;
+}
+
+.patent-content-pdas-selection input {
+    margin-right: 0.5vw;
+}
+
+.patent-content-pdas-selection label {
+    margin-top: -0.5vh;
+    margin-right: 0.4vw;
+}
+
+.patentContent-person-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    height: 6vh;
+    font-family: Poppins;
+}
+
+.patentContent-person-heading img {
+    height: 30px;
+}
+
+.patentContent-person-heading h5 {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #393939;
+}
+
+.patent-content-dataGrid {
+    margin-top: 3vh;
+    padding-right: 1.5vw;   
+}
+  
+.patent-content-dataTable {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0px 0px 4px 2.5px rgba(185, 185, 185, 0.5); 
+    table-layout: auto;
+}
+  
+.patent-content-dataTable th {
+    font-weight: normal;
+    background-color: #036666;
+    color: white;
+    font-size: 0.8rem;
+    height: 4vh;
+}
+  
+.patent-content-dataTable tr {
+    padding-left: 50vw;
+}
+  
+.patent-content-dataTable td {
+    text-align: center;
+    color: black;
+    height: 4vh;
+    font-weight: 300;
+}
+  
+.patent-content-dataTable tbody tr:nth-child(even) {
+    background-color: rgb(235, 235, 235);
+}
+  
+.patent-content-firstHeader {
+    border-top-left-radius: 8px;
+}
+  
+.patent-content-lastHeader {
+    border-top-right-radius: 8px;
+}
+
+.patentContent-btns {
+    margin-top: 1.5vh;
+    float: inline-end;
+}
+
+.approveButton, .resubmitButton {
+    background-color: #036666;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    width: 95px;
+    height: 35px;
+    border: none;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.declineButton {
+    background-color: #c82333;
+    border-color: #dc3545;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+    width: 95px;
+    height: 35px;
+    border: none;
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.resubmitButton {
+    background-color: #218838;
+    border-color: #1e7e34;
+}

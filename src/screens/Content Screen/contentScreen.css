@@ -1,0 +1,27 @@
+.contentScreen-parent {
+    background-color: #eee;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    font-family: Poppins;
+}
+
+.content-screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.examining-application {
+    color: #036666;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-left: 6vw;
+}
+
+.content-screen-header h4 {
+    font-weight: 500;
+}
+
+.content-screen-header h4 span {
+    font-weight: 400;
+}

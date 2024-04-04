@@ -190,7 +190,7 @@ function App() {
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
-        <Route path='/contentScreen' element={<Main_Dashboard screen={<ContentScreen />} />} />
+        <Route path='/contentScreen' element={ <ContentScreen /> } />
 
         {/* Copyright flow routes defines here */}
         <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />
