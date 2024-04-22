@@ -8,7 +8,7 @@ import { resetIpStates } from '../../../assets/states/actions/IP-Lookup-actions/
 import { useLocation } from 'react-router-dom'
 
 
-const Navbar = ({ searchTitle , type, setType }) => {
+const Navbar = ({ searchTitle, type, setType }) => {
     const [display, setDisplay] = useState(false)
     const [search, setSearch] = useState('')
     const [isTypeSelected, setIsTypeSelected] = useState(false);

@@ -8,7 +8,7 @@ import Cinematographic_pdf from '../Required Documents/Affidevit Templates/Cinem
 import Literary_pdf from '../Required Documents/Affidevit Templates/Literary_pdf'
 import { useLocation } from 'react-router-dom';
 const Affidevit = () => {
-    
+
     const location = useLocation();
     const handleDownload = () => {
         const element = document.querySelector('.Affidevit-container');

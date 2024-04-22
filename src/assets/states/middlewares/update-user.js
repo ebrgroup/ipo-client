@@ -11,3 +11,15 @@ export const updateUser = (id, user) =>
         dispatch(loadingBar(100))
     };
 
+
+export const userName = (userIds) =>
+    async (dispatch) => {
+        dispatch(loadingBar(40))
+        // console.log(userIds);
+        const response = await axios.post('http://localhost:5000/ipo/users/names', userIds);
+        dispatch(loadingBar(70))
+        // dispatch(updateProfile(response.data.userData));
+        // console.log(response.data);
+        dispatch(loadingBar(100))
+    };
+

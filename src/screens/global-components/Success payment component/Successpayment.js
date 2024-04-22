@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 const Successpayment = () => {
     const navigate = useNavigate(null);
     const [id, setId] = useState('')
-    const [btnText, setBtnText] =useState('Trademark')
+    const [btnText, setBtnText] = useState('Trademark')
     const location = useLocation()
     const { state } = useLocation();
     const { trackId } = useParams();
@@ -13,9 +13,9 @@ const Successpayment = () => {
     useEffect(() => {
 
         if (location.pathname.includes('/copyright'))
-        setBtnText('Copyright')
-        
-        if(state.type !== "copyright")
+            setBtnText('Copyright')
+
+        if (state.type !== "copyright")
             setBtnText(state.type);
 
         setId(trackId)

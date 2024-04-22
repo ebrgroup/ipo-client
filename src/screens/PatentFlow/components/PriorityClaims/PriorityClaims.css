@@ -175,6 +175,11 @@
 }
 
 .countries-input {
-    width: 25vw;
+    width: 30vw;
     margin-top: 0.8vh;
+}
+
+.countries-input label {
+    width: 25vw;
+    text-wrap: wrap;
 }

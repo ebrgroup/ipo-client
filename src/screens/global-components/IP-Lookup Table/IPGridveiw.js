@@ -1,19 +1,90 @@
 import React, { useEffect, useState } from 'react';
-import ipologo from '../../../assets/Icons/ipo.png'
 import './IPGridview.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userName } from '../../../assets/states/middlewares/update-user';
+import { getIp } from '../../../assets/states/middlewares/ipTable-data';
 
-const IPGridView = ({ rows, type }) => {
+const IPGridView = (props) => {
     const [attachments, setAttachments] = useState([]);
     const [header, setHeader] = useState(null);
+    // const [filteredRows,setFilterRows] = useState([])
     const [body, setBody] = useState(null);
+    const location = useLocation()
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     useEffect(() => {
 
         (() => {
             setHeader(null);
             setBody(null);
-            if(rows && rows.length > 0) {
-                if(type === "Trademark") {
+            if (props.rows && props.rows.length > 0) {
+                if (location.pathname.includes("examiner")) {
+
+                    const userIds = props.rows.map(data => data.userId);
+                    dispatch(userName(userIds))
+
+                    // dispatch(getIp(props.type))
+
+                    let filteredRows;
+                    if (props.status == '' || props.status == 'All') {
+
+                        // filteredRows = props.rows;
+                        filteredRows = props.rows
+                    } else {
+                        // If status is not provided, return all data
+                        filteredRows = props.rows.filter(data => {
+                            return data.status === props.status;
+                        })
+                    }
+
+
+                    setHeader(
+                        <tr className='examiner-header'>
+                            <th>{props.type.toUpperCase()} ID</th>
+                            <th>{props.type.toUpperCase()} TITLE</th>
+                            <th>STATUS</th>
+                            <th>FILE DATE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    )
+
+                    setBody(
+
+                        filteredRows.map((data, index) => (
+                            <tr className='examiner-body' key={data.trademarkId}>
+                                {
+                                    props.type == 'Trademark' ? <td>{data.trademarkId}</td> :
+                                        props.type == 'Design' ? <td>{data.designId}</td> :
+                                            props.type == 'Copyright' ? <td>{data.copyrightId}</td> :
+                                                <td>{data.patentTrackId}</td>
+
+                                }
+
+                                {
+                                    props.type == 'Trademark' ? <td>{data.logoDetails.markDesc}</td> :
+                                        props.type == 'Design' ? <td>{data.productName}</td> :
+                                            props.type == 'Copyright' ? <td>{data.logoDetails.logodetail.title}</td> :
+                                                <td>{data.title}</td>
+
+                                }
+                                <td className={
+                                    data.status == 'Pending'
+                                        ? 'pending'
+                                        : data.status == 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>{data.fileDate}</td>
+                                {/* <td><a onClick={() => console.log(props.rows[index])}>View</a></td> */}
+                                <button id='viewbtn' onClick={() => handleView(filteredRows[index])}>View</button>
+                            </tr>
+                        ))
+                    )
+                }
+                else if (props.type === "Trademark") {
                     setHeader(
                         <tr>
                             <td>TRADEMARK ID</td>
@@ -35,7 +106,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.trademarkId}</td>
                                 <td>{data.logoDetails.markDesc}</td>
@@ -60,7 +131,56 @@ const IPGridView = ({ rows, type }) => {
                         ))
                     );
                 }
-                else if(type === "Design") {
+
+                else if (props.type === "Copyright") {
+                    setHeader(
+                        <tr>
+                            <td>COPYRIGHT ID</td>
+                            <td>COPYRIGHT NAME
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>FILE DATE
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>COPYRIGHT CLASS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td> STATUS
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                            <td>COPYRIGHT LOGO
+                                <i className="fa-solid fa-sort"></i>
+                            </td>
+                        </tr>
+                    );
+                    setBody(
+                        props.rows.map((data, index) => (
+                            <tr key={index}>
+                                <td>{data.copyrightId}</td>
+                                <td>{data.logoDetails.logodetail.title}</td>
+                                <td>{data.fileDate}</td>
+                                <td>{data.classificationClass}</td>
+                                <td className={
+                                    data.status === 'Pending'
+                                        ? 'pending'
+                                        : data.status === 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>
+                                    {/* {attachments.length > 0 && attachments[index] ? (
+                                        <img src={require(`../../../assets/uploads/${attachments[index]}`)} alt={`Logo ${index}`} />
+                                    ) : ( */}
+                                    Loading...
+                                    {/* )} */}
+                                </td>
+                            </tr>
+                        ))
+                    );
+                }
+
+                else if (props.type === "Design") {
                     setHeader(
                         <tr>
                             <td>DESIGN ID</td>
@@ -82,7 +202,7 @@ const IPGridView = ({ rows, type }) => {
                         </tr>
                     );
                     setBody(
-                        rows.map((data, index) => (
+                        props.rows.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.designId}</td>
                                 <td>{data.productName}</td>
@@ -107,30 +227,71 @@ const IPGridView = ({ rows, type }) => {
                         ))
                     );
                 }
+
+                else if (props.type === "Patent") {
+                    setHeader(
+                        <tr>
+                            <td>PATENT ID</td>
+                            <td>REFERENCE</td>
+                            <td>AVAILABILITY FOR PDAS</td>
+                            <td>PERSONS COUNT</td>
+                            <td>STATUS</td>
+                            <td>COMPANIES COUNT</td>
+                        </tr>
+                    );
+                    setBody(
+                        props.rows.map((data, index) => (
+                            <tr key={data._id}>
+                                <td>{data.patentTrackId}</td>
+                                <td>{data.referenceData.reference}</td>
+                                <td>{data.referenceData.availabilityForPDAS ? "Yes" : "No"}</td>
+                                <td>{data.personDetails.length}</td>
+                                <td className={
+                                    data.status === 'Pending'
+                                        ? 'pending'
+                                        : data.status === 'Register'
+                                            ? 'register'
+                                            : 'decline'
+                                }
+                                >{data.status}</td>
+                                <td>{data.companyDetails.length}</td>
+                            </tr>
+                        ))
+                    );
+                }
             }
         })();
 
         const fetchLogos = async () => {
             const logoData = [];
-            for (let i = 0; i < rows.length; i++) {
+            for (let i = 0; i < props.rows.length; i++) {
                 let imageName;
-                if(type === "Design")
-                    imageName = rows[i].attachmentDetails.attachmentFile;
-                else
-                    imageName = rows[i].logoDetails.logoFile;
+                if (props.type === "Design")
+                    imageName = props.rows[i].attachmentDetails.attachmentFile;
+                else if (props.type === "Trademark")
+                    imageName = props.rows[i].logoDetails.logoFile;
                 logoData.push(imageName);
             }
             setAttachments(logoData);
         };
 
-        if (rows && rows.length > 0) {
-            fetchLogos();
+        if (!location.pathname.includes("examiner")) {
+            if (props.rows && props.rows.length > 0) {
+                fetchLogos();
+            }
         }
-    }, [rows, type]);
+
+    }, [props.rows, props.status]);
+
+
+
+    const handleView = ( data) => {
+        navigate("/contentScreen",  { state: { viewData: data, type: props.type } });
+    }
 
     return (
         <div className='table'>
-            {rows && (
+            {props.rows && (
                 <table>
                     <thead id='table-header'>
                         {header}
@@ -139,11 +300,11 @@ const IPGridView = ({ rows, type }) => {
                         {body}
                     </tbody >
                 </table >)
-            // ) : (
-            //     <div className="ipo_img">
-            //         <img src={ipologo} />
-            //     </div>
-            // )
+                // ) : (
+                //     <div className="ipo_img">
+                //         <img src={ipologo} />
+                //     </div>
+                // )
             }
         </div >
     );

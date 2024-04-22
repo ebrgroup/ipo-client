@@ -60,6 +60,8 @@ import Review from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Re
 import Affidevit from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Affidevit';
 import Advertised from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Advertised';
 import { countTrademark } from './assets/states/middlewares/count-ip';
+import ContentScreen from './screens/Content Screen/ContentScreen';
+import Examinertbl from './screens/Examiner Screens/Examinertbl';
 
 
 function App() {
@@ -156,6 +158,8 @@ function App() {
       document.title = "Search IP - IPO"
     else if (path == "/trackip")
       document.title = "Track My IP - IPO"
+    else if (path == "/contentScreen")
+      document.title = "Content Screen - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   }, [path]);
 
@@ -193,6 +197,7 @@ function App() {
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
+        <Route path='/contentScreen' element={ <ContentScreen /> } />
 
         {/* Copyright flow routes defines here */}
         <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />
@@ -222,8 +227,6 @@ function App() {
         <Route path='/copyright/literary/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/literary/affidevit' element={<Affidevit />} />
 
-
-
         {/* Cinematographic work flow */}
         <Route path='/copyright/cinema/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/cinema/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
@@ -231,20 +234,20 @@ function App() {
         <Route path='/copyright/cinema/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/cinema/affidevit' element={<Affidevit />} />
 
-
         {/* Record work flow */}
         <Route path='/copyright/record/classification' element={<Main_Dashboard screen={<Registraionflow screen={<Copyright_Classification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/ownerDetails' element={<Main_Dashboard screen={<Registraionflow screen={<Applicant_Details Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/logodetails' element={<Main_Dashboard screen={<Registraionflow screen={<Work_Details Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/reviewapplication' element={<Main_Dashboard screen={<Registraionflow screen={<Review Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/copyright/record/affidevit' element={<Affidevit />} />
-
-
         {/* Copyright flows routes end here */}
 
+        {/* Examiner Routes  */}
+        <Route path='/examiner' element={<Examinertbl />} />
 
-        <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} />
-        
+
+        {/* <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} /> */}
+
         <Route path='/designClassification' element={<Main_Dashboard screen={<Registraionflow screen={<DesignClassification Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designdetails' element={<Main_Dashboard screen={<Registraionflow screen={<DesignDetails Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/designreview' element={<Main_Dashboard screen={<Registraionflow screen={<DesignReview Progress={loadingProgress} />} />} title={title} />} />

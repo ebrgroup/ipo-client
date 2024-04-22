@@ -1,9 +1,18 @@
+import { useSelector } from "react-redux";
 import "./PatentReviewApplication.css";
 import { useNavigate } from "react-router-dom";
 
 const PatentReviewApplication = (props) => {
 
     const navigate = useNavigate(null);
+    const {
+        referenceData,
+        personDetails,
+        companyDetails,
+        priorityClaimDetails,
+        copiesData,
+        documentsData
+    } = useSelector(state => state.patentRegistrationReducer);
 
     return (
         <div className="reviewAppBox">
@@ -13,50 +22,156 @@ const PatentReviewApplication = (props) => {
                     <div className="data-column">
                         <span className="reviewAppLabel">Reference</span>
                         <br />
-                        <span className="reviewAppData">-</span>
+                        <span className="reviewAppData">{referenceData.reference}</span>
                     </div>
                     <div className="data-column">
-                        <span className="reviewAppLabel">Services</span>
+                        <span className="reviewAppLabel">Availability For PDAS</span>
                         <br />
-                        <span className="reviewAppData">-</span>
-                    </div>
-                    <div className="data-column">
-                        <span className="reviewAppLabel">Business Name</span>
-                        <br />
-                        <span className="reviewAppData">-</span>
-                    </div>
-                </div>
-                <div>
-                    <div className="data-column">
-                        <span className="reviewAppLabel">Province</span>
-                        <br />
-                        <span className="reviewAppData">-</span>
-                    </div>
-                    <div className="data-column">
-                        <span className="reviewAppLabel">City</span>
-                        <br />
-                        <span className="reviewAppData">-</span>
-                    </div>
-                    <div className="data-column">
-                        <span className="reviewAppLabel">Business Address</span>
-                        <br />
-                        <span className="reviewAppData">-</span>
+                        <span className="reviewAppData">{referenceData.availabilityForPDAS ? "Yes" : "No"}</span>
                     </div>
                 </div>
             </div>
-            <div className="reviewAppBoxFooter">
-                <div style={{ display: "flex", flexDirection: "row", gap: "1.5rem" }}>
-                    <div>
-                        <b>Name of Signature: </b> <br />
-                        <b>Color Claimed: </b><br />
-                        <b>Mark Type: </b><br />
-                        <b>Marks in series: </b>
+            <div className="tables-container">
+                {/* <div className="form1-dataGrid">
+                    <table className="form1-dataTable">
+                        <thead>
+                            <tr>
+                                <th className="form1-firstHeader">Title</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Province</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Post Code</th>
+                                <th>ADP #</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {personDetails.length === 0 ? (
+                                <>
+                                    <tr>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                </>
+                            ) :
+                            <>
+                                {personDetails.map((data) => {
+                                    return(
+                                        <tr>
+                                            <td>{data.title}</td>
+                                            <td>{data.fullName}</td>
+                                            <td>{data.address}</td>
+                                            <td>{data.province}</td>
+                                            <td>{data.city}</td>
+                                            <td>{data.country}</td>
+                                            <td>{data.postCode}</td>
+                                            <td>{data.adpNumber}</td>
+                                            <td>{data.emailAddress}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </> 
+                            }
+                        </tbody>
+                    </table>
+                </div> */}
+
+                <div>
+                    <h4>Company Details</h4>
+                    <div className="form1-dataGrid">
+                        <table className="form1-dataTable">
+                            <thead>
+                                <tr>
+                                    <th className="form1-firstHeader">Name</th>
+                                    <th>Address</th>
+                                    <th>Province</th>
+                                    <th>City</th>
+                                    <th>Country</th>
+                                    <th>Post Code</th>
+                                    <th className="form1-lastHeader">ADP #</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {companyDetails.length === 0 ? (
+                                    <>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </>
+                                ) :
+                                <>
+                                    {companyDetails.map((data) => {
+                                        return(
+                                            <tr>
+                                                <td>{data.organizationName}</td>
+                                                <td>{data.companyAddress}</td>
+                                                <td>{data.companyProvince}</td>
+                                                <td>{data.companyCity}</td>
+                                                <td>{data.companyCountry}</td>
+                                                <td>{data.companyPostCode}</td>
+                                                <td>{data.companyADPNumber}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </> 
+                                }
+                            </tbody>
+                        </table>
                     </div>
-                    <div>
-                        <span>-</span><br />
-                        <span>-</span><br />
-                        <span>-</span><br />
-                        <span>-</span>
+                </div>
+                <div>
+                    <h4>Priority Details</h4>
+                    <div className="form1-dataGrid">
+                        <table className="form1-dataTable">
+                            <thead>
+                                <tr>
+                                    <th className="form1-firstHeader">Country</th>
+                                    <th>Application #</th>
+                                    <th>Date of filing</th>
+                                    <th className="form1-lastHeader">Acess Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {priorityClaimDetails.length === 0 ? (
+                                    <>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </>
+                                ) :
+                                <>
+                                    {priorityClaimDetails.map((data) => {
+                                        return(
+                                            <tr>
+                                                <td>{data.country}</td>
+                                                <td>{data.applicationNumber}</td>
+                                                <td>{data.filingDate}</td>
+                                                <td>{data.pdasAccessCode}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </> 
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

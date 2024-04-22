@@ -21,7 +21,6 @@
     flex-direction: column;
     padding: 1.5rem 2rem;
     gap: 1rem;
-
     position: relative;
 }
 
@@ -77,6 +76,11 @@
 .lastHeader {
   border-top-right-radius: 8px;
 } 
+
+.tables-container {
+  height: 35vh;
+  overflow: scroll;
+}
 
 .reviewAppColumnsDiv {
     display: flex;

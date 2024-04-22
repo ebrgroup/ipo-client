@@ -2,15 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { useDispatch, useSelector } from 'react-redux';
+import { advertisedWork } from '../../../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 
 const AdvertisedWork = ({ Progress }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const {title} = useSelector(state=>state.copyrightReducer?.logodetail)
     const [isAdvertised, setIsAdvertised] = useState('no')
     const [advertisedDetails, setAdvertisedDetails] = useState({
+        title: title,
         nameOfAdver: '',
-        title: '',
         dateOfAdver: '',
-        logoFile: ''
+        logoFile: '',
+        URL:''
+
 
     });
     // const dispatch = useDispatch();
@@ -19,23 +26,45 @@ const AdvertisedWork = ({ Progress }) => {
         setIsAdvertised(newValue);
     };
 
-    const handleGoodDetails = (e) => {
+    const handleAdvertisedData = (e) => {
         //
-        setAdvertisedDetails((prevData) => ({
-            ...prevData,
-            [e.target.name]: e.target.value
-        }));
+        const { name, value, files } = e.target
+        if (name == "logoFile") {
+            setAdvertisedDetails((prevDetails) => ({
+                ...prevDetails,
+                [name]: files[0],
+                URL: URL.createObjectURL(files[0])
+            }));
+        } else {
+            setAdvertisedDetails((prevDetails) => ({
+                ...prevDetails,
+                [name]: value
+            }));
+        }
 
     }
 
     const handleDataAndNavigation = () => {
-        if (areRequiredFieldsEmpty() && (isAdvertised == 'yes')) {
-            handleToastDisplay("Required fields (*) are empty!", "error");
-        } else {
-            navigate("/copyright/artistic/reviewapplication")
-            // console.log('Navigating....');
+        if (isAdvertised == 'yes') {
+            if (areRequiredFieldsEmpty()) {
+                handleToastDisplay("Required fields (*) are empty!", "error");
+                return;
+            }
+            dispatch(advertisedWork({
+                advertised: true,
+                data: advertisedDetails
+            }))
         }
+        else {
+            dispatch(advertisedWork({
+                advertised: false,
+                data: {}
+            }))
+        }
+        navigate("/copyright/artistic/reviewapplication")
     }
+
+
 
     const areRequiredFieldsEmpty = () => {
         for (const key in advertisedDetails) {
@@ -71,7 +100,28 @@ const AdvertisedWork = ({ Progress }) => {
         }
     };
 
+    const advertisedData = useSelector(state => state.copyrightReducer?.advertised)
     useEffect(() => {
+        Progress(50);
+        if (advertisedData.advertised) {
+            const {
+                title,
+                nameOfAdver,
+                dateOfAdver,
+                logoFile
+            } = advertisedData.data
+
+            setAdvertisedDetails({
+                title: title,
+                nameOfAdver: nameOfAdver,
+                dateOfAdver: dateOfAdver,
+                logoFile: logoFile
+            })
+            setIsAdvertised('yes')
+        }
+        else {
+            setIsAdvertised('no')
+        }
         Progress(100);
     }, []);
 
@@ -111,8 +161,9 @@ const AdvertisedWork = ({ Progress }) => {
                             type="text"
                             name="title"
                             id="title"
+                            value={advertisedDetails.title}
                             placeholder='Title of work'
-                            onChange={handleGoodDetails}
+                            onChange={handleAdvertisedData}
                         />
                     </div>
                     <div className="input">
@@ -121,8 +172,9 @@ const AdvertisedWork = ({ Progress }) => {
                             type="text"
                             name="nameOfAdver"
                             id="nameOfAdver"
+                            value={advertisedDetails.nameOfAdver}
                             placeholder='Name of advertisement'
-                            onChange={handleGoodDetails}
+                            onChange={handleAdvertisedData}
                         />
                     </div>
 
@@ -132,13 +184,14 @@ const AdvertisedWork = ({ Progress }) => {
                             type="date"
                             name="dateOfAdver"
                             id="date"
-                            onChange={handleGoodDetails}
+                            value={advertisedDetails.dateOfAdver}
+                            onChange={handleAdvertisedData}
                         />
                     </div>
                     <div className="input">
                         <label htmlFor="file">Upload copy (e.g: Newspaper in which advertised) <strong>*</strong></label>
                         <input type="file"
-                            onChange={handleGoodDetails}
+                            onChange={handleAdvertisedData}
                             id='file'
                             name="logoFile" />
                     </div>

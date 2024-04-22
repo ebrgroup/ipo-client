@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useDispatch, useSelector } from 'react-redux';
 import './extent.css'
+import { ownerExtent } from '../../../../../assets/states/actions/Copyright_Data handle/copyrightData-action';
 const Owner_Extent = ({ Progress }) => {
     const navigate = useNavigate();
     const [anyExtent, setAnyExtent] = useState('no')
@@ -19,29 +20,43 @@ const Owner_Extent = ({ Progress }) => {
         setAnyExtent(event.target.value)
     };
 
+    const areRequiredFieldsEmpty = () => {
+        for (const key in extentRights) {
+            if (extentRights.hasOwnProperty(key) && extentRights[key] === '') {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
     const handleExtentData = (e) => {
         //
         setExtentRights((prevData) => ({
             ...prevData,
             [e.target.name]: e.target.value
         }));
-
-
     }
 
     const handleDataAndNavigation = () => {
         if (anyExtent == 'yes') {
-            // Validate published data
-            if (!extentRights.Name || !extentRights.Address || !extentRights.Nationality || !extentRights.Rights) {
+            if (areRequiredFieldsEmpty()) {
                 handleToastDisplay('Please fill in all required fields', 'error');
                 return;
             }
-            // Process published data
-            console.log('Extent Rights Data:', extentRights);
+            dispatch(ownerExtent({
+                any: true,
+                data: extentRights
+            }))
         } else {
             console.log('Not any assignment made yet');
+            dispatch(ownerExtent({
+                any: false,
+                data: {}
+            }))
         }
         // Navigate to the next step
+
         navigate('/copyright/work');
     };
 
@@ -70,7 +85,28 @@ const Owner_Extent = ({ Progress }) => {
         }
     };
 
+    const extentData = useSelector(state => state.copyrightReducer?.extent)
     useEffect(() => {
+        Progress(50);
+        if (extentData && extentData.any) {
+            const {
+                Name,
+                Address,
+                Nationality,
+                Rights
+            } = extentData.data
+
+            setExtentRights({
+                Name: Name,
+                Address: Address,
+                Nationality: Nationality,
+                Rights: Rights
+            })
+
+            setAnyExtent('yes')
+        } else {
+            setAnyExtent('no')
+        }
         Progress(100);
     }, []);
 
@@ -112,7 +148,7 @@ const Owner_Extent = ({ Progress }) => {
                             type="text"
                             name="Name"
                             id="Name"
-                            // value={firstName}
+                            value={extentRights.Name}
                             onChange={handleExtentData}
                         // value={publishedData.name}
                         />
@@ -123,7 +159,7 @@ const Owner_Extent = ({ Progress }) => {
                             type="text"
                             name="Address"
                             id="Address"
-                            // value={address}
+                            value={extentRights.Address}
                             onChange={handleExtentData}
                         // value={publishedData.country}
                         />
@@ -135,7 +171,7 @@ const Owner_Extent = ({ Progress }) => {
                             name="Nationality"
                             id="Nationality"
                             onChange={handleExtentData}
-                        // value='Pakistani'
+                            value={extentRights.Nationality}
                         />
                     </div>
                     <div className="input">
@@ -145,7 +181,7 @@ const Owner_Extent = ({ Progress }) => {
                             name="Rights"
                             id="Rights"
                             onChange={handleExtentData}
-                        // value='Pakistani'
+                            value={extentRights.Rights}
                         />
                     </div>
 
