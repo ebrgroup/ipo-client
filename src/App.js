@@ -59,6 +59,7 @@ import AdvertisedWork from './screens/RegisterIPO/Copyright-Registrtion/Artistic
 import Review from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Reveiw Details/Review';
 import Affidevit from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Affidevit';
 import Advertised from './screens/RegisterIPO/Copyright-Registrtion/Artistic flow/Required Documents/Advertised';
+import { countTrademark } from './assets/states/middlewares/count-ip';
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
   const path = document.location.pathname;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const id = useSelector(state => state.userReducer?.userData._id);
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
 
   const authRoutes = ["/signin", "/signup", "/forgotpassword",]
@@ -122,8 +124,10 @@ function App() {
       document.title = "Create Password - IPO";
     else if (path === "/verification")
       document.title = "Verification - IPO";
-    else if (path === "/dashboard")
+    else if (path === "/dashboard") {
       document.title = "Dashboard - IPO";
+      dispatch(countTrademark(id))
+    }
     else if (path === "/registeripo")
       document.title = "Register - IPO"
     else if (path === "/profile")

@@ -81,7 +81,6 @@ const IPGridView = ({ rows, type }) => {
                             </td>
                         </tr>
                     );
-                    console.log(rows);
                     setBody(
                         rows.map((data, index) => (
                             <tr key={index}>
