@@ -54,6 +54,14 @@ const LogoDetails = ({ Progress }) => {
                 [e.target.name]: e.target.files[0],
                 imageURL: URL.createObjectURL(e.target.files[0])
             }));
+        } else if (e.target.name === "markSeries") {
+            const value = e.target.value.trim();
+            if (/^-?\d+(\.\d*)?$/.test(value) || value === "") {
+                setLogoDetails((prevDetails) => ({
+                    ...prevDetails,
+                    [e.target.name]: value
+                }));
+            }
         } else {
             setLogoDetails((prevDetails) => ({
                 ...prevDetails,
@@ -61,6 +69,7 @@ const LogoDetails = ({ Progress }) => {
             }));
         }
     }
+    
 
     const handleDataAndNavigation = () => {
         if (areRequiredFieldsEmpty()) {
@@ -148,6 +157,7 @@ const LogoDetails = ({ Progress }) => {
 
     return (
         <main className="logoDetails-container">
+            <div style={{ height: "74vh", display: "flex", flexDirection: "column", overflow: "auto" }}>
             <section id='cards-section'>
                 <h4 style={{ padding: "0", margin: "0", marginBottom: "1rem" }}>Which of the following best describes the trademark?</h4>
                 <div id="radio-cards-container">
@@ -230,7 +240,7 @@ const LogoDetails = ({ Progress }) => {
                 </div>
                 <div className="input">
                     <label htmlFor="">Marks in series (How many marks in series) <strong>*</strong></label>
-                    <input type="number" onChange={handleChange} name="markSeries"
+                    <input type="text" onChange={handleChange} name="markSeries"
                         value={logoDetails.markSeries}
                     />
                 </div>
@@ -244,7 +254,7 @@ const LogoDetails = ({ Progress }) => {
                 </div>
                 {/* </div> */}
             </section>
-
+</div>
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
                 <button className='continueBtn' onClick={handleDataAndNavigation} >Continue</button>

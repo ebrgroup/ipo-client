@@ -158,8 +158,10 @@ function App() {
       document.title = "Search IP - IPO"
     else if (path == "/trackip")
       document.title = "Track My IP - IPO"
+    else if (path == "/assessips")
+      document.title = "Assess IPs - IPO"
     else if (path == "/contentScreen")
-      document.title = "Content Screen - IPO"
+      document.title = "Examine Application - IPO"
     setTitle(document.title.replace(" - IPO", ""));
   }, [path]);
 
@@ -197,7 +199,6 @@ function App() {
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
-        <Route path='/contentScreen' element={ <ContentScreen /> } />
 
         {/* Copyright flow routes defines here */}
         <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />
@@ -243,8 +244,9 @@ function App() {
         {/* Copyright flows routes end here */}
 
         {/* Examiner Routes  */}
-        <Route path='/examiner' element={<Examinertbl />} />
-
+        {/* <Route path='/examiner' element={<Examinertbl />} /> */}
+        <Route path='/assessips' element={<Main_Dashboard screen={<Examinertbl Progress={loadingProgress} />} title={title} />} />
+        <Route path='/contentScreen' element={<Main_Dashboard screen={<ContentScreen />} title={title} />} />
 
         {/* <Route path='*' element={<NotFoundPage Progress={loadingProgress} />} /> */}
 

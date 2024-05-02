@@ -15,19 +15,19 @@ const ProfileDropdown = (props) => {
     return (
         <div className="profileDropdownDiv" ref={props.profileRef} >
             <ul className="profileDropdownList">
-                <li onClick={() => {
+                <li style={{fontWeight: "normal"}} onClick={() => {
                     navigate("/profile");
                     props.setShowProfileDropdown(false);
                 }}>
                     Profile
                 </li>
-                <li onClick={() => {
+                <li style={{fontWeight: "normal"}} onClick={() => {
                     navigate("/changepassword");
                     props.setShowProfileDropdown(false);
                 }}>
                     Change Password
                 </li>
-                <li onClick={handleLogout}>
+                <li style={{fontWeight: "normal"}} onClick={handleLogout}>
                     Logout
                 </li>
             </ul>

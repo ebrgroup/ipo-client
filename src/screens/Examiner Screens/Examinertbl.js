@@ -3,11 +3,13 @@ import './ExaminerTbl.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIp } from '../../assets/states/middlewares/ipTable-data'
 import IPGridView from '../global-components/IP-Lookup Table/IPGridveiw'
+import Navbar from '../global-components/IP-Lookup Navbar/Navbar';
+
 const Examinertbl = () => {
     const [display, setDisplay] = useState(false)
     const [statusDiv, setStatusDiv] = useState(false)
-    const [type, setType] = useState('')
-    const [status, setStatus] = useState('')
+    const [type, setType] = useState("Trademark")
+    const [status, setStatus] = useState("")
 
     const data = useSelector(state => state.IpLookup?.registeredIp)
 
@@ -28,7 +30,7 @@ const Examinertbl = () => {
     return (
         <section className='examinerDiv'>
 
-            <div className="Navbar">
+            {/* <div className="Navbar">
                 <div className="navbarButtons">
                     <div className="left">
                         <ul>
@@ -75,7 +77,9 @@ const Examinertbl = () => {
                     </div>
 
                 </div>
-            </div>
+            </div> */}
+            
+            <Navbar searchTitle='Enter IP number..'  type={type} setType={setType} exStatus={status} exSetStatus={setStatus} />
             <div>
                 <IPGridView rows={data} type={type} status={status} />
             </div>

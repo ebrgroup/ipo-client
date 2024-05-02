@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import "./inputs.css";
+import Combobox from "../../../../global-components/Combobox/Combobox";
+import CitySearchComboBox from "../../../../global-components/SearchComboBox/CitySearchComboBox";
 
 const Inputs = (props) => {
 
     const soleProprieterShip = [
         { label: "Trading As (Business Name)", placeholder: "Business Name", name: "businessName" },
-        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
         { label: "Province", placeholder: "Province", name: "province" },
         { label: "City", placeholder: "City", name: "city" },
+        { label: "Business Address", placeholder: "Business Address", name: "businessAddress" },
     ]
 
     const partnershipFirm = [
@@ -57,14 +59,48 @@ const Inputs = (props) => {
     return (
         <>
             <div className="owner-input-container">
-                {selectedArray.map((data) => (
-                    <>
+                {selectedArray.map((data) => {
+                    let inputField;
+
+                    if(data.name === "province") {
+                        inputField = <Combobox
+                            selectedItem={props.ownerDetails.province}
+                            menuType="province"
+                            isMenuActive={props.dropdownSettings.isProvinceMenuActive}
+                            toggleMenu={props.toggleMenu}
+                            options={props.dropdownSettings.provinceMenuOptions}
+                            handleOptionClick={props.handleOptionClick}
+                            width="20vw"
+                        />;
+                    } else if(data.name === "city") {
+                        inputField = <CitySearchComboBox
+                            selectedItem={props.ownerDetails.city}
+                            province={props.ownerDetails.province}
+                            menuType="city"
+                            isMenuActive={props.dropdownSettings.isCityMenuActive}
+                            toggleMenu={props.toggleMenu}
+                            handleOptionClick={props.handleOptionClick}
+                            width="20vw"
+                        />;
+                    } else {
+                        inputField = <input 
+                            placeholder={data.placeholder} 
+                            type="text" 
+                            name={data.name} 
+                            className="owner-input"
+                            onChange={handleChange}
+                            value={props.ownerDetails[`${data.name}`]} 
+                        />;
+                    }
+
+                    return <>
                         <label>{data.label} <strong>*</strong></label>
-                        <input placeholder={data.placeholder} type="text" 
-                            name={data.name} onChange={handleChange}
-                            value={props.ownerDetails[`${data.name}`]} />
+                        <div style={{marginTop: data.name === "city" || data.name === "province" ? "0.4rem" : "",
+                            marginBottom: data.name === "city" || data.name === "province" ? "1rem" : ""}}>
+                            {inputField}
+                        </div>
                     </>
-                ))}
+                })}
             </div>
         </>
     );

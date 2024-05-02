@@ -16,20 +16,20 @@ export const searchByName = (name, type) =>
         }
     };
 
-export const trackById = (id, type) =>
+export const trackById = (id, userId, status, type) =>
     async (dispatch) => {
         dispatch(loadingBar(40))
-        const response = await axios.get(`/ipo/trackIp/${type.toLowerCase()}/${id}`);
+        const response = await axios.post(`/ipo/trackIp/${type.toLowerCase()}`, { id, userId, status });
         dispatch(loadingBar(70))
         dispatch(trackIp(response.data));
         dispatch(loadingBar(100))
     };
 
-export const getIp = (type) =>
+export const getIp = (id, status, type) =>
     async (dispatch) => {
         dispatch(loadingBar(40))
 
-        const response = await axios.get(`/ipo/user/${type.toLowerCase()}`);
+        const response = await axios.post(`/ipo/user/${type.toLowerCase()}`, { id, status });
         dispatch(loadingBar(70))
         dispatch(searchIp(response.data));
         // console.log(response.data);

@@ -79,8 +79,7 @@ const TrademarkContent = ({ viewData }) => {
 
     return(
         <div className="trademarkContent-parent">
-            <div className="trademarkContent-screen-background">
-                <h4 className="form1-main-heading">Application Details</h4>
+                <h4 className="form1-main-heading" style={{ textAlign: "center", margin: "0", marginBottom: "1rem" }}>Trademark Application Details</h4>
                 <div className="trademarkContent-screen-parent"> 
                     <div className="trademarkContent-heading">
                         <img src={require("../../../../assets/Icons/form-icon.png")} className="form-icon" />
@@ -282,7 +281,6 @@ const TrademarkContent = ({ viewData }) => {
                     <button className='approveButton' onClick={() => updateStatus("Register")}>Approve</button>
                     <button className='declineButton' onClick={() => updateStatus("Decline")}>Decline</button>
                 </div>
-            </div>
         </div>
     );
 }

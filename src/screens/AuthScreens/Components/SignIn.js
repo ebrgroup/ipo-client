@@ -58,14 +58,12 @@ const SignIn = (props) => {
                 if (response.data.user.role === "examiner") {
                     dispatch(loginSuccess(response.data.user));  //Store user data into redux store
                     props.Progress(100);
-                    navigate("/examiner");
-                    handleToastDisplay("You have successfully logged in!", "success");
+                    navigate("/assessips");
                 } else {
                     dispatch(loginSuccess(response.data.user));  //Store user data into redux store
                     props.Progress(100);
                     dispatch(countTrademark(response.data.user._id))
                     navigate("/dashboard");
-                    handleToastDisplay("You have successfully logged in!", "success");
                 }
             } catch (error) {
                 props.Progress(100);

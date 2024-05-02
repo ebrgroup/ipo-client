@@ -20,6 +20,7 @@
     box-sizing: border-box;
     font-family: Poppins;
     overflow: auto;
+    transition: all .3s ease-in-out;
 }
 
 .screenContent {

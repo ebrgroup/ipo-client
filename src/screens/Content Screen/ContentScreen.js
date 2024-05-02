@@ -15,16 +15,9 @@ const ContentScreen = () => {
     }, []);
 
     return(
-        <div className="contentScreen-parent">
-            <div className="content-screen-header">
-                <h4>IPO Type: <span>Patent</span></h4>
-                <h4 className="examining-application">Examining Application</h4>
-                <h4>Examiner Name: <span>Haider Ali</span></h4>
-            </div>
-            { state.type === "Trademark" ? <TrademarkContent viewData = { state.viewData } /> : state.type === "Copyright" ? 
-                <CopyrightContent  viewData = { state.viewData } /> :  state.type === "Patent" ? 
-                <PatentContent  viewData = { state.viewData } /> :  <DesignContent  viewData = { state.viewData } />}
-        </div>
+        state.type === "Trademark" ? <TrademarkContent viewData = { state.viewData } /> : state.type === "Copyright" ? 
+            <CopyrightContent  viewData = { state.viewData } /> :  state.type === "Patent" ? 
+            <PatentContent  viewData = { state.viewData } /> :  <DesignContent  viewData = { state.viewData } />
     );
 }
 

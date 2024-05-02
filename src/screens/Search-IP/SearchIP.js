@@ -12,6 +12,7 @@ const SearchIP = ({ Progress }) => {
   useEffect(() => {
     Progress(100);
   }, [])
+  
   const [type, setType] = useState("Trademark");
 
   useEffect(() => {

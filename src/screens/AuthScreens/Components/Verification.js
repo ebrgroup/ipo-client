@@ -103,7 +103,7 @@ const Verification = (props) => {
                 handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
             }
         } else {
-            handleToastDisplay("An unknown error occured. We are sorry for the inconvinience", "error");
+            handleToastDisplay("An unknown error occured. We are sorry for the inconvenience", "error");
         }
     };
 

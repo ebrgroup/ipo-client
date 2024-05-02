@@ -11,6 +11,7 @@ const Classification = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate(null);
     const searchInputRef = useRef(null);
+    const [classification, setClassification] = useState(null); 
 
     const classifications = [
         {
@@ -200,15 +201,17 @@ const Classification = () => {
     const [activeOptionIndex, setActiveOptionIndex] = useState(0);
     const [classificationDescription, setDescription] = useState("");
     const filteredClassifications = classifications.filter((classification) =>
-        classification.description.toLowerCase().includes(searchText.toLowerCase())
+        classification.description.toLowerCase().includes(searchText.toLowerCase()) ||
+        classification.id.toString().toLowerCase().includes(searchText.toLowerCase())
     );
 
+
     const areRequiredFieldsEmpty = () => {
-        return (searchText === "" && classificationDescription === "");
+        return (classificationDescription === "");
     };
 
     const handleDataAndNavigation = () => {
-        if (!areRequiredFieldsEmpty()) {
+        if (!areRequiredFieldsEmpty() && classification && classification.id) {
             const classificationData = {
                 classificationClass: searchText,
                 classificationDescription
@@ -245,7 +248,13 @@ const Classification = () => {
     useEffect(() => {
         if (data) {
             const { classificationClass, classificationDescription } = data;
-            setSearchText(classificationClass ? classificationClass.toLowerCase() : '');
+            setSearchText(classificationClass ? classificationClass.toString().toLowerCase() : '');
+            for(let obj of classifications) {
+                if(obj.id == classificationClass && obj.description !== undefined) {
+                    setClassification(obj);
+                    break;
+                }
+            }
             setDescription(classificationDescription ? classificationDescription.toLowerCase() : '');
         } else {
             setSearchText('');
@@ -282,51 +291,69 @@ const Classification = () => {
     return (
         <div className="classificationBox">
             <h3>Trademark Classification</h3>
-            <div>
-                <span className="classificationLabel">
-                    Classification <strong>*</strong>
-                </span>
-                <br />
-                <div style={{ width: "100%" }} className="wrapper active">
-                    <input
-                        ref={searchInputRef}
-                        className="classificationInput"
-                        placeholder="Search here..."
-                        onChange={(e) => { setSearchText(e.target.value) }}
-                        onClick={() => setSearchOnFocus(true)}
-                        onBlur={() => {
-                            setTimeout(() => {
-                                setSearchOnFocus(false)
-                            }, 300);
-                        }}
-                        value={searchText}
-                        type="text"
-                        spellCheck="false"
-                        autoComplete="false"
-                        onKeyDown={handleKeyDown}
-                    />
-                    {isSearchOnFocus && filteredClassifications.length > 0 && <div style={{ width: "88%" }} className="searchDropdownContent">
-                        <ul className="searchDropdownOptions" style={{ maxHeight: "50vh" }}>
-                            {filteredClassifications.map((item, index) => (
-                                <li key={index} className={`classificationItem ${activeOptionIndex === index ? "active" : ""}`} onClick={() => {
-                                    setSearchText(item.id.toString());
-                                }}>
-                                    <span>
-                                        <b>{item.id} -</b> {`${item.description}`}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>}
+            <div style={{ height: "74%", gap: "1.25rem", display: "flex", flexDirection: "column", overflow: "auto" }}>
+                <div>
+                    <span className="classificationLabel">
+                        Classification <strong>*</strong>
+                    </span>
+                    <br />
+                    <div style={{ width: "100%" }} className="wrapper active">
+                        <input
+                            ref={searchInputRef}
+                            className="classificationInput"
+                            placeholder="Search here..."
+                            onChange={(e) => { 
+                                setSearchText(e.target.value) 
+                                if(e.target.value === "")
+                                    setClassification(null);
+                            }}
+                            onClick={() => setSearchOnFocus(true)}
+                            onBlur={() => {
+                                setTimeout(() => {
+                                    setSearchOnFocus(false)
+                                }, 300);
+                            }}
+                            value={searchText}
+                            type="text"
+                            spellCheck="false"
+                            autoComplete="false"
+                            onKeyDown={handleKeyDown}
+                        />
+                        {isSearchOnFocus && filteredClassifications.length > 0 && <div style={{ width: "88%" }} className="searchDropdownContent">
+                            <ul className="searchDropdownOptions" style={{ maxHeight: "50vh" }}>
+                                {filteredClassifications.map((item, index) => (
+                                    <li key={index} className={`classificationItem ${activeOptionIndex === index ? "active" : ""}`} onClick={() => {
+                                        setSearchText(item.id.toString());
+                                        setClassification(item);
+                                    }}>
+                                        <span>
+                                            <b>{item.id} -</b> {`${item.description}`}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>}
+                    </div>
                 </div>
-            </div>
-            <div>
-                <span className="classificationLabel">
-                    Details of Goods/Services <strong>*</strong>
-                </span>
-                <br />
-                <textarea value={classificationDescription} className="classificationInput classificationTextArea"
-                    onChange={(e) => setDescription(e.target.value)} rows="7" placeholder="Enter details here..." />
+                {classification && <div style={{ fontSize: "0.75rem", textAlign: "justify", width: "87%" }}>
+                    <span className="classificationLabel">
+                        Selected Class
+                    </span>
+                    <br />
+                    <div className="classDesc">
+                        <span>
+                            <b>{classification.id} -</b> {`${classification.description}`}
+                        </span>
+                    </div>
+                </div>}
+                <div>
+                    <span className="classificationLabel">
+                        Details of Goods/Services <strong>*</strong>
+                    </span>
+                    <br />
+                    <textarea value={classificationDescription} className="classificationInput classificationTextArea"
+                        onChange={(e) => setDescription(e.target.value)} rows="7" placeholder="Enter details here..." />
+                </div>
             </div>
             <div className="btns">
                 <button className='backBtn' onClick={() => navigate(-1)} >Back</button>
