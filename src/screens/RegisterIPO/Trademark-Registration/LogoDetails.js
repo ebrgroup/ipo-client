@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './logoDetails.css'
 import Bhivetxt from '../../../assets/Icons/Bhivetxt.png'
 import BhiveImg from '../../../assets/Icons/Bhiveimg.png'
@@ -122,7 +122,7 @@ const LogoDetails = ({ Progress }) => {
     // The previous data is kept safe
     const data = useSelector(state => state.trademarkRegistrationReducer?.logodetail.logoDetails)
     useEffect(() => {
-        Progress(30)
+        // Progress(30)
         if (data) {
             setLogoDetails({
                 markDesc: data.markDesc,
@@ -141,9 +141,7 @@ const LogoDetails = ({ Progress }) => {
                 setActiveCard('card-3')
             }
         }
-        else {
-            Progress(100)
-        }
+        Progress(100)
     }, [])
 
     return (

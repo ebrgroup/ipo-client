@@ -69,7 +69,7 @@ function App() {
   const path = document.location.pathname;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const id = useSelector(state => state.userReducer?.userData._id);
+  let userId = useSelector(state => state.userReducer?.userData);
   const isLogin = useSelector(state => state.userReducer?.isLoggedIn);
 
   const authRoutes = ["/signin", "/signup", "/forgotpassword",]
@@ -128,7 +128,7 @@ function App() {
       document.title = "Verification - IPO";
     else if (path === "/dashboard") {
       document.title = "Dashboard - IPO";
-      dispatch(countTrademark(id))
+      dispatch(countTrademark(userId._id))
     }
     else if (path === "/registeripo")
       document.title = "Register - IPO"
@@ -165,21 +165,27 @@ function App() {
 
   return (
     <div className="App">
+
       < LoadingBar
         color='#f11946'
         progress={progress}
         loaderSpeed={500}
         height={2}
       />
+
+
       <Routes>
         <Route path='/dashboard' element={<Main_Dashboard screen={<IPO_Dashboard Progress={loadingProgress} />} title={title} />} />
         <Route path='/searchip' element={<Main_Dashboard screen={<SearchIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/trackip' element={<Main_Dashboard screen={<TrackIIP Progress={loadingProgress} />} title={title} />} />
         <Route path='/registeripo' element={<Main_Dashboard screen={<RegisterIPO screen={<IPMenus Progress={loadingProgress} />} />} title={title} />} />
+
         <Route path='/patentflow' element={<Main_Dashboard screen={<PatentFlow screen={<Form1 Progress={loadingProgress} />} />} />} />
         <Route path='/patentflow/priorityClaims' element={<Main_Dashboard screen={<PatentFlow screen={<PriorityClaims Progress={loadingProgress} />} />} />} />
         <Route path='/patentflow/documents' element={<Main_Dashboard screen={<PatentFlow screen={<Documents Progress={loadingProgress} />} />} />} />
         <Route path='/patentflow/reviewApplication' element={<Main_Dashboard screen={<PatentFlow screen={<PatentReviewApplication Progress={loadingProgress} />} />} />} />
+
+
         <Route path='/confirmationScreen' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen />} Progress={loadingProgress} />} title={title} />} />
         <Route path='/confirmprofile' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmProfile Progress={loadingProgress} />} />} title={title} />} />
         <Route path='/selfshowcase' element={<Main_Dashboard screen={<RegisterIPO screen={<Selfshowcase Progress={loadingProgress} />} />} title={title} />} />
@@ -191,13 +197,15 @@ function App() {
         <Route path='/successpayment/:trackId' element={<Main_Dashboard screen={<Successpayment Progress={loadingProgress} />} title={title} />} />
         <Route path='/changepassword' element={<Main_Dashboard screen={<ChangePass Progress={loadingProgress} />} title={title} />} />
         <Route path='/profile' element={<Main_Dashboard screen={<UserProfile Progress={loadingProgress} />} title={title} />} />
+
         <Route path="/signin" element={<AuthHome screen={<SignIn Progress={loadingProgress} />} />} />
         <Route path="/signup" element={<AuthHome screen={<SignUp Progress={loadingProgress} />} />} />
+
         <Route path="/forgotpassword" element={<AuthHome screen={<ForgotPassword Progress={loadingProgress} />} />} />
         <Route path="/verification" element={<AuthHome screen={<Verification Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
         <Route path="/createnewpassword/:userToken" element={<AuthHome screen={<CreateNewPassword Progress={loadingProgress} />} />} />
-        <Route path='/contentScreen' element={ <ContentScreen /> } />
+        <Route path='/contentScreen' element={<ContentScreen />} />
 
         {/* Copyright flow routes defines here */}
         <Route path='/copyright/confirmation' element={<Main_Dashboard screen={<RegisterIPO screen={<ConfirmationScreen type={'copyright'} />} />} title={title} />} />

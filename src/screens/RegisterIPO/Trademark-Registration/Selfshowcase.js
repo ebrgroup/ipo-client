@@ -53,7 +53,7 @@ const Selfshowcase = ({ Progress }) => {
       shouldDispatch = isAnyAttributeEmpty(representativeData) && licenseFileURL !== null;
     }
     if (shouldDispatch) {
-      if(state.type === "trademark") {
+      if (state.type === "trademark") {
         dispatch(trademarkRepresentative({
           ownerType: selectedRole,
           representativeData

@@ -15,11 +15,13 @@ const ErrorMessage = (prop) => {
     );
 };
 
-function UserProfile() {
+function UserProfile({ Progress }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     let User = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
     const userID = User._id;
+    // const [profilePhoto, setProfilePhoto] = useState(null)
+    // const [profilePhotoURL, setProfilePhotoURL] = useState(userIcon)
 
     const removeObjectEntries = (object, keysToRemove) => {
         const newObj = { ...object };
@@ -40,6 +42,7 @@ function UserProfile() {
         address: '',
         province: '',
         city: '',
+        profilePhoto: '',
         isProvinceMenuActive: false,
         isCityMenuActive: false,
         provinceMenuOptions: [
@@ -123,6 +126,13 @@ function UserProfile() {
             case 'faxNum':
                 processedValue = getNumericValue(value).slice(0, 11);
                 break;
+            // case 'profilePhoto':
+            //     getImageURL(files[0])
+            //     setUser_profile((prevState) => ({
+            //         ...prevState,
+            //         [name]: imageURL
+            //     }));
+            //     break;
             default:
                 break;
         }
@@ -132,6 +142,7 @@ function UserProfile() {
             ...(name === "male" || name === "female" || name === "other" ? { gender: name } : { [name]: processedValue })
         }));
     };
+
 
     useEffect(() => {
         const keysToRemove = ['_id', '__v', 'password'];
@@ -144,17 +155,41 @@ function UserProfile() {
                 "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
             ]
         });
+
+
+
     }, [User]);
+
+    // Handle profile Image store in database
+    // using base64
+    // const [imageURL, setImageURL] = useState(userIcon);
+
+    // const getImageURL = (file) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => {
+    //         setImageURL(reader.result);
+    //     };
+    // };
 
     const handleCancelbtn = (e) => {
         e.preventDefault();
-        navigate('/dashboard');
+        navigate(-1);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // let formdata = new FormData()
+        // formdata.append("User", JSON.stringify(user_profile))
+        // formdata.append("image", profilePhoto)
+
+        // console.log(user_profile);
+        // console.log(imageURL);
+        // console.log(user_profile.profilePhoto);
+
         dispatch(updateUser(userID, user_profile)).then(() => {
-            navigate('/dashboard');
+            // navigate(-1);
             handleToastDisplay("You have successfully updated your profile.", "success")
         }).catch((error) => {
             if (error.response.data) {
@@ -162,7 +197,11 @@ function UserProfile() {
             } else {
                 handleToastDisplay(`${error.response.status}, ${error.response.statusText}`, "error")
             }
+
+            console.log(error);
         });
+
+        // console.log(user_profile);
     }
 
     const areRequiredFieldsEmpty = () => {
@@ -218,10 +257,14 @@ function UserProfile() {
             <section className="profile-info">
                 <div className="editProfilePicDiv">
                     <h2>Edit Profile</h2>
-                    <div>
-                        <span>
-                            <img src={userIcon} alt="" />
-                        </span> 
+                    <div className='profilePhoto'>
+                        <img src={userIcon} alt="" />
+                        {/* <label htmlFor="image-upload" className='custom-input'>Change Picture</label>
+                        <input
+                            type="file"
+                            name="profilePhoto"
+                            id="image-upload"
+                            onChange={handleChange} /> */}
                     </div>
                 </div>
                 <form className='form' onSubmit={handleSubmit}>
@@ -279,30 +322,30 @@ function UserProfile() {
                             {errors.phoneError && user_profile.phone === "" ? <ErrorMessage error="This field is required!" /> : null}
                             {errors.phoneError && user_profile.phone !== "" && user_profile.phone.length < 11 ?
                                 <ErrorMessage error="Please enter valid phone number! " /> : null}
-                    </div>
-                    <span className='gender-container'>
-                        <p className="genderUpdateLabel">Gender: </p>
-                        <div className='gender-child-container'>
-                            <div className="genderOptionsDiv" 
-                                onBlur={() => setErrors({ ...errors, genderError: true })}
-                                onFocus={() => setErrors({ ...errors, genderError: false })}>
-                                <label>
-                                    <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange}/>
-                                    <span>Male</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange}/>
-                                    <span>Female</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange}/>
-                                    <span>Other</span>
-                                </label>
-                            </div>
                         </div>
+                        <span className='gender-container'>
+                            <p className="genderUpdateLabel">Gender: </p>
+                            <div className='gender-child-container'>
+                                <div className="genderOptionsDiv"
+                                    onBlur={() => setErrors({ ...errors, genderError: true })}
+                                    onFocus={() => setErrors({ ...errors, genderError: false })}>
+                                    <label>
+                                        <input type="radio" name="male" checked={user_profile.gender === "male"} onChange={handleChange} />
+                                        <span>Male</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="female" checked={user_profile.gender === "female"} onChange={handleChange} />
+                                        <span>Female</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="other" checked={user_profile.gender === "other"} onChange={handleChange} />
+                                        <span>Other</span>
+                                    </label>
+                                </div>
+                            </div>
                             {errors.genderError && user_profile.gender === "" ? <ErrorMessage error="This field is required!" /> : null}
                         </span>
-                        </div>
+                    </div>
                     <div className='flex'>
                         <div>
                             <span className='combobox-container'>

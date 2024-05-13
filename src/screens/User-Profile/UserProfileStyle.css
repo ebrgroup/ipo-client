@@ -4,7 +4,19 @@
   box-sizing: border-box;
 }
 
-.profile-image {
+.profilePhoto input[type='file']{
+  display: none;
+}
+
+.profilePhoto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* gap: 5px; */
+}
+
+/* .profile-image {
 
   display: flex;
   justify-content: center;
@@ -20,30 +32,34 @@
 }
 
 .profile-image-container h2 {
-  font-family: Poppins;
-}
+}*/
 
-.profile-image button {
+.custom-input {
   color: white;
   outline: none;
   border: none;
-  background-color: #036666c5;
+  background-color: #036666;
   padding: 8px;
   border-radius: 6px;
   font-size: 12px;
   text-align: center;
-}
-
-.profile-image button:hover {
   cursor: pointer;
-  background-color: #036666ab;
+  font-family: Poppins;
+  margin-top: 10px;
+  font-weight: 500;
+
+
+} 
+
+.custom-input:hover {
+  background-color: #088d8dda;
 }
 
- .profile-image-span {
+ /* .profile-image-span {
 
   width: 80%;
   text-align: center;
-}
+} */
 
 .profile-info {
   background-color: white;
@@ -356,7 +372,7 @@
 
 .save-button:hover {
   background: #088d8dda;
-  cursor: pointer;
+  /* cursor: pointer; */
   /* border: none; */
 }
 /* 

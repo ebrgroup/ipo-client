@@ -2,12 +2,14 @@ import { useState } from "react";
 import "./ConfirmProfile.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast } from 'react-toastify';
+
 
 const ConfirmProfile = (props) => {
 
     const [isAnimation, setIsAnimation] = useState(false);
     const navigate = useNavigate();
-    const { state }= useLocation();
+    const { state } = useLocation();
     let user = useSelector(state => state.userReducer?.userData); //Complete user details in {User} object
 
     const {
@@ -21,16 +23,65 @@ const ConfirmProfile = (props) => {
         address
     } = user
 
-    const handleNavigation = () => {
-        if(state.type === "trademark" || state.type === "design") {
-            navigate("/selfshowcase",  { state: { type: state.type } })
-        } else if(state.type === "copyright") {
-            navigate('/copyright/published', { state: { type: state.type } })
-        } else {
-            navigate("/patentflow");
-        }
+    // Complete profile before navigation
+    const emptyFields = [];
+    const completeProfile = () => {
+        // if (!cnic) emptyFields.push('CNIC');
+        // if (!email) emptyFields.push('Email');
+        // if (!phone) emptyFields.push('Phone');
+
+        if (!firstName) emptyFields.push('First Name');
+        if (!lastName) emptyFields.push('Last Name');
+        if (!province) emptyFields.push('Province');
+        if (!city) emptyFields.push('City');
+        if (!address) emptyFields.push('Address');
+
+        return (emptyFields.length > 0) ? false : true
     }
-    
+
+    const handleToastDisplay = (message, type) => {
+        const toastConfig = {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        };
+
+        switch (type) {
+            case "success":
+                toast.success(message, toastConfig);
+                break;
+            case "error":
+                toast.error(message, toastConfig);
+                break;
+            default:
+                toast(message, toastConfig);
+                break;
+        }
+    };
+
+    const handleNavigation = () => {
+
+        if (completeProfile()) {
+            if (state.type === "trademark" || state.type === "design") {
+                navigate("/selfshowcase", { state: { type: state.type } })
+            } else if (state.type === "copyright") {
+                navigate('/copyright/published', { state: { type: state.type } })
+            } else {
+                navigate("/patentflow");
+            }
+        }
+        else {
+            handleToastDisplay(`Complete your profile: ${emptyFields.join(', ')}`, "error");
+
+        }
+
+    }
+
     return (
 
         <div className="profileBox">

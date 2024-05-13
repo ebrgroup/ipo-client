@@ -9,8 +9,8 @@ const SelectWork = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [type, setType] = useState('')
-    const selectRadioCard = (cardIdx) => {
 
+    const selectRadioCard = (cardIdx) => {
         if (cardIdx == 1) {
             setActiveCard('card-1')
             setType('Artistic')
@@ -28,27 +28,32 @@ const SelectWork = () => {
             setType('Record')
         }
         setCardsBorder('rgba(0, 0, 0, 0.1)')
+
     }
 
     const handleNavigation = () => {
-        dispatch(workType(type))
-        console.log(type);
-        if (activeCard == 'card-1') {
-            navigate('/copyright/artistic/classification')
+        if (type != '') {
+            dispatch(workType(type))
+            if (activeCard == 'card-1') {
+                navigate('/copyright/artistic/classification')
+            }
+            else if (activeCard == 'card-2') {
+                navigate('/copyright/literary/classification')
+            }
+            else if (activeCard == 'card-3') {
+                navigate('/copyright/cinema/classification')
+            }
+            else if (activeCard == 'card-4') {
+                navigate('/copyright/record/classification')
+            }
         }
-        else if (activeCard == 'card-2') {
-            navigate('/copyright/literary/classification')
+        else {
+            setCardsBorder('red')
         }
-        else if (activeCard == 'card-3') {
-            navigate('/copyright/cinema/classification')
-        }
-        else if (activeCard == 'card-4') {
-            navigate('/copyright/record/classification')
-        }
-
     }
     const selectedWork = useSelector(state => state.copyrightReducer?.workType)
     useEffect(() => {
+        setType(selectedWork)
         switch (selectedWork) {
             case 'Artistic':
                 setActiveCard('card-1')
@@ -73,14 +78,13 @@ const SelectWork = () => {
             <section id='cards-section'>
                 <h4 style={{ padding: "0", margin: "0", marginBottom: "1rem" }}>Which of the following best describes your work?</h4>
                 <div id="radio-cards-container">
-                    <div className={`radio-card radio-card-1 ${activeCard == 'card-1' ? 'selected' : ''}`} style={{ border: `2px solid ${cardsBorder}` }} onClick={() => selectRadioCard(1)}>
+                    <div className={`radio-card radio-card-1 ${activeCard == 'card-1' ? 'selected' : ''}`} style={{ border: `2px solid  ${cardsBorder}` }} onClick={() => selectRadioCard(1)}>
                         <div className="radio-card-check">
                             <i class="fa-regular fa-circle" style={{ color: ` ${cardsBorder}` }}></i>
                             <i className="fa-solid fa-check-circle"></i>
                         </div>
                         <div className="text-center">
                             <div className="radio-card-icon">
-                                {/* <img src={Bhivetxt} /> */}
                                 <i class="fa-solid fa-palette"></i>
                             </div>
                             <div className="radio-card-label-description">

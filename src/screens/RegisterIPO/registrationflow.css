@@ -3,6 +3,39 @@
     --lightgray: #84818A;
 }
 
+.progressbar {
+    z-index: 99;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    position: relative;
+}
+
+.progressbar>* {
+    position: absolute;
+    top: 5px;
+
+}
+
+.progressbar  span{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    /* text-align: center;dis */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    color: white;
+    /* background-color: #73A2A2; */
+    background-color: #036666;
+
+    font-weight: bold;
+
+}
+
 .Registration-Flow {
     display: flex;
     flex-direction: row;
