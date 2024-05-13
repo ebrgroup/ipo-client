@@ -20,7 +20,7 @@ const AuthHome = (props) => {
                         We are the forefront guardians of intellectual property rights. Committed to excellence, we provide tailored 
                         solutions for individuals and businesses.
                     </p>
-                    <p className="joinedUsText">
+                    <p className="joinedUsText" style={{fontWeight: "300"}}>
                         3k+ people joined us, now it’s your turn
                     </p>
                 </div>

@@ -10,7 +10,7 @@ import ProfileDropdown from '../global-components/ProfileDropDown/ProfileDropdow
 
 function Main_Dashboard(props) {
   const navigate = useNavigate();
-  const userFirstName = useSelector(state => state.userReducer.userData?.firstName);
+  const userData = useSelector(state => state.userReducer.userData);
   const [toggleBar, setToggleBar] = useState(false);
   const dispatch = useDispatch();
 
@@ -22,17 +22,21 @@ function Main_Dashboard(props) {
   const toggle_Sidebar = useSelector(state => state.toggleReducer?.val); //Complete user details in {User} object
 
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [isClickedOutside, setIsClickedOutside] = useState(false);
 
   const profileRef = useRef(null);
+  const firstNameRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+      if (profileRef.current && !profileRef.current.contains(event.target) && firstNameRef.current && !firstNameRef.current.contains(event.target)) {
         setShowProfileDropdown(false);
+        setIsClickedOutside(true);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+    console.log(isClickedOutside)
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -49,20 +53,27 @@ function Main_Dashboard(props) {
             <img src={dashboardIcon} onClick={toggle} alt="" />
             <p>{props.title}</p>
           </div>
-          <div className="profile" ref={profileRef}>
+          <div className="profile">
             <span>
               <img
                 src={userIcon}
+                ref={profileRef}
                 onClick={() => {
-                  setShowProfileDropdown(!showProfileDropdown);
+                  if(!isClickedOutside)
+                    setShowProfileDropdown(!showProfileDropdown);
+                  else 
+                    setIsClickedOutside(false);
                 }}
               />
             </span>
-            <div className="user-profile" ref={profileRef}>
-              <p className='firstName' onClick={() => {
-                setShowProfileDropdown(!showProfileDropdown);
-              }}>{userFirstName}</p>
-              <p>USER</p>
+            <div className="user-profile">
+              <p className='firstName' ref={firstNameRef} onClick={() => {
+                if(!isClickedOutside)
+                  setShowProfileDropdown(!showProfileDropdown);
+                else 
+                  setIsClickedOutside(false);
+              }}>{userData.firstName}</p>
+              {userData.firstName && (userData.role === "examiner" ? <p>Examiner</p> : <p>USER</p>)}
             </div>
           </div>
           {showProfileDropdown && <ProfileDropdown profileRef={profileRef} setShowProfileDropdown={setShowProfileDropdown} />}

@@ -41,6 +41,12 @@ function ChangePass(props) {
         e.preventDefault();
         props.Progress(20);
 
+        if(areRequiredFieldsEmpty())
+        {
+            handleToastDisplay("Fields are empty.", "error");
+            return;
+        }
+
         if(password.New_Pass !== password.Confirm_Pass) {
             clearFields();
             handleToastDisplay("Passwords do not match!", "error");
@@ -153,9 +159,6 @@ function ChangePass(props) {
                     <button 
                         className="submitButton sendRecoveryEmailButton" 
                         type="Submit" 
-                        disabled={areRequiredFieldsEmpty()}
-                        title={areRequiredFieldsEmpty() ? 
-                            "You cannot change your password until all the required fields are filled." : ""} 
                     >
                         Change password
                     </button>

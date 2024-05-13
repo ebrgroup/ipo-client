@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { trademarkOwnerDetail } from "../../../../assets/states/actions/Trademark registration/Trademark-action";
 import { designOwnerDetail } from "../../../../assets/states/actions/Design/design-action";
 import { toast } from "react-toastify";
+import Combobox from "../../../global-components/Combobox/Combobox";
+import SearchComboBox from "../../../global-components/SearchComboBox/SearchComboBox";
 
 const OwnerDetails = (props) => {
     const [selectedOption, setSelectedOption] = useState("soleProprieterShip");
     const [ownerDetails, setOwnerDetails] = useState({
         businessName: "",
         businessAddress: "",
-        province: "",
-        city: "",
+        province: "Province",
+        city: "City",
         companyName: "",
         otherBusinessDescription: "",
         businessOwnerType: "soleProprieterShip"
@@ -21,6 +23,13 @@ const OwnerDetails = (props) => {
     const [isOwnerDetailsChanged, setIsOwnerDetailsChanged] = useState(false);
     const [partnersData, setPartnersData] = useState([]);
     const [isPartnershipFirm, setPartnershipFirm] = useState(false);
+    const [dropdownSettings, setDropdownSettings] = useState({
+        isProvinceMenuActive: false,
+        isCityMenuActive: false,
+        provinceMenuOptions: [
+            "Azad Jammu & Kashmir", "Balochistan", "FATA", "Gilgit Baltistan", "Islamabad Capital", "KPK", "Punjab", "Sindh"
+        ]    
+    });
 
     const navigate = useNavigate(null);
     const { state } = useLocation();
@@ -79,6 +88,43 @@ const OwnerDetails = (props) => {
             }
         }
     }, [trademarkData, designData, partnersData]);
+
+    const toggleMenu = (menuType) => {
+        if (menuType === "province") {
+            setDropdownSettings(prevState => ({
+                ...prevState,
+                isProvinceMenuActive: !dropdownSettings.isProvinceMenuActive,
+                isCityMenuActive: false
+            }));
+        }
+        else if (menuType == "city") {
+            if (dropdownSettings.province === 'Province')
+                return;
+            else {
+                setDropdownSettings(prevState => ({
+                    ...prevState,
+                    isCityMenuActive: !dropdownSettings.isCityMenuActive,
+                    isProvinceMenuActive: false,
+                }));
+            }
+        }
+    };
+
+    const handleOptionClick = (optionText, menuType) => {
+        if (menuType === "province") {
+            setDropdownSettings((prevState) => ({
+                ...prevState,
+                city: prevState.province === optionText ? prevState.city : "City"
+            }));
+        }
+
+        toggleMenu(menuType);
+
+        setOwnerDetails((prevState) => ({
+            ...prevState,
+            [menuType]: optionText
+        }));
+    };
 
     const handleAddClick = () => {
         setPartnersData(prevData => [
@@ -270,7 +316,8 @@ const OwnerDetails = (props) => {
                 <div className="owner-screen-inputs">
                     <Inputs inputData={selectedOption} setPartnersData={setPartnersData}
                         setPartnershipFirm={setPartnershipFirm} setOwnerDetails={setOwnerDetails}
-                        ownerDetails={ownerDetails} />
+                        ownerDetails={ownerDetails} handleOptionClick={handleOptionClick} toggleMenu={toggleMenu}
+                        dropdownSettings={dropdownSettings} />
                 </div>
             </div>
             <div className="btns">

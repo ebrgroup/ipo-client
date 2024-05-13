@@ -148,6 +148,7 @@ function UserProfile({ Progress }) {
         const keysToRemove = ['_id', '__v', 'password'];
         User = removeObjectEntries(User, keysToRemove);         //Remove extra entry from data object
         setUser_profile({
+            ...user_profile,
             ...User,
             isProvinceMenuActive: false,
             isCityMenuActive: false,
@@ -406,9 +407,6 @@ function UserProfile({ Progress }) {
                         <button
                             className='save-button'
                             type="Submit"
-                            disabled={areRequiredFieldsEmpty()}
-                            title={areRequiredFieldsEmpty() ?
-                                "You cannot save until all the required fields are filled except Landline and Fax." : ""}
                         >
                             <span>Save</span>
                         </button>

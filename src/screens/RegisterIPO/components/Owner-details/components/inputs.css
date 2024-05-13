@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.owner-input-container input {
+.owner-input-container .owner-input {
     width: 70%;
     border: 2px solid #f6f7f8;
     padding: 0.5rem;

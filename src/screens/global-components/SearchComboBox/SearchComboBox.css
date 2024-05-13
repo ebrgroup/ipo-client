@@ -44,6 +44,10 @@ li {
   box-sizing: border-box;
 }
 
+.search {
+  width: 100%;
+}
+
 .search input {
   width: 100%;
   box-sizing: border-box;

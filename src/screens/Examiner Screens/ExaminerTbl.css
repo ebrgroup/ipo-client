@@ -8,21 +8,16 @@
     padding: 1.3rem 1rem;
     box-sizing: border-box;
 
-
-    /* border: 2px solid red; */
-    /* z-index: 1; */
     
 }
 
 .examinerDiv .navbarButtons{
     
-    /* border: 2px solid green; */
     display: flex;
     align-items: center;
     padding: 0;
     height: 50px;
 
-    /* overflow: hidden; */
 }
 
 
@@ -36,7 +31,6 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    /* gap: 1rem; */
 }
 .examinerDiv .left ul li >  div{
     display: flex;

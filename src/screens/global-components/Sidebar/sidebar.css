@@ -19,16 +19,19 @@ body {
   border-radius: 15px;
   font-family: Poppins;
   overflow: hidden;
+  transition: all .3s ease-in-out;
+  text-wrap: nowrap;
 }
 
 .sidebar-header {
   display: flex;
   align-items: center;
+  text-wrap: wrap;
 }
 
 .sidebar-header img {
-  height: 7.5vw;
-
+  width: 6rem;
+  height: 6rem;
 }
 
 .sidebar-header b {
@@ -42,7 +45,7 @@ body {
   font-weight: 500;
   margin-left: 1.5vw;
   margin-top: 4vh;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .menu-items-container {
@@ -51,38 +54,39 @@ body {
 
 .menu-item-active {
   border-left: 4px solid #fec600;
+  transition: all .3s ease-in-out;
 }
 
 .menu-item-active i, p {
   margin-left: -0.25vw;
 }
 
-.close .menu-item:first-child {
-  border: none;
-}
-
 .menu-item {
   display: flex;
   align-items: center;
   color: var(--color-white);
-  font-size: 0.850rem;
+  font-size: 0.9rem;
   height: 5vh;
   padding-left: 15px;
   box-sizing: border-box;
   gap: 10px;
+  transition: all .15s ease-in-out;
+  margin-bottom: 0.5rem;
 }
 
 .menu-item:hover {
   cursor: pointer;
+  border-left: 4px solid #fec600;
 }
 
 .lower-menu-container {
   margin-bottom: 4vh;
+  font-size: 0.8rem;
 }
 
 .hr-element {
   border: none;
-  height: 0.11vh;
+  height: 0.05rem;
   color: white;
   background-color: white;
   position: relative;
@@ -93,7 +97,7 @@ body {
 .lower-item {
   display: flex;
   align-items: center;
-  color: var(--color-gainsboro);
+  color: white;
   gap: 10px;
   margin-bottom: -2vh;
   margin-left: 1vw;
@@ -101,18 +105,14 @@ body {
   cursor: pointer;
 }
 
+.lower-item:hover {
+  color: #fec600;
+  transition: all .3s ease-in-out;
+}
+
 .menu-item p,
 .lower-menu-container p {
   padding: 0;
-}
-
-
-.menu-item p,
-.menu-item i,
-.lower-menu-container p,
-.lower-menu-container i {
-  font-size: 0.850rem;
-  color: white;
 }
 
 .close .sidebar-header img {
@@ -122,25 +122,21 @@ body {
 
 }
 
-.close .lower-item,
-.close .lower-item2 {
-  gap: 1rem;
-
+.title {
+  margin-left: 0.1rem;
 }
 
 .close .menu-items-container .menu-item {
   width: 11rem;
   gap: 1rem;
-  border-radius: 8px;
   height: 2.5rem;
 }
 
 .close .menu-heading {
-  transform: translateX(-15px);
+  transform: translateX(-0.75rem);
 }
 
 .close p {
-  font-size: medium;
   color: rgba(255, 255, 255, 0);
 }
 
@@ -162,25 +158,4 @@ body {
 .close .lower-menu-container .lower-item,
 .close .lower-menu-container .lower-item2 {
   width: 12rem;
-  border-radius: 8px;
-}
-
-.close .lower-menu-container .lower-item:hover {
-
-  background-color: #036666;
-  color: white;
-}
-
-.close .lower-menu-container .lower-item:hover p {
-
-  color: white;
-}
-
-.close .lower-menu-container .lower-item2:hover {
-  background-color: #036666;
-  color: white;
-}
-
-.close .lower-menu-container .lower-item2:hover p {
-  color: white;
 }
